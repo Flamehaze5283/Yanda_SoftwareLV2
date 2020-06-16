@@ -1,15 +1,18 @@
 package com.Yanda.Ruitesco.javabean;
 
+import java.sql.Timestamp;
+
 public class User {
 	String username;
 	int id;
 	String password;
 	String phone;
 	String email;
-	int role;
+	String role;
 	String question;
 	String answer;
-	String create_time;
+	Timestamp create_time;
+	Timestamp update_time;
 	
 	public String getUsername() {
 		return username;
@@ -41,10 +44,11 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public int getRole() {
+
+	public String getRole() {
 		return role;
 	}
-	public void setRole(int role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 	public String getQuestion() {
@@ -59,12 +63,16 @@ public class User {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
-	public String getCreate_time() {
+	public Timestamp getCreate_time() {
 		return create_time;
 	}
-	public void setCreate_time(String create_time) {
+	public void setCreate_time(Timestamp create_time) {
 		this.create_time = create_time;
 	}
-	
-	
+	public Timestamp getUpdate_time() {
+		return update_time;
+	}
+	public void setUpdate_time(Timestamp update_time) {
+		this.update_time = update_time;
+	}
 }
