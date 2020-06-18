@@ -7,6 +7,13 @@ public class UserResponse <T>{
 	int status;
 	T msg;
 	
+	public UserResponse() {
+		// TODO Auto-generated constructor stub
+	}
+	public UserResponse(int Status, T msg){
+		this.status = Status;
+		this.msg = msg;
+	}
 	public int getStatus() {
 		return status;
 	}
