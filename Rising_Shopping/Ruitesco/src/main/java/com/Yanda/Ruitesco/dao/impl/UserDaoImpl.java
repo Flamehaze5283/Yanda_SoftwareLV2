@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
+//import java.sql.Timestamp;
 import java.util.List;
 
 import com.Yanda.Ruitesco.dao.IUserDao;
@@ -40,7 +40,7 @@ public class UserDaoImpl implements IUserDao {
 		state = conn.createStatement();
 		rs = state.executeQuery(sql);
 		boolean flag = false;
-		if(rs.next())
+		while(rs.next())
 			flag = true;
 		System.out.println(rs.getString("email"));
 		ConnectSql.close(state, rs);
@@ -54,7 +54,7 @@ public class UserDaoImpl implements IUserDao {
 		state = conn.createStatement();
 		rs = state.executeQuery(sql);
 		boolean flag = false;
-		if(rs.next())
+		while(rs.next())
 			flag = true;
 		ConnectSql.close(state, rs);
 		return flag;
@@ -89,8 +89,8 @@ public class UserDaoImpl implements IUserDao {
 	@Override
 	public boolean UpdatePassword(String passwordNew, String userName) throws SQLException {
 		// TODO Auto-generated method stub
-		Timestamp current_Time = new Timestamp(System.currentTimeMillis());
-		sql = "update user set password = '" + passwordNew + "', current_Time = '" + current_Time + "' where username = '" + userName + "'";
+//		Timestamp current_Time = new Timestamp(System.currentTimeMillis());
+		sql = "update user set password = '" + passwordNew + "' where username = '" + userName + "'";
 		state = conn.createStatement();
 		boolean flag = false;
 		int number = state.executeUpdate(sql);
