@@ -1,5 +1,8 @@
 package com.Yanda.Ruitesco.javabean;
 
+/**
+ * 前端用户回参response通用类
+ * */
 public class UserResponse <T>{
 	int status;
 	T msg;

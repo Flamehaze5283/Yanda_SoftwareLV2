@@ -14,6 +14,28 @@ public class User {
 	Timestamp create_time;
 	Timestamp update_time;
 	
+	public User() {}
+	public User(String username, String password, String phone, 
+		    String email, String role, String question,
+		    String answer, Timestamp create_time,Timestamp update_time) {
+	this.username = username;
+	this.password = password;
+	this.phone = phone;
+	this.email = email;
+	this.role = role;
+	this.question = question;
+	this.answer = answer;
+	this.create_time = create_time;
+	this.update_time = update_time;
+	}
+	
+	@Override
+	public String toString() {
+		return "User [username=" + username + ", id=" + id + ", password=" + password + ", phone=" + phone + ", email="
+				+ email + ", role=" + role + ", question=" + question + ", answer=" + answer + ", create_time="
+				+ create_time + ", update_time=" + update_time + "]";
+	}
+	
 	public String getUsername() {
 		return username;
 	}
