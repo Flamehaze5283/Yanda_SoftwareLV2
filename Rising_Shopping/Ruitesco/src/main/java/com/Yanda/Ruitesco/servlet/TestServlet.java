@@ -22,7 +22,7 @@ public class TestServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-//		req.getRequestDispatcher("WEB-INF/classes/jsp/test.jsp").forward(req, resp);
+		req.getRequestDispatcher("WEB-INF/classes/jsp/test.jsp").forward(req, resp);
 	}
 }
 ///* 允许跨域的主机地址 */

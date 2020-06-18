@@ -21,10 +21,13 @@ public class UserServiceImpl implements IUserService {
 	 * */
 	public User Login(String username,String password) {	
 		User user = user_dao.getUserByName(username);
-		if(user.getPassword() == password)
-			user.setPassword("");
-		else
-			user=null;
+		if(user!=null)
+		{
+			if(user.getPassword().equals(password))
+				user.setPassword("");
+			else
+				user=null;
+		}
 		return user;
 	}
 	/**
@@ -51,7 +54,7 @@ public class UserServiceImpl implements IUserService {
 	public int UpdatePassword(String username,String oldpassword,String newpassword)
 	{
 		User user=user_dao.getUserByName(username);
-		if(user.getPassword()==oldpassword)
+		if(user.getPassword().equals(oldpassword))
 		{
 			user.setPassword(newpassword);
 			if(user_dao.updateUser(username, user)==true)

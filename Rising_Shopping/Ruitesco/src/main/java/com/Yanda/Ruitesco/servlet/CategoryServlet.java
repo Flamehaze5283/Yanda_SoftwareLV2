@@ -48,6 +48,7 @@ public class CategoryServlet extends HttpServlet {
 		}
 	}
 	public void GetCategory(HttpServletRequest request, HttpServletResponse response) {
+		String category_id = request.getParameter("category_id");
 		
 	}
 }

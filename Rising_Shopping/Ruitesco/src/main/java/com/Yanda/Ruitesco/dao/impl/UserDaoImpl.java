@@ -128,18 +128,20 @@ public class UserDaoImpl implements IUserDao {
 	 * */
 	public User getUserByName(String username) {
 		List<User> userl= JdbcUtil.executeQuery("select * from user where username=?",User.class,username);
-		return userl.get(0);
+		if(userl!=null)
+			return userl.get(0);
+		return null;
 	}
 	/**
 	 * 功能：通过用户名更改对应用户信息
 	 * */
 	public boolean updateUser(String username,User user)
 	{
-		if(JdbcUtil.executeUpdate("update user set username=?,password=?,phone=?,email=?,role=?,question=?,answer=?,create_time=?,update_time=?"
-								,user.getUsername(),user.getPassword(),user.getPhone(),user.getEmail()
-								,user.getRole(),user.getQuestion(),user.getAnswer()
-								,user.getCreate_time(),user.getUpdate_time())>0)
-			return true;
+		if(JdbcUtil.executeUpdate("update user set username=?,password=?,phone=?,email=?,role=?,question=?,answer=?,create_time=?,update_time=? where username=?"
+				,user.getUsername(),user.getPassword(),user.getPhone(),user.getEmail()
+				,user.getRole(),user.getQuestion(),user.getAnswer()
+				,user.getCreate_time(),user.getUpdate_time(),username)>0)
+					return true;
 		return false;
 	}
 }
