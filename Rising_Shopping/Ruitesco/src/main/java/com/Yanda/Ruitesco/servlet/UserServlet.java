@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.Yanda.Ruitesco.dataResp.DataResp;
+import com.Yanda.Ruitesco.dataResp.type.DataLoginT;
 import com.Yanda.Ruitesco.javabean.User;
 import com.Yanda.Ruitesco.javabean.UserResponse;
 import com.Yanda.Ruitesco.service.IUserService;
@@ -37,7 +39,7 @@ public class UserServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		/* 允许跨域的主机地址 */
-		resp.setHeader("Access-Control-Allow-Origin","localhost:8848");
+		resp.setHeader("Access-Control-Allow-Origin","http://127.0.0.1:8848");
 		/* 允许跨域的请求方法GET, POST, HEAD 等 */
 		resp.setHeader("Access-Control-Allow-Methods","*");
 		/* 重新预检验跨域的缓存时间 (s) */
@@ -124,47 +126,28 @@ public class UserServlet extends HttpServlet{
 		 * 地址栏传参：mode="login"
 		 * response: status 状态码(0成功, 1失败, 2其他情况), msg 反馈信息
 		 * */
-		DataResp dataResp=null;
 		String username=req.getParameter("username");
-		//改为前端加密，后端解密在计算后端加密后密码
 		String password=req.getParameter("password");
-		
+		System.out.println(username+password);
 		User user = user_service.Login(username, password);
+		PrintWriter pw= resp.getWriter();
 		if(user!=null)
 		{
-			dataResp=new DataResp(0,new Object(){
-			@SuppressWarnings("unused")
-			public int id=user.getId();
-			@SuppressWarnings("unused")
-			public String username=user.getUsername();
-			@SuppressWarnings("unused")
-			public String email=user.getEmail();
-			@SuppressWarnings("unused")
-			public String phone=user.getPhone();
-			@SuppressWarnings("unused")
-			public String role=user.getRole();
-			@SuppressWarnings("unused")
-			public Timestamp createTime =user.getCreate_time();
-			@SuppressWarnings("unused")
-			public Timestamp updateTime=user.getUpdate_time();
-			},"");
-			req.getRequestDispatcher("success.jsp").forward(req, resp);
+				DataLoginT data = new DataLoginT(user.getId(),user.getUsername(),user.getPhone(),user.getEmail()
+							,user.getCreate_time(),user.getUpdate_time());
+				DataResp<DataLoginT> dataResp = new  DataResp<DataLoginT>(0,null,data);
+				req.getRequestDispatcher("/WEB-INF/main.jsp").forward(req, resp);
+				json = gson.toJson(dataResp);
 		}
 		else 
-		{	
-			dataResp=new DataResp(1,null,"密码错误");
-		}
+		{
+			DataResp<Object> dataResp =new DataResp<Object>(1,"密码错误",null);
+			json = gson.toJson(dataResp);
 
-		json = gson.toJson(dataResp);
-		System.out.println(json);
-		PrintWriter pw;
-		try {
-			pw = resp.getWriter();
-			pw.write(json);
-			pw.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}	
+		}
+		//System.out.println(json);
+		pw.write(json);
+		pw.close();
 	}
 	public void Register(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException
 	{
@@ -174,7 +157,6 @@ public class UserServlet extends HttpServlet{
 		 *  地址栏传参：mode="register"
 		 * response: status 状态码(0成功, 1失败), msg 反馈信息
 		 * */
-		DataResp dataResp=null;
 		String username=req.getParameter("username");
 		String password=req.getParameter("password");
 		String phone=req.getParameter("phone");
@@ -189,36 +171,30 @@ public class UserServlet extends HttpServlet{
 			
 		User user = new User(username,password,phone,email,
 							       role,question,answer,create_time,update_time);
-
+		PrintWriter	pw = resp.getWriter();
 		if(user_service.RegUser(user)==0)
 		{
-				dataResp=new DataResp(0,null,"注册成功");
+				DataResp<Object> dataResp = new DataResp<Object>(0,"校验成功",null);
 				req.getRequestDispatcher("login.jsp").forward(req, resp);
+				json = gson.toJson(dataResp);
 		}
 		else 
 		{
-				dataResp=new DataResp(0,null,"用户已存在");
+				DataResp<Object> dataResp = new DataResp<Object>(0,"用户已存在",null);
+				json = gson.toJson(dataResp);
 		}
-
 		
-		json = gson.toJson(dataResp);
-		System.out.println(json);
-		PrintWriter pw;
-		try {
-			pw = resp.getWriter();
-			pw.write(json);
-			pw.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}	
+		//System.out.println(json);
+		pw.write(json);
+		pw.close();
 	}
 	
 //	public void GetUserInfo(HttpServletRequest req, HttpServletResponse resp) throws IOException
 //	{
 //		DataResp dataResp=null;
 //		HttpSession session = req.getSession();
-//		String userName = session.getAttribute("username").toString();
-//		User user = userService.QueryUserByName(userName);
+//		String username = session.getAttribute("username").toString();
+//		User user = userService.QueryUserByName(username);
 //		
 //		if(user!=null)
 //		{
@@ -283,19 +259,19 @@ public class UserServlet extends HttpServlet{
 	{
 		/**
 		 * 功能：获取登录用户信息
-		 * request: 无, session: userName 用户名
+		 * request: 无, session: username 用户名
 		 * 地址栏传参：mode="get_user_info"
 		 * response: status 状态码(0成功, 1失败), msg 反馈信息, data 用户信息(id, username, email, phone, createTime, updateTime)
 		 * */
 		
 		//从session中获取用户名
 		HttpSession session = req.getSession();
-		String userName = session.getAttribute("userName").toString();	
+		String username = session.getAttribute("username").toString();	
 		//创建回参对象, 失败创建String类型(返回msg)， 成功创建data数组类型(返回data数组)
 		UserResponse<Object> userResponse = new UserResponse<Object>();
 		//查找数据库找到对应用户信息
 		try {
-			userResponse = user_service.QueryUser(userName);
+			userResponse = user_service.QueryUser(username);
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -322,44 +298,37 @@ public class UserServlet extends HttpServlet{
 	{
 		/**
 		 * 功能：获取登录用户信息
-		 * request: passwordOld 旧密码, passwordNew 新密码, session: userName 用户名
-		 * 地址栏传参：mode="get_user_info"
+		 * request: passwordOld 旧密码, passwordNew 新密码, session: username 用户名
+		 * 地址栏传参：mode="update_password"
 		 * response: status 状态码(0成功, 1失败), msg 反馈信息, data 用户信息(id, username, email, phone, createTime, updateTime)
 		 * */
-		DataResp dataResp=null;
-		//获取入参
 		String passwordOld = req.getParameter("passwordOld");
 		String passwordNew = req.getParameter("passwordNew");
-		
 		HttpSession session = req.getSession();
-		String userName = session.getAttribute("userName").toString();
+		String username = session.getAttribute("username").toString();
 		
-		if(user_service.UpdatePassword(userName,passwordOld,passwordNew)==0)
+		PrintWriter pw = resp.getWriter();
+		if(user_service.UpdatePassword(username,passwordOld,passwordNew)==0)
 		{
-			dataResp=new DataResp(0,null,"修改密码成功");
-			req.getRequestDispatcher("main.jsp").forward(req, resp);
+			DataResp<Object> dataResp=new DataResp<Object>(0,"修改密码成功",null);
+			req.getRequestDispatcher("/WEB-INF/main.jsp").forward(req, resp);
+			json = gson.toJson(dataResp);
 		}else
 		{
-			dataResp=new DataResp(1,null,"旧密码输入错误");
+			DataResp<Object> dataResp=new DataResp<Object>(1,"旧密码输入错误",null);
+			json = gson.toJson(dataResp);
 		}
 		
-		json = gson.toJson(dataResp);
-		System.out.println(json);
-		PrintWriter pw;
-		try {
-			pw = resp.getWriter();
-			pw.write(json);
-			pw.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}	
+		//System.out.println(json);
+		pw.write(json);
+		pw.close();
 	}
 	
 	public void ResetPassword(HttpServletRequest req, HttpServletResponse resp) throws IOException
 	{
 		/**
 		 * 功能：登录状态下重置密码
-		 * request: passwordOld 旧密码, passwordNew 新密码   session: userName 用户名
+		 * request: passwordOld 旧密码, passwordNew 新密码   session: username 用户名
 		 * 地址栏传参：mode="reset_password"
 		 * response: status 状态码(0成功, 1失败), msg 反馈信息
 		 * */
@@ -369,11 +338,11 @@ public class UserServlet extends HttpServlet{
 		String passwordNew = req.getParameter("passwordNew");
 		System.out.println("passwordOld=" + passwordOld + " passwordNew" + passwordNew);
 		HttpSession session = req.getSession();
-		String userName = session.getAttribute("userName").toString();
+		String username = session.getAttribute("username").toString();
 		//创建出参对象
 		UserResponse<String> userResponse = new UserResponse<String>();
 		try {
-			userResponse = user_service.ResetPassword(passwordOld, passwordNew, userName);
+			userResponse = user_service.ResetPassword(passwordOld, passwordNew, username);
 			json = gson.toJson(userResponse);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -390,7 +359,7 @@ public class UserServlet extends HttpServlet{
 	public void UpdateInformation(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		/**
 		 * 功能：登录状态下更新个人信息
-		 * request: email 电子邮件, phone 手机号码, question 密保问题, answer 密保答案  session: userName 用户名
+		 * request: email 电子邮件, phone 手机号码, question 密保问题, answer 密保答案  session: username 用户名
 		 * 地址栏传参：mode="update_information"
 		 * response: status 状态码(0成功, 1失败, 2数据库更新失败), msg 反馈信息
 		 * */
@@ -401,12 +370,12 @@ public class UserServlet extends HttpServlet{
 		String answer = req.getParameter("answer");
 	
 		HttpSession session = req.getSession();
-		String userName = session.getAttribute("userName").toString();
+		String username = session.getAttribute("username").toString();
 		
 		//创建响应回参对象
 		UserResponse<String> userResponse = new UserResponse<String>();
 		try {
-			userResponse = user_service.UpdateInformation(userName, email, phone, question, answer);
+			userResponse = user_service.UpdateInformation(username, email, phone, question, answer);
 			json = gson.toJson(userResponse);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -425,7 +394,7 @@ public class UserServlet extends HttpServlet{
 		 * */
 		//创建回参对象, 失败创建String类型(返回msg)， 成功创建data数组类型(返回data数组)
 		UserResponse<Object> userResponse = new UserResponse<Object>();
-		String userName = "";
+		String username = "";
 		//从cookie中获取当前用户信息
 		Cookie[] cookie = req.getCookies();
 		if(cookie == null || cookie.length <= 0) {
@@ -434,12 +403,12 @@ public class UserServlet extends HttpServlet{
 		}
 		else {
 			for(Cookie c:cookie) {
-				if(c.getName().equals("userName"))
-					userName = c.getValue().toString();
+				if(c.getName().equals("username"))
+					username = c.getValue().toString();
 			}
 			//查找数据库找到对应用户信息
 			try {
-				userResponse = user_service.GetInformation(userName);
+				userResponse = user_service.GetInformation(username);
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -454,7 +423,7 @@ public class UserServlet extends HttpServlet{
 	public void LogOut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		/**
 		 * 功能：退出登录
-		 * request: 无, session: userName 用户名
+		 * request: 无, session: username 用户名
 		 * 地址栏传参：mode="logout"
 		 * response: status 状态码(0成功, 1失败), msg 反馈信息
 		 * */
@@ -463,9 +432,9 @@ public class UserServlet extends HttpServlet{
 		req.getSession().invalidate();//清空session对象中的参数
 		//获取session中的userName参数，如果没有则已退出登录
 		HttpSession session = req.getSession();
-		String userName = "";
-		userName = session.getAttribute("userName").toString();
-		if(userName.equals("")) {
+		String username = "";
+		username = session.getAttribute("username").toString();
+		if(username.equals("")) {
 			userResponse.setStatus(0);
 			userResponse.setMsg("退出成功");
 		}
