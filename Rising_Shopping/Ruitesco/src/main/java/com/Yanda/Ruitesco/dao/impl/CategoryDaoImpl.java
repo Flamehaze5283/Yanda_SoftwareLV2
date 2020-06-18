@@ -1,20 +1,19 @@
 package com.Yanda.Ruitesco.dao.impl;
 
+import java.util.List;
+
 import com.Yanda.Ruitesco.dao.ICategoryDao;
+import com.Yanda.Ruitesco.javabean.Category;
 import com.Yanda.Ruitesco.utils.JdbcUtil;
-import com.Yanda.Ruitesco.utils.MessageResponse;
 
 public class CategoryDaoImpl implements ICategoryDao {
-	JdbcUtil jdbcUtil;
-	public CategoryDaoImpl() {
-		// TODO Auto-generated constructor stub
-		jdbcUtil = new JdbcUtil();
-	}
+
 	@Override
-	public MessageResponse<Object> GetCategory(int id) {
+	public List<Category> GetCategory(int id) {
 		// TODO Auto-generated method stub
-		
-		return null;
+		String sql = "select * from type where parent_id=?";
+		List<Category> result = JdbcUtil.executeQuery(sql, Category.class, id);
+		return result;
 	}
 
 }

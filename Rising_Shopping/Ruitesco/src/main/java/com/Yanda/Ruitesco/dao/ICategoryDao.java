@@ -1,7 +1,9 @@
 package com.Yanda.Ruitesco.dao;
 
-import com.Yanda.Ruitesco.utils.MessageResponse;
+import java.util.List;
+
+import com.Yanda.Ruitesco.javabean.Category;
 
 public interface ICategoryDao {
-	public MessageResponse<Object> GetCategory(int id);	//根据id获取类别信息
+	public List<Category> GetCategory(int id);	//根据id获取类别信息
 }
