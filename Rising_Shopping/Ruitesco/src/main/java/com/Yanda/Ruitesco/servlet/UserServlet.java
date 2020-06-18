@@ -37,7 +37,7 @@ public class UserServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		/* 允许跨域的主机地址 */
-		resp.setHeader("Access-Control-Allow-Origin","localhost:8848");
+		resp.setHeader("Access-Control-Allow-Origin","http://127.0.0.1:8848");
 		/* 允许跨域的请求方法GET, POST, HEAD 等 */
 		resp.setHeader("Access-Control-Allow-Methods","*");
 		/* 重新预检验跨域的缓存时间 (s) */
