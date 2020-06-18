@@ -10,7 +10,7 @@
 <title>test</title>
 </head>
 <body>
-	<form method="post" action="http://localhost:8080/Ruitesco/user?mode=reset_password">
+	<form method="post" action="user?mode=reset_password">
 <!-- 		<input type="text" name="email" value="111@qq.com"><br/>
 		<input type="text" name="phone" value="13133132323"><br/>
 		<input type="text" name="question" value="你吃了吗？"><br/>

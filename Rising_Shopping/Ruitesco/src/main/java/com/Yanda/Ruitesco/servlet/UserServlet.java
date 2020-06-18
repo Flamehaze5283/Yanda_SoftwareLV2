@@ -37,7 +37,7 @@ public class UserServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		/* 允许跨域的主机地址 */
-		resp.setHeader("Access-Control-Allow-Origin","localhost:4040");
+		resp.setHeader("Access-Control-Allow-Origin","localhost:8848");
 		/* 允许跨域的请求方法GET, POST, HEAD 等 */
 		resp.setHeader("Access-Control-Allow-Methods","*");
 		/* 重新预检验跨域的缓存时间 (s) */
@@ -121,6 +121,7 @@ public class UserServlet extends HttpServlet{
 		/**
 		 * 功能：检查用户名有效
 		 * request: username 用户名, password 密码
+		 * 地址栏传参：mode="login"
 		 * response: status 状态码(0成功, 1失败, 2其他情况), msg 反馈信息
 		 * */
 		DataResp dataResp=null;
@@ -170,6 +171,7 @@ public class UserServlet extends HttpServlet{
 		/**
 		 * 功能：用户注册
 		 * request: username 用户名, password 密码, phone 电话号码, email 电子邮箱, role 身份, question 密保问题, answer 密保答案
+		 *  地址栏传参：mode="register"
 		 * response: status 状态码(0成功, 1失败), msg 反馈信息
 		 * */
 		DataResp dataResp=null;
@@ -253,6 +255,7 @@ public class UserServlet extends HttpServlet{
 		/**
 		 * 功能：检查用户名有效
 		 * request: str 用户名, type 用户名种类(userName用户名，email邮箱)
+		 * 地址栏传参：mode="check_valid"
 		 * response: status 状态码(0成功, 1失败, 2其他情况), msg 反馈信息
 		 * */
 		
@@ -280,7 +283,8 @@ public class UserServlet extends HttpServlet{
 	{
 		/**
 		 * 功能：获取登录用户信息
-		 * request: 无, session: str 用户名
+		 * request: 无, session: userName 用户名
+		 * 地址栏传参：mode="get_user_info"
 		 * response: status 状态码(0成功, 1失败), msg 反馈信息, data 用户信息(id, username, email, phone, createTime, updateTime)
 		 * */
 		
@@ -316,6 +320,12 @@ public class UserServlet extends HttpServlet{
 	
 	public void UpdatePassword(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException
 	{
+		/**
+		 * 功能：获取登录用户信息
+		 * request: passwordOld 旧密码, passwordNew 新密码, session: userName 用户名
+		 * 地址栏传参：mode="get_user_info"
+		 * response: status 状态码(0成功, 1失败), msg 反馈信息, data 用户信息(id, username, email, phone, createTime, updateTime)
+		 * */
 		DataResp dataResp=null;
 		//获取入参
 		String passwordOld = req.getParameter("passwordOld");
@@ -350,6 +360,7 @@ public class UserServlet extends HttpServlet{
 		/**
 		 * 功能：登录状态下重置密码
 		 * request: passwordOld 旧密码, passwordNew 新密码   session: userName 用户名
+		 * 地址栏传参：mode="reset_password"
 		 * response: status 状态码(0成功, 1失败), msg 反馈信息
 		 * */
 		
@@ -380,6 +391,7 @@ public class UserServlet extends HttpServlet{
 		/**
 		 * 功能：登录状态下更新个人信息
 		 * request: email 电子邮件, phone 手机号码, question 密保问题, answer 密保答案  session: userName 用户名
+		 * 地址栏传参：mode="update_information"
 		 * response: status 状态码(0成功, 1失败, 2数据库更新失败), msg 反馈信息
 		 * */
 		//从前端获取参数
@@ -407,7 +419,8 @@ public class UserServlet extends HttpServlet{
 	public void GetInformation(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		/**
 		 * 功能：获取当前登录用户信息
-		 * request: 无, session: str 用户名
+		 * request: 无
+		 * 地址栏传参：mode="get_information"
 		 * response: status 状态码(0成功, 1失败), msg 反馈信息, data 用户信息(id, username, email, phone, question, answer, role, createTime, updateTime)
 		 * */
 		//创建回参对象, 失败创建String类型(返回msg)， 成功创建data数组类型(返回data数组)
@@ -441,7 +454,8 @@ public class UserServlet extends HttpServlet{
 	public void LogOut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		/**
 		 * 功能：退出登录
-		 * request: 无, session: str 用户名
+		 * request: 无, session: userName 用户名
+		 * 地址栏传参：mode="logout"
 		 * response: status 状态码(0成功, 1失败), msg 反馈信息
 		 * */
 		//创建回参response对象
