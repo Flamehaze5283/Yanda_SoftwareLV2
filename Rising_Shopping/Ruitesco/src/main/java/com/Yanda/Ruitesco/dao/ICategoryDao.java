@@ -6,4 +6,6 @@ import com.Yanda.Ruitesco.javabean.Category;
 
 public interface ICategoryDao {
 	public List<Category> GetCategory(int id);	//根据id获取类别信息
+	public int InsertCategory(int parent_id, String categoryName);//添加新的商品种类
+	public int UpdateCategory(int category_id, String paramValue, String paramName);//更改商品种类信息
 }

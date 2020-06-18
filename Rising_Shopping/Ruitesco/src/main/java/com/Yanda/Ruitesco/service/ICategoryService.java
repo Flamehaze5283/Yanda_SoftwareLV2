@@ -1,10 +1,10 @@
 package com.Yanda.Ruitesco.service;
 
-import java.util.List;
 
-import com.Yanda.Ruitesco.javabean.Category;
 import com.Yanda.Ruitesco.utils.MessageResponse;
 
 public interface ICategoryService {
-	public MessageResponse<List<Category>> GetCategoryByParentId(int parent_id);
+	public MessageResponse<Object> GetCategoryByParentId(int parent_id, String username);//查找该商品种类的所有子类
+	public MessageResponse<String> InsertNewCategory(int parent_id, String categoryName, String username);//添加新商品种类
+	public MessageResponse<String> UpdateCategoryName(int category_id, String categoryName, String username);//修改商品种类名称
 }
