@@ -8,4 +8,5 @@ public interface ICategoryDao {
 	public List<Category> GetCategory(int id);	//根据parent_id获取子类别信息
 	public int InsertCategory(int parent_id, String categoryName);//添加新的商品种类
 	public int UpdateCategory(int category_id, String paramValue, String paramName);//更改商品种类信息
+	public Category QueryCategory(int category_id);//查询该id的商品种类信息
 }

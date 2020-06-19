@@ -17,6 +17,14 @@ public class CategoryDaoImpl implements ICategoryDao {
 		List<Category> result = JdbcUtil.executeQuery(sql, Category.class, id);
 		return result;
 	}
+	//查询该id的商品种类信息
+	@Override
+	public Category QueryCategory(int category_id) {
+		// TODO Auto-generated method stub
+		String sql = "select * from type where id = ?";
+		List<Category> result = JdbcUtil.executeQuery(sql, Category.class, category_id);
+		return result.get(0);
+	}
 	//添加新的商品种类
 	@Override
 	public int InsertCategory(int parent_id, String categoryName) {
