@@ -1,10 +1,15 @@
 package com.Yanda.Ruitesco.service.impl;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Stack;
 
 import com.Yanda.Ruitesco.dao.ICategoryDao;
+import com.Yanda.Ruitesco.dao.IUserDao;
 import com.Yanda.Ruitesco.dao.impl.CategoryDaoImpl;
+import com.Yanda.Ruitesco.dao.impl.UserDaoImpl;
 import com.Yanda.Ruitesco.javabean.Category;
+import com.Yanda.Ruitesco.javabean.User;
 import com.Yanda.Ruitesco.service.ICategoryService;
 import com.Yanda.Ruitesco.utils.MessageResponse;
 
@@ -85,15 +90,48 @@ public class CategoryServiceImpl implements ICategoryService {
 		return messageResponse;
 	}
 	@Override
-	public MessageResponse<Object> GetAllCategoryByParentId(int parent_id, String username) {
+	public MessageResponse<Object> GetAllCategoryByParentId(int parent_id, String username) throws SQLException {
 		// TODO Auto-generated method stub
 		MessageResponse<Object> messageResponse = new MessageResponse<Object>();
 		if(username.equals("")){
 			messageResponse.setStatus(10);
 			messageResponse.setMsg("用户未登录");
 		}
-		else{
-			
+		else
+		{
+			IUserDao user_dao = new UserDaoImpl();
+			User user = user_dao.FindUser(username);
+			if(user.getRole().equals("用户")) {
+				messageResponse.setStatus(1);
+				messageResponse.setMsg("无权限获取种类信息");
+			}			
+			else{
+				Stack<Integer> id = new Stack<Integer>();
+				List<Category> temp;
+				List<Integer> result = new Stack<Integer>();
+				result.add(parent_id);
+				id.push(parent_id);
+				while(!id.empty()) {
+					int current_id = id.peek();
+					id.pop();
+					temp = new Stack<Category>();
+					temp = category_dao.GetCategory(current_id);
+					if(temp != null) {
+						for(Category cg:temp) {
+							result.add(cg.getId());
+							id.push(cg.getId());
+						}
+					}
+				}
+				if(result.isEmpty() || result == null) {
+					messageResponse.setStatus(2);
+					messageResponse.setMsg("该类不存在，请确认categoryId是否正确");
+				}
+				else {
+					messageResponse.setStatus(1);
+					messageResponse.setMsg(result);
+				}
+			}
 		}
 		return messageResponse;
 	}

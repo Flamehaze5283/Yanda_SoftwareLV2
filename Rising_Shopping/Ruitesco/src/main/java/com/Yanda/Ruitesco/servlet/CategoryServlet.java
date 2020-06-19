@@ -2,6 +2,7 @@ package com.Yanda.Ruitesco.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -54,7 +55,12 @@ public class CategoryServlet extends HttpServlet {
 			SetCategoryName(request, response);
 			break;
 		case "get_deep_category":
-			GetDeepCategory(request, response);
+			try {
+				GetDeepCategory(request, response);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
 		default:
 			break;
@@ -114,7 +120,7 @@ public class CategoryServlet extends HttpServlet {
 		pw.write(json);
 		pw.close();
 	}
-	public void GetDeepCategory(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void GetDeepCategory(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
 		/**
 		 * 功能：获取当前种类id并查询其所有子类
 		 * request: categoryId 种类id  session: username
@@ -125,5 +131,10 @@ public class CategoryServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String username = session.getAttribute("username").toString();
 		int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+		messageResponse = category_service.GetAllCategoryByParentId(categoryId, username);
+		String json = gson.toJson(messageResponse);
+		PrintWriter pw = response.getWriter();
+		pw.write(json);
+		pw.close();
 	}
 }
