@@ -230,9 +230,16 @@ public class UserServlet extends HttpServlet{
 		PrintWriter	pw = resp.getWriter();
 		if(user!=null)
 		{
-			DataResp<String> dataResp = new DataResp<String>(0,null,user.getQuestion());
-			json = gson.toJson(dataResp);
-
+			if( !(user.getQuestion()==null) && !(user.getQuestion().equals("")))
+			{
+				DataResp<Object> dataResp =new DataResp<Object>(0,null,user.getQuestion());
+				json = gson.toJson(dataResp);
+			}
+			else
+			{
+				DataResp<String> dataResp = new DataResp<String>(0,null,"该用户未设置找回密码问题");
+				json = gson.toJson(dataResp);
+			}
 		}
 		else 
 		{
