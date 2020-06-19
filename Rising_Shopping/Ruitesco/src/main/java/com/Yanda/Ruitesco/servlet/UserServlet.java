@@ -63,8 +63,10 @@ public class UserServlet extends HttpServlet{
 			GetUserInfo(req,resp);
 			break;
 		case "forget_get_question":
+			ForgetPassword(req,resp);
 			break;
 		case "forget_check_answer":
+			ForgetCheck(req,resp);
 			break;
 		case "forget_reset_password":
 			UpdatePassword(req,resp);
@@ -85,38 +87,6 @@ public class UserServlet extends HttpServlet{
 			System.out.println("mode参数异常");
 			break;
 		}
-//		if(mode.equals("login")) {
-//			//登录
-//		}
-//		else if(mode.equals("register")) {
-//			//注册
-//		}
-//		else if(mode.equals("check_valid")) {
-//			//检查合法性
-//			CheckValid(req, resp);
-//		}
-//		else if(mode.equals("get_user_info")) {
-//			//获取登录用户信息
-//			GetUserInfo(req, resp);
-//		}
-//		else if(mode.equals("reset_password")) {
-//			//登录状态下修改密码
-//			ResetPassword(req, resp);
-//		}
-//		else if(mode.equals("update_information")) {
-//			UpdateInformation(req, resp);
-//		}
-//		else if(mode.equals("get_information")) {
-//			GetInformation(req, resp);
-//		}
-//		else if(mode.equals("logout")) {
-//			//退出
-//			LogOut(req, resp);
-//		}
-//		else {
-//			//其他
-//			System.out.println("mode参数异常");
-//		}
 	}
 	public void Login(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException
 	{
@@ -189,42 +159,6 @@ public class UserServlet extends HttpServlet{
 		pw.close();
 	}
 	
-//	public void GetUserInfo(HttpServletRequest req, HttpServletResponse resp) throws IOException
-//	{
-//		DataResp dataResp=null;
-//		HttpSession session = req.getSession();
-//		String username = session.getAttribute("username").toString();
-//		User user = userService.QueryUserByName(username);
-//		
-//		if(user!=null)
-//		{
-//			dataResp=new DataResp(0,new Object() {
-//				@SuppressWarnings("unused")
-//				public int id=user.getId();
-//				@SuppressWarnings("unused")
-//				public String email=user.getEmail();
-//				@SuppressWarnings("unused")
-//				public String phone=user.getPhone();
-//				@SuppressWarnings("unused")
-//				public Timestamp createTime=user.getCreate_time();
-//				@SuppressWarnings("unused")
-//				public Timestamp updateTime=user.getUpdate_time();
-//			},"");
-//		}else {
-//			dataResp=new DataResp(1,null,"用户未登录，无法获取当前用户信息");
-//		}
-//		
-//		json = gson.toJson(dataResp);
-//		System.out.println(json);
-//		PrintWriter pw;
-//		try {
-//			pw = resp.getWriter();
-//			pw.write(json);
-//			pw.close();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}	
-//	}
 	
 	public void CheckValid(HttpServletRequest req, HttpServletResponse resp) throws IOException
 	{
@@ -291,7 +225,54 @@ public class UserServlet extends HttpServlet{
 
 	public void ForgetPassword(HttpServletRequest req, HttpServletResponse resp) throws IOException
 	{
+		String username = req.getParameter("username");
+		User user = user_service.QueryUserByName(username);
+		PrintWriter	pw = resp.getWriter();
+		if(user!=null)
+		{
+			DataResp<String> dataResp = new DataResp<String>(0,null,user.getQuestion());
+			json = gson.toJson(dataResp);
+
+		}
+		else 
+		{
+			DataResp<Object> dataResp = new DataResp<Object>(1,"用户名输入错误",null);
+			json = gson.toJson(dataResp);
+		}
 		
+		//System.out.println(json);
+		pw.write(json);
+		pw.close();
+	}
+	
+	public void ForgetCheck(HttpServletRequest req, HttpServletResponse resp) throws IOException
+	{
+		String username = req.getParameter("username");
+		String question = req.getParameter("question");
+		String answer = req.getParameter("answer");
+		User user = user_service.QueryUserByName(username);
+		PrintWriter	pw = resp.getWriter();
+		if(user!=null)
+		{
+			if(question.equals(user.getQuestion())&&answer.equals(user.getAnswer()))
+			{
+				DataResp<String> dataResp = new DataResp<String>(0,null,"3235ffe-fewff-ff34534");
+				json = gson.toJson(dataResp);
+			}else
+			{
+				DataResp<Object> dataResp = new DataResp<Object>(1,"问题答案错误",null);
+				json = gson.toJson(dataResp);
+			}
+		}
+		else 
+		{
+			DataResp<Object> dataResp = new DataResp<Object>(1,"用户不存在",null);
+			json = gson.toJson(dataResp);
+		}
+		
+		//System.out.println(json);
+		pw.write(json);
+		pw.close();
 	}
 	
 	public void UpdatePassword(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException
