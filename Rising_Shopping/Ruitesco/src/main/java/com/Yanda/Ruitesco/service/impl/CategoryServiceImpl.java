@@ -84,4 +84,17 @@ public class CategoryServiceImpl implements ICategoryService {
 		}
 		return messageResponse;
 	}
+	@Override
+	public MessageResponse<Object> GetAllCategoryByParentId(int parent_id, String username) {
+		// TODO Auto-generated method stub
+		MessageResponse<Object> messageResponse = new MessageResponse<Object>();
+		if(username.equals("")){
+			messageResponse.setStatus(10);
+			messageResponse.setMsg("ÓÃ»§Î´µÇÂ¼");
+		}
+		else{
+			
+		}
+		return messageResponse;
+	}
 }

@@ -136,7 +136,7 @@ public class UserServlet extends HttpServlet{
 				DataLoginT data = new DataLoginT(user.getId(),user.getUsername(),user.getPhone(),user.getEmail()
 							,user.getCreate_time(),user.getUpdate_time());
 				DataResp<DataLoginT> dataResp = new  DataResp<DataLoginT>(0,null,data);
-				req.getRequestDispatcher("/WEB-INF/main.jsp").forward(req, resp);
+//				req.getRequestDispatcher("/WEB-INF/main.jsp").forward(req, resp);
 				json = gson.toJson(dataResp);
 		}
 		else 
@@ -175,7 +175,7 @@ public class UserServlet extends HttpServlet{
 		if(user_service.RegUser(user)==0)
 		{
 				DataResp<Object> dataResp = new DataResp<Object>(0,"校验成功",null);
-				req.getRequestDispatcher("login.jsp").forward(req, resp);
+//				req.getRequestDispatcher("login.jsp").forward(req, resp);
 				json = gson.toJson(dataResp);
 		}
 		else 
@@ -311,7 +311,7 @@ public class UserServlet extends HttpServlet{
 		if(user_service.UpdatePassword(username,passwordOld,passwordNew)==0)
 		{
 			DataResp<Object> dataResp=new DataResp<Object>(0,"修改密码成功",null);
-			req.getRequestDispatcher("/WEB-INF/main.jsp").forward(req, resp);
+//			req.getRequestDispatcher("/WEB-INF/main.jsp").forward(req, resp);
 			json = gson.toJson(dataResp);
 		}else
 		{

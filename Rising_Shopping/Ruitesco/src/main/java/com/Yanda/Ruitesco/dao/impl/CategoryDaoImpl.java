@@ -21,7 +21,7 @@ public class CategoryDaoImpl implements ICategoryDao {
 	@Override
 	public int InsertCategory(int parent_id, String categoryName) {
 		// TODO Auto-generated method stub
-		String sql = "insert into type (parent_id, name, create_time) values(?,?,?)";
+		String sql = "insert into type (parent_id, name, create_time, status) values(?, ?, ? ,1)";
 		int result = 0;
 		Date date = new Date();
 	    //从前端或者自己模拟一个日期格式，转为String即可

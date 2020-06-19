@@ -53,6 +53,9 @@ public class CategoryServlet extends HttpServlet {
 		case "set_category_name":
 			SetCategoryName(request, response);
 			break;
+		case "get_deep_category":
+			GetDeepCategory(request, response);
+			break;
 		default:
 			break;
 		}
@@ -93,7 +96,7 @@ public class CategoryServlet extends HttpServlet {
 		pw.write(json);
 		pw.close();
 	}
-	public void SetCategoryName(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	public void SetCategoryName(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		/**
 		 * 功能：修改种类名称
 		 * request: categoryId 种类id, categoryName 种类名称  session: username
@@ -110,5 +113,17 @@ public class CategoryServlet extends HttpServlet {
 		PrintWriter pw = response.getWriter();
 		pw.write(json);
 		pw.close();
+	}
+	public void GetDeepCategory(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		/**
+		 * 功能：获取当前种类id并查询其所有子类
+		 * request: categoryId 种类id  session: username
+		 * 地址栏传参：mode="get_deep_category"
+		 * response: status 状态码(0成功, 1失败, 10管理员未登录), msg 反馈信息
+		 * */
+		MessageResponse<Object> messageResponse = new MessageResponse<Object>();
+		HttpSession session = request.getSession();
+		String username = session.getAttribute("username").toString();
+		int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 	}
 }
