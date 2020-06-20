@@ -10,7 +10,7 @@
 <title>test</title>
 </head>
 <body>
-	<form method="post" action="manage/category?mode=get_deep_category">
+	<form method="post" action="manage/product?mode=list">
 		<input type="text" name="categoryId" value="1"><br/>
 <!-- 		<input type="text" name="categoryName" value="脉动"><br/> -->
 		<input id="提交" type="submit">	

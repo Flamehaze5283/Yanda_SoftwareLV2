@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -101,6 +103,7 @@ public class UserServlet extends HttpServlet{
 		System.out.println(username+password);
 		User user = user_service.Login(username, password);
 		PrintWriter pw= resp.getWriter();
+		HttpSession session = req.getSession();
 		if(user!=null)
 		{
 				DataLoginT data = new DataLoginT(user.getId(),user.getUsername(),user.getPhone(),user.getEmail()
@@ -108,12 +111,12 @@ public class UserServlet extends HttpServlet{
 				DataResp<DataLoginT> dataResp = new  DataResp<DataLoginT>(0,null,data);
 //				req.getRequestDispatcher("/WEB-INF/main.jsp").forward(req, resp);
 				json = gson.toJson(dataResp);
+				session.setAttribute("username", username);
 		}
 		else 
 		{
 			DataResp<Object> dataResp =new DataResp<Object>(1,"√‹¬Î¥ÌŒÛ",null);
 			json = gson.toJson(dataResp);
-
 		}
 		//System.out.println(json);
 		pw.write(json);
@@ -131,7 +134,7 @@ public class UserServlet extends HttpServlet{
 		String password=req.getParameter("password");
 		String phone=req.getParameter("phone");
 		String email=req.getParameter("email");
-		String role=req.getParameter("role");
+		String role="”√ªß";
 		String question = req.getParameter("question");
 		String answer = req.getParameter("answer");
 
