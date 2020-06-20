@@ -3,7 +3,7 @@ package com.Yanda.Ruitesco.service;
 import java.sql.SQLException;
 
 import com.Yanda.Ruitesco.javabean.User;
-import com.Yanda.Ruitesco.javabean.UserResponse;
+import com.Yanda.Ruitesco.utils.response.UserResponse;
 
 public interface IUserService {
 	public User Login(String username,String password);		//ÓÃ»§µÇÂ¼

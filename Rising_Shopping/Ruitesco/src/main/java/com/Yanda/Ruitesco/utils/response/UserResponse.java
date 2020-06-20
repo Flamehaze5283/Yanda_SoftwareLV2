@@ -1,4 +1,4 @@
-package com.Yanda.Ruitesco.javabean;
+package com.Yanda.Ruitesco.utils.response;
 
 /**
  * 前端用户回参response通用类

@@ -9,7 +9,7 @@ import com.Yanda.Ruitesco.dao.impl.ProductDaoImpl;
 import com.Yanda.Ruitesco.javabean.Page;
 import com.Yanda.Ruitesco.javabean.Product;
 import com.Yanda.Ruitesco.service.IProductService;
-import com.Yanda.Ruitesco.utils.MessageResponse;
+import com.Yanda.Ruitesco.utils.response.MessageResponse;
 
 public class ProductServiceImpl implements IProductService {
 	IProductDao product_dao = new ProductDaoImpl();

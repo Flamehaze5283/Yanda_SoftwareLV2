@@ -1,4 +1,4 @@
-package com.Yanda.Ruitesco.javabean;
+package com.Yanda.Ruitesco.utils.response.responsetype;
 
 import java.sql.Timestamp;
 

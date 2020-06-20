@@ -19,9 +19,9 @@ import javax.servlet.http.HttpSession;
 import com.Yanda.Ruitesco.dataResp.DataResp;
 import com.Yanda.Ruitesco.dataResp.type.DataLoginT;
 import com.Yanda.Ruitesco.javabean.User;
-import com.Yanda.Ruitesco.javabean.UserResponse;
 import com.Yanda.Ruitesco.service.IUserService;
 import com.Yanda.Ruitesco.service.impl.UserServiceImpl;
+import com.Yanda.Ruitesco.utils.response.UserResponse;
 import com.google.gson.Gson;
 
 @WebServlet("/user")

@@ -3,7 +3,7 @@ package com.Yanda.Ruitesco.service;
 
 import java.sql.SQLException;
 
-import com.Yanda.Ruitesco.utils.MessageResponse;
+import com.Yanda.Ruitesco.utils.response.MessageResponse;
 
 public interface ICategoryService {
 	public MessageResponse<Object> GetCategoryByParentId(int parent_id, String username);//查找该商品种类的所有子类

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.Yanda.Ruitesco.utils.MessageResponse;
+import com.Yanda.Ruitesco.utils.response.MessageResponse;
 import com.google.gson.Gson;
 
 /**

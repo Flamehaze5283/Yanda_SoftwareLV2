@@ -1,4 +1,4 @@
-package com.Yanda.Ruitesco.utils;
+package com.Yanda.Ruitesco.utils.response;
 
 public class MessageResponse <T>{
 	int status;
