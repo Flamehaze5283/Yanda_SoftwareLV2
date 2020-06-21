@@ -150,6 +150,29 @@ public class JdbcUtil {
 			return null;
 		}
 		return list.get(0);
-
+	}
+	
+	public static int executeQueryInt(String sql,Object... params)
+	{
+		int result=0;
+		Connection con =getConnection();
+		PreparedStatement pstmt=null;
+		ResultSet rs = null;
+		try {
+			pstmt = con.prepareStatement(sql);
+			for(int i=0;i<params.length;i++)
+			{
+				pstmt.setObject(i+1, params[i]);
+			}
+			rs=pstmt.executeQuery();
+			rs.next();
+			result=rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally
+		{
+			close(rs,pstmt,con);
+		}
+		return result;
 	}
 }

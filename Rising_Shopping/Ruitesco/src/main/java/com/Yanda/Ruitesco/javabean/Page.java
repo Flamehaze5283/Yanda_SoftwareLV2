@@ -6,7 +6,7 @@ import java.util.List;
 public class Page {
 	int pageNum = 1;//当前页码，默认值为1
 	int pageSize = 10;//当前每页可显示数量，默认值为10
-	int size = 8;//每页显示最大的数量，默认为8
+	int size = 8;//该页实际显示的条目数
 	String orderBy = null;//商品排列方式
 	int startRow;//数组中开始显示的下标
 	int endRow;//数组中结束显示的下标
@@ -21,13 +21,11 @@ public class Page {
 	boolean hasPreviousPage;//是否有上一页
 	boolean hasNextPage;//是否含下一页
 	int navigatePages = 6;//导航栏显示最多页码数
-	List<Integer> nacigatepageNums;//导航栏当前显示页码数组
+	List<Integer> navigatepageNums;//导航栏当前显示页码数组
 	public Page() {
 		// TODO Auto-generated constructor stub
-		this.nacigatepageNums = new ArrayList<Integer>();
-		this.nacigatepageNums.add(1);
+		this.navigatepageNums = new ArrayList<Integer>();
 	}
-	
 	public int getPageNum() {
 		return pageNum;
 	}
@@ -130,10 +128,113 @@ public class Page {
 	public void setNavigatePages(int navigatePages) {
 		this.navigatePages = navigatePages;
 	}
-	public List<Integer> getNacigatepageNums() {
-		return nacigatepageNums;
+	public List<Integer> getNavigatepageNums() {
+		return navigatepageNums;
 	}
-	public void setNacigatepageNums(List<Integer> nacigatepageNums) {
-		this.nacigatepageNums = nacigatepageNums;
-	}	
+	public void setNavigatepageNums(List<Integer> nacigatepageNums) {
+		this.navigatepageNums = nacigatepageNums;
+	}
+	
+	public void CalculatePage(int total) {
+		int startRow = (this.pageNum - 1) * this.pageSize + 1;
+		this.startRow = startRow;
+		int endRow = (this.pageNum * this.pageSize <= total) ? (this.pageNum * this.pageSize) : total;
+		this.endRow = endRow;
+		int size = this.endRow - this.startRow + 1;
+		this.size = size;
+		this.total = total;
+		int pages = (this.total % this.pageSize == 0) ? (this.total / this.pageSize) : (this.total / this.pageSize + 1);
+		this.pages = pages;
+		List<Integer> navigatepageNums = new ArrayList<Integer>();
+		for(int i = 1; i <= this.pageNum; i++) {
+			if(navigatepageNums.size() < this.navigatePages) {
+				navigatepageNums.add(i);
+			}
+			else {
+				if(navigatepageNums.get(navigatepageNums.size() - 1) >= this.pages)
+					break;
+				else {
+					while(navigatepageNums.get(navigatepageNums.size() - 1) < this.pages)
+					{
+						if(navigatepageNums.get(navigatepageNums.size() - 1) - i < this.navigatePages / 2) {
+							for(int j = 0; j < navigatepageNums.size(); j++)
+								navigatepageNums.set(j, navigatepageNums.get(j) + 1);
+						}
+						else
+							break;
+					}
+				}
+			}		
+		}
+		this.navigatepageNums = navigatepageNums;
+		int firstPage = this.navigatepageNums.get(0);
+		this.firstPage = firstPage;
+		int prePage = pageNum - 1;
+		this.prePage = prePage;
+		int nextPage = (pageNum + 1 <= pages) ? (pageNum + 1) : 0;
+		this.nextPage = nextPage;
+		int lastPage = navigatepageNums.get(navigatepageNums.size() - 1);
+		this.lastPage = lastPage;
+		boolean isFirstPage = (pageNum == 1) ? true : false;
+		this.isFirstPage = isFirstPage;
+		boolean isLastPage = (pageNum == total) ? true : false;
+		this.isLastPage = isLastPage;
+		boolean hasPreviousPage = !isFirstPage;
+		this.hasPreviousPage = hasPreviousPage;
+		boolean hasNextPage = !isLastPage;
+		this.hasNextPage = hasNextPage;
+	}
+	
+	public void CalculatePage(int pageNum, int pageSize, int total) {
+		int startRow = (this.pageNum - 1) * this.pageSize + 1;
+		this.startRow = startRow;
+		int endRow = (this.pageNum * this.pageSize <= total) ? (this.pageNum * this.pageSize) : total;
+		this.endRow = endRow;
+		int size = this.endRow - this.startRow + 1;
+		this.size = size;
+		this.pageNum = pageNum;
+		this.pageSize = pageSize;
+		this.total = total;
+		int pages = (this.total % this.pageSize == 0) ? (this.total / this.pageSize) : (this.total / this.pageSize + 1);
+		this.pages = pages;
+		List<Integer> navigatepageNums = new ArrayList<Integer>();
+		for(int i = 1; i <= this.pageNum; i++) {
+			if(navigatepageNums.size() < this.navigatePages) {
+				navigatepageNums.add(i);
+			}
+			else {
+				if(navigatepageNums.get(navigatepageNums.size() - 1) >= this.pages)
+					break;
+				else {
+					while(navigatepageNums.get(navigatepageNums.size() - 1) < this.pages)
+					{
+						if(navigatepageNums.get(navigatepageNums.size() - 1) - i < this.navigatePages / 2) {
+							for(int j = 0; j < navigatepageNums.size(); j++)
+								navigatepageNums.set(j, navigatepageNums.get(j) + 1);
+						}
+						else
+							break;
+					}
+				}
+			}		
+		}
+		this.navigatepageNums = navigatepageNums;
+		int firstPage = this.navigatepageNums.get(0);
+		this.firstPage = firstPage;
+		int prePage = pageNum - 1;
+		this.prePage = prePage;
+		int nextPage = (pageNum + 1 <= pages) ? (pageNum + 1) : 0;
+		this.nextPage = nextPage;
+		int lastPage = navigatepageNums.get(navigatepageNums.size() - 1);
+		this.lastPage = lastPage;
+		boolean isFirstPage = (pageNum == 1) ? true : false;
+		this.isFirstPage = isFirstPage;
+		boolean isLastPage = (pageNum == total) ? true : false;
+		this.isLastPage = isLastPage;
+		boolean hasPreviousPage = !isFirstPage;
+		this.hasPreviousPage = hasPreviousPage;
+		boolean hasNextPage = !isLastPage;
+		this.hasNextPage = hasNextPage;
+	}
+
 }

@@ -10,7 +10,7 @@
 <title>test</title>
 </head>
 <body>
-	<form method="post" action="user?mode=set_category_name">
+	<form method="post" action="user?mode=login">
 <!-- 		<input type="text" name="passwordOld" value="123"><br/> -->
 		<input type="text" name="categoryId" value="1"><br/>
 		<input type="text" name="categoryName" value="脉动"><br/>
