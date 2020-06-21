@@ -12,21 +12,20 @@ public class Test {
 		Page page = new Page();
 		page.setPageNum(pageNum);
 		page.setPageSize(pageSize);
-		int startRow = pageNum * (pageSize - 1) + 1;
+		int startRow = (pageNum - 1) * pageSize + 1;
 		page.setStartRow(startRow);
 		int endRow = (pageNum * pageSize <= total) ? (pageNum * pageSize) : total;
 		page.setEndRow(endRow);
+		int size = endRow - startRow + 1;
+		page.setSize(size);
 		page.setTotal(total);
 		int pages = (total % pageSize == 0) ? (total / pageSize) : (total / pageSize + 1);
 		page.setPages(pages);
 		List<Integer> navigatepageNums = new ArrayList<Integer>();
 		for(int i = 1; i <= pageNum; i++) {
 			if(navigatepageNums.size() < page.getNavigatePages()) {
-				temp_list = page.getNacigatepageNums();
-				if(i == 1)
-					temp_list.set(0, i);
-				else
-					temp_list.add(i);
+				temp_list = page.getNavigatepageNums();
+				temp_list.add(i);
 				navigatepageNums = temp_list;
 			}
 			else {
@@ -45,7 +44,7 @@ public class Test {
 				}
 			}		
 		}
-		page.setNacigatepageNums(navigatepageNums);
+		page.setNavigatepageNums(navigatepageNums);
 		int firstPage = navigatepageNums.get(0);
 		page.setFirstPage(firstPage);
 		int prePage = pageNum - 1;
@@ -64,23 +63,20 @@ public class Test {
 		page.setHasNextPage(hasNextPage);
 		return page;
 	}
+	public static List<String> getList(String...strings){
+		List<String> list = new ArrayList<String>();
+		int size = strings.length;
+		System.out.println("strings.length = " + size);
+		for(int i = 0; i < strings.length; i++) {
+			list.add(strings[i]);
+		}
+		return list;
+	}
 	public static void main(String[] args) {
-		Page page = CalculatePage(19, 15, 300);
+//		List<String> list = getList();
+		Page page = CalculatePage(5, 6, 30);
 		Gson gson = new Gson();
 		String json = gson.toJson(page);
 		System.out.println(json);
 	}
 }
-//	public static void main(String[] args) {
-//		System.out.println("*************");
-//		JdbcUtil.executeUpdate("insert into user(name,age) values(?,?)","¶¹°ü",10);
-//		List<User> userList = JdbcUtil.executeQuery("select id,name from user",User.class);
-//		for(User u : userList)
-//		{
-//			System.out.println(u.toString());
-//		}
-//		System.out.println("id:3"+JdbcUtil.getById("user", User.class, 3));
-//		System.out.println("+++++++++++");
-//	}
-//	
-//}

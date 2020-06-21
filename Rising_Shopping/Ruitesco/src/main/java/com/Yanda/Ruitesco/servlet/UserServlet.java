@@ -6,8 +6,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -109,7 +107,6 @@ public class UserServlet extends HttpServlet{
 				DataLoginT data = new DataLoginT(user.getId(),user.getUsername(),user.getPhone(),user.getEmail()
 							,user.getCreate_time(),user.getUpdate_time());
 				DataResp<DataLoginT> dataResp = new  DataResp<DataLoginT>(0,null,data);
-//				req.getRequestDispatcher("/WEB-INF/main.jsp").forward(req, resp);
 				json = gson.toJson(dataResp);
 				session.setAttribute("username", username);
 		}
@@ -203,7 +200,9 @@ public class UserServlet extends HttpServlet{
 		
 		//从session中获取用户名
 		HttpSession session = req.getSession();
-		String username = session.getAttribute("username").toString();	
+		String username = "";
+		if(session.getAttribute("username") != null)
+			username = session.getAttribute("username").toString();
 		//创建回参对象, 失败创建String类型(返回msg)， 成功创建data数组类型(返回data数组)
 		UserResponse<Object> userResponse = new UserResponse<Object>();
 		//查找数据库找到对应用户信息
@@ -296,7 +295,9 @@ public class UserServlet extends HttpServlet{
 		String passwordOld = req.getParameter("passwordOld");
 		String passwordNew = req.getParameter("passwordNew");
 		HttpSession session = req.getSession();
-		String username = session.getAttribute("username").toString();
+		String username = "";
+		if(session.getAttribute("username") != null)
+			username = session.getAttribute("username").toString();
 		
 		PrintWriter pw = resp.getWriter();
 		if(user_service.UpdatePassword(username,passwordOld,passwordNew)==0)
@@ -328,8 +329,11 @@ public class UserServlet extends HttpServlet{
 		String passwordOld = req.getParameter("passwordOld");
 		String passwordNew = req.getParameter("passwordNew");
 		System.out.println("passwordOld=" + passwordOld + " passwordNew" + passwordNew);
+		//从session中获取用户名
 		HttpSession session = req.getSession();
-		String username = session.getAttribute("username").toString();
+		String username = "";
+		if(session.getAttribute("username") != null)
+			username = session.getAttribute("username").toString();
 		//创建出参对象
 		UserResponse<String> userResponse = new UserResponse<String>();
 		try {
@@ -361,7 +365,9 @@ public class UserServlet extends HttpServlet{
 		String answer = req.getParameter("answer");
 	
 		HttpSession session = req.getSession();
-		String username = session.getAttribute("username").toString();
+		String username = "";
+		if(session.getAttribute("username") != null)
+			username = session.getAttribute("username").toString();
 		
 		//创建响应回参对象
 		UserResponse<String> userResponse = new UserResponse<String>();
@@ -385,19 +391,15 @@ public class UserServlet extends HttpServlet{
 		 * */
 		//创建回参对象, 失败创建String类型(返回msg)， 成功创建data数组类型(返回data数组)
 		UserResponse<Object> userResponse = new UserResponse<Object>();
+		HttpSession session = req.getSession();
 		String username = "";
-		//从cookie中获取当前用户信息
-		Cookie[] cookie = req.getCookies();
-		if(cookie == null || cookie.length <= 0) {
+		if(session.getAttribute("username") != null)
+			username = session.getAttribute("username").toString();
+		if(username == null || username.equals("")) {
 			userResponse.setStatus(10);
 			userResponse.setMsg("用户未登录，无法获取当前用户信息,状态码：10, 强制退出登录");
 		}
 		else {
-			for(Cookie c:cookie) {
-				if(c.getName().equals("username"))
-					username = c.getValue().toString();
-			}
-			//查找数据库找到对应用户信息
 			try {
 				userResponse = user_service.GetInformation(username);
 			} catch (SQLException e1) {
@@ -424,7 +426,8 @@ public class UserServlet extends HttpServlet{
 		//获取session中的userName参数，如果没有则已退出登录
 		HttpSession session = req.getSession();
 		String username = "";
-		username = session.getAttribute("username").toString();
+		if(session.getAttribute("username") != null)
+			username = session.getAttribute("username").toString();
 		if(username.equals("")) {
 			userResponse.setStatus(0);
 			userResponse.setMsg("退出成功");

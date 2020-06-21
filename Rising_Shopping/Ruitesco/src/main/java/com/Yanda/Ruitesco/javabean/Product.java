@@ -8,8 +8,8 @@ public class Product {
 	int category_id;//商品类别id
 	String name;//商品名称
 	String subtitle;//商品附加标题
-	String mainImage;//主图路径
-	String subImage;//副图路径
+	String main_image;//主图路径
+	String sub_image;//副图路径
 	String detail;//商品描述
 	BigDecimal price;//商品价格
 	int stock;//库存
@@ -28,8 +28,8 @@ public class Product {
 		this.category_id = category_id;
 		this.name = name;
 		this.subtitle = subtitle;
-		this.mainImage = mainImage;
-		this.subImage = subImage;
+		this.main_image = mainImage;
+		this.sub_image = subImage;
 		this.detail = detail;
 		this.price = price;
 		this.stock = stock;
@@ -69,19 +69,19 @@ public class Product {
 	}
 
 	public String getMainImage() {
-		return mainImage;
+		return main_image;
 	}
 
 	public void setMainImage(String mainImage) {
-		this.mainImage = mainImage;
+		this.main_image = mainImage;
 	}
 
 	public String getSubImage() {
-		return subImage;
+		return sub_image;
 	}
 
 	public void setSubImage(String subImage) {
-		this.subImage = subImage;
+		this.sub_image = subImage;
 	}
 
 	public String getDetail() {

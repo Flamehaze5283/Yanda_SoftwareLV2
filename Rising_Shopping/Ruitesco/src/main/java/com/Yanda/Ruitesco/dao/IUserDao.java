@@ -1,6 +1,7 @@
 package com.Yanda.Ruitesco.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.Yanda.Ruitesco.javabean.User;
 
@@ -36,4 +37,14 @@ public interface IUserDao {
 	 * 功能：通过用户名更改对应用户信息
 	 * */
 	public boolean updateUser(String username,User usr);
+	/**
+	 * 
+	 * @return 所有user的列表包括其他管理员
+	 */
+	public List<User> getUserList(int startRow,int endRow);
+	/**
+	 * 
+	 * @return user的总数目，包含管理员和所有用户
+	 */
+	public int getNumOfAllUser();
 }

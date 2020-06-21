@@ -70,8 +70,8 @@ public class UserDaoImpl implements IUserDao {
 		state = conn.createStatement();
 		rs = state.executeQuery(sql);
 		rs.next();
-		user.setUsername(rs.getString(1));
-		user.setId(rs.getInt(2));
+		user.setId(rs.getInt(1));
+		user.setUsername(rs.getString(2));
 		user.setPassword(rs.getString(3));
 		user.setPhone(rs.getString(4));
 		user.setEmail(rs.getString(5));
@@ -143,5 +143,14 @@ public class UserDaoImpl implements IUserDao {
 				,user.getCreate_time(),user.getUpdate_time(),username)>0)
 					return true;
 		return false;
+	}
+	@Override
+	public List<User> getUserList(int startRow,int endRow) {
+		return JdbcUtil.executeQuery("select * from user limit ?,?", User.class,startRow,endRow);
+	}
+
+	@Override
+	public int getNumOfAllUser() {
+		return JdbcUtil.executeQueryInt("select count(*) from user");
 	}
 }

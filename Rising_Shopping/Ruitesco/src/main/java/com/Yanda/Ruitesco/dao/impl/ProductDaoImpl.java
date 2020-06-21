@@ -12,17 +12,38 @@ public class ProductDaoImpl implements IProductDao {
 	public List<Product> GetProductByName(String... productName) {
 		// TODO Auto-generated method stub
 		String sql = "select * from sales";
-		if(productName != null)
-			sql += "where name = ?";
-		String productname = productName[0];
-		List<Product> result = JdbcUtil.executeQuery(sql, Product.class, productname);
+		String productname;
+		List<Product> result;
+		if(productName.length > 0)
+		{
+			sql += " where name like ?";
+			productname = productName[0];
+			productname = "%" + productname + "%";
+			result = JdbcUtil.executeQuery(sql, Product.class, productname);
+		}
+		else
+			result = JdbcUtil.executeQuery(sql, Product.class);
 		return result;
 	}
 
+	@Override
+	public List<Product> GetProductById(int productId) {
+		// TODO Auto-generated method stub
+		String sql = "select * from sales where id = ?";
+		List<Product> result = JdbcUtil.executeQuery(sql, Product.class, productId);
+		return result;
+	}
+
+	@Override
+	public int UpdateProductStatus(int productId, int status) {
+		// TODO Auto-generated method stub
+		String sql = "update sales set status = ? where id = ?";
+		return JdbcUtil.executeUpdate(sql, status, productId);
+	}
+	
 	@Override
 	public int UpdateProduct(Product product_New) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 }

@@ -40,7 +40,16 @@ public class CategoryServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		/* 允许跨域的主机地址 */
+		response.setHeader("Access-Control-Allow-Origin","http://127.0.0.1:8848");
+		/* 允许跨域的请求方法GET, POST, HEAD 等 */
+		response.setHeader("Access-Control-Allow-Methods","*");
+		/* 重新预检验跨域的缓存时间 (s) */
+		response.setHeader("Access-Control-Max-Age","3600");
+		/* 允许跨域的请求头 */
+		response.setHeader("Access-Control-Allow-Headers","*");
+		/* 是否携带cookie */
+		response.setHeader("Access-Control-Allow-Credentials", "true");
 		//根据参数mode值执行对应方法;
 		String mode = "";
 		mode = request.getParameter("mode");
@@ -74,12 +83,17 @@ public class CategoryServlet extends HttpServlet {
 		 * 地址栏传参：mode="get_category"
 		 * response: status 状态码(0成功, 1失败, 10管理员未登录), msg 反馈信息, data 获取的子类别信息
 		 * */
-		HttpSession session = request.getSession();
-		String username = session.getAttribute("username").toString();
+//		HttpSession session = request.getSession(false);
+//		Object session_username = session.getAttribute("username");
+//		String username = "";
+//		if(session_username != null)
+//			username = session_username.toString();
+		String username = "123456";
 		int category_id = Integer.parseInt(request.getParameter("category_id"));
 		MessageResponse<Object> messageResponse = new MessageResponse<Object>();
 		messageResponse = category_service.GetCategoryByParentId(category_id, username);
 		String json = gson.toJson(messageResponse);
+		System.out.println(json);
 		PrintWriter pw = response.getWriter();
 		pw.write(json);
 		pw.close();
@@ -92,8 +106,12 @@ public class CategoryServlet extends HttpServlet {
 		 * response: status 状态码(0成功, 1失败, 10管理员未登录), msg 反馈信息
 		 * */
 		MessageResponse<String> messageResponse = new MessageResponse<String>();
-		HttpSession session = request.getSession();
-		String username = session.getAttribute("username").toString();
+//		HttpSession session = request.getSession(false);
+//		Object session_username = session.getAttribute("username");
+//		String username = "";
+//		if(session_username != null)
+//			username = session_username.toString();
+		String username = "123456";
 		int parentId = Integer.parseInt(request.getParameter("parentId"));
 		String categoryName = request.getParameter("categoryName");
 		messageResponse = category_service.InsertNewCategory(parentId, categoryName, username);
@@ -110,12 +128,17 @@ public class CategoryServlet extends HttpServlet {
 		 * response: status 状态码(0成功, 1失败, 10管理员未登录), msg 反馈信息
 		 * */
 		MessageResponse<String> messageResponse = new MessageResponse<String>();
-		HttpSession session = request.getSession();
-		String username = session.getAttribute("username").toString();
+//		HttpSession session = request.getSession(false);
+//		Object session_username = session.getAttribute("username");
+//		String username = "";
+//		if(session_username != null)
+//			username = session_username.toString();
+		String username = "123456";
 		int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 		String categoryName = request.getParameter("categoryName");
 		messageResponse = category_service.UpdateCategoryName(categoryId, categoryName, username);
 		String json = gson.toJson(messageResponse);
+		System.out.println(json);
 		PrintWriter pw = response.getWriter();
 		pw.write(json);
 		pw.close();
@@ -128,11 +151,16 @@ public class CategoryServlet extends HttpServlet {
 		 * response: status 状态码(0成功, 1失败, 10管理员未登录), msg 反馈信息
 		 * */
 		MessageResponse<Object> messageResponse = new MessageResponse<Object>();
-		HttpSession session = request.getSession();
-		String username = session.getAttribute("username").toString();
+//		HttpSession session = request.getSession(false);
+//		Object session_username = session.getAttribute("username");
+//		String username = "";
+//		if(session_username != null)
+//			username = session_username.toString();
+		String username = "123456";
 		int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 		messageResponse = category_service.GetAllCategoryByParentId(categoryId, username);
 		String json = gson.toJson(messageResponse);
+		System.out.println(json);
 		PrintWriter pw = response.getWriter();
 		pw.write(json);
 		pw.close();
