@@ -1,5 +1,7 @@
 package com.Yanda.Ruitesco.service;
 
+import java.math.BigDecimal;
+
 import com.Yanda.Ruitesco.utils.response.MessageResponse;
 
 public interface IProductService {
@@ -8,4 +10,6 @@ public interface IProductService {
 	MessageResponse<Object> QueryProductById(int pageNum, int pageSize, int productId, String username);//根据商品id查找
 	MessageResponse<Object> QueryProductById(int productId, String username);//查询该id的物品详情
 	MessageResponse<Object> SetProductStatus(int productId, int status, String username);//产品上下架
+	MessageResponse<String> InsertProduct(int categoryId, String name , String subtitle, String mainImages, String subImages, String detail, BigDecimal price, int stock, int status, String username);//新增商品
+	MessageResponse<String> UpdateProduct(int id, int categoryId, String name , String subtitle, String mainImages, String subImages, String detail, BigDecimal price, int stock, int status, String username);//更新商品
 }

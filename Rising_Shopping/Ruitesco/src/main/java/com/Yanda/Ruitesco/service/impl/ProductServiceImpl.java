@@ -1,5 +1,6 @@
 package com.Yanda.Ruitesco.service.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -188,6 +189,91 @@ public class ProductServiceImpl implements IProductService {
 		return messageResponse;
 	}
 
+	@Override
+	public MessageResponse<String> InsertProduct(int categoryId, String name, String subtitle, String mainImages,
+			String subImages, String detail, BigDecimal price, int stock, int status, String username) {
+		MessageResponse<String> messageResponse = new MessageResponse<String>();//初始化结果返回对象
+		//如果未登录，返回10与msg
+		if(username == null || username.equals("")) {
+			messageResponse.setStatus(10);
+			messageResponse.setMsg("用户未登录");
+		}
+		else {
+			String user_role = user_dao.getUserByName(username).getRole();
+			if(!user_role.equals("管理员"))
+			{
+				messageResponse.setStatus(1);
+				messageResponse.setMsg("没有权限");
+			}
+			else {
+				Product product = new Product();
+				product.setCategory_id(categoryId);
+				product.setName(name);
+				product.setSubtitle(subtitle);
+				product.setMainImage(mainImages);
+				product.setSubImage(subImages);
+				product.setDetail(detail);
+				product.setPrice(price);
+				product.setStock(stock);
+				product.setStatus(status);
+				int insert = product_dao.InsertProduct(product);
+				if(insert <= 0) {
+					messageResponse.setStatus(1);
+					messageResponse.setMsg("新增产品失败");
+				}
+				else {
+					messageResponse.setStatus(0);
+					messageResponse.setMsg("新增产品成功");
+				}
+			}
+		}
+		return messageResponse;
+	}
+
+	@Override
+	public MessageResponse<String> UpdateProduct(int id, int categoryId, String name, String subtitle,
+			String mainImages, String subImages, String detail, BigDecimal price, int stock, int status,
+			String username) {
+		// TODO Auto-generated method stub
+		MessageResponse<String> messageResponse = new MessageResponse<String>();//初始化结果返回对象
+		//如果未登录，返回10与msg
+		if(username == null || username.equals("")) {
+			messageResponse.setStatus(10);
+			messageResponse.setMsg("用户未登录");
+		}
+		else {
+			String user_role = user_dao.getUserByName(username).getRole();
+			if(!user_role.equals("管理员"))
+			{
+				messageResponse.setStatus(1);
+				messageResponse.setMsg("没有权限");
+			}
+			else {
+				Product product = new Product();
+				product.setCategory_id(categoryId);
+				product.setName(name);
+				product.setSubtitle(subtitle);
+				product.setMainImage(mainImages);
+				product.setSubImage(subImages);
+				product.setDetail(detail);
+				product.setPrice(price);
+				product.setStock(stock);
+				product.setStatus(status);
+				int update = product_dao.UpdateProduct(product, id);
+				if(update <= 0) {
+					messageResponse.setStatus(1);
+					messageResponse.setMsg("更新产品失败");
+				}
+				else {
+					messageResponse.setStatus(0);
+					messageResponse.setMsg("更新产品成功");
+				}
+			}
+		}
+		return messageResponse;
+	}
+	
+	//计算分页静态方法
 	public static Page CalculatePage(int pageNum, int pageSize, int total) {
 		List<Integer> temp_list = new ArrayList<Integer>();
 		Page page = new Page();
@@ -244,6 +330,4 @@ public class ProductServiceImpl implements IProductService {
 		page.setHasNextPage(hasNextPage);
 		return page;
 	}
-
-	
 }

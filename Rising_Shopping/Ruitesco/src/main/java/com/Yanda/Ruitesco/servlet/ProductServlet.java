@@ -2,6 +2,7 @@ package com.Yanda.Ruitesco.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -65,6 +66,9 @@ public class ProductServlet extends HttpServlet {
 			break;
 		case "set_sale_status":
 			SetSaleStatus(request, response);
+			break;
+		case "save":
+			Save(request, response);
 		default:
 			break;
 		}
@@ -192,10 +196,23 @@ public class ProductServlet extends HttpServlet {
 		if(session.getAttribute("username") != null)
 			username = session.getAttribute("username").toString();
 //		String username = "123456";
-		int productId = Integer.parseInt(request.getParameter("productId"));
+		int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+		String name = request.getParameter("name");
+		String subtitle = request.getParameter("subtitle");
+		String mainImages = request.getParameter("mainImages");
+		String subImages = request.getParameter("subImages");
+		String detail = request.getParameter("detail");
+		BigDecimal price = BigDecimal.valueOf(Double.parseDouble(request.getParameter("price")));
+		int stock = Integer.parseInt(request.getParameter("stock"));
 		int status = Integer.parseInt(request.getParameter("status"));
-		MessageResponse<Object> messageResponse = new MessageResponse<Object>();
-		messageResponse = product_service.SetProductStatus(productId, status, username);
+		int id = 0;
+		if(request.getParameter("id") != null)
+			id = Integer.parseInt(request.getParameter("id"));
+		MessageResponse<String> messageResponse = new MessageResponse<String>();
+		if(id == 0)
+			messageResponse = product_service.InsertProduct(categoryId, name, subtitle, mainImages, subImages, detail, price, stock, status, username);
+		else
+			messageResponse = product_service.UpdateProduct(id, categoryId, name, subtitle, mainImages, subImages, detail, price, stock, status, username);	
 		String json = gson.toJson(messageResponse);
 		PrintWriter pw = response.getWriter();
 		pw.write(json);
