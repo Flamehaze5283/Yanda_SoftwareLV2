@@ -11,7 +11,7 @@
  Target Server Version : 80016
  File Encoding         : 65001
 
- Date: 21/06/2020 21:51:11
+ Date: 22/06/2020 11:24:18
 */
 
 SET NAMES utf8mb4;
@@ -95,16 +95,17 @@ CREATE TABLE `sales`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `category_id`(`category_id`) USING BTREE,
   CONSTRAINT `category_id` FOREIGN KEY (`category_id`) REFERENCES `type` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sales
 -- ----------------------------
 INSERT INTO `sales` VALUES (1, 5, '可口可乐（香草）', '当前打八五折', 'images/goods/1.png', 'images/goods/1.png,images/goods/2.png', '可口可乐香草味', 8.90, 105, 1, '2020-06-19 21:06:33', '2020-06-21 21:47:48');
 INSERT INTO `sales` VALUES (2, 6, '可口可乐（樱桃）', '不打折', 'images/goods/2.png', 'images/goods/2.png', '可口可乐樱桃味', 8.90, 100, 1, '2020-06-20 16:18:35', '2020-06-21 21:47:49');
-INSERT INTO `sales` VALUES (3, 3, '芬达', '买3送1', 'images/goods/3.png', 'images/goods/3.png', '芬达', 3.00, 20, 1, '2020-06-21 16:24:38', '2020-06-21 21:47:52');
+INSERT INTO `sales` VALUES (3, 3, '芬达', '买2送1', 'images/goods/3.png', 'images/goods/3.png', '芬达好喝', 3.50, 50, 1, '2020-06-21 16:24:38', '2020-06-22 01:30:04');
 INSERT INTO `sales` VALUES (4, 1, '黑沙松士', '保证好喝到吐', 'images/goods/4.png', 'images/goods/4.png', '黑沙松士', 5.00, 3, 1, '2020-06-21 17:13:10', '2020-06-21 21:47:51');
 INSERT INTO `sales` VALUES (5, 1, '波子汽水', '日本畅销饮料', 'images/goods/5.png', 'images/goods/5.png', '波子汽水', 9.80, 100, 1, '2020-06-21 17:16:36', '2020-06-21 21:47:54');
+INSERT INTO `sales` VALUES (6, 1, '海尔洗衣机', '海尔大促销', 'test2.jpg', 'test.jpg', 'detailtext', 1000.00, 100, 1, '2020-06-22 01:50:23', '2020-06-22 01:52:51');
 
 -- ----------------------------
 -- Table structure for shipping_addr
@@ -127,25 +128,26 @@ CREATE TABLE `shipping_addr`  (
 ) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for shopping car
+-- Table structure for shopping_cart
 -- ----------------------------
-DROP TABLE IF EXISTS `shopping car`;
-CREATE TABLE `shopping car`  (
+DROP TABLE IF EXISTS `shopping_cart`;
+CREATE TABLE `shopping_cart`  (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `product` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `quantity` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `checked` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(12) NOT NULL,
+  `checked` int(1) NOT NULL,
   `create_time` datetime(0) NOT NULL,
   `update_time` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `user_id`(`user_id`) USING BTREE
+  UNIQUE INDEX `user_id`(`user_id`) USING BTREE,
+  CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of shopping car
+-- Records of shopping_cart
 -- ----------------------------
-INSERT INTO `shopping car` VALUES (1, 1, '                1', '              1', '是', '2020-03-21 00:00:00', '2020-03-21 00:00:00');
+INSERT INTO `shopping_cart` VALUES (1, 1, 1, 1, 1, '2020-03-21 00:00:00', '2020-06-22 11:14:53');
 
 -- ----------------------------
 -- Table structure for type
@@ -194,7 +196,7 @@ CREATE TABLE `user`  (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES (1, '张三', '1234', '1101', '123456@qq.com', '用户', '生日', '5.06', '2020-05-20 00:00:00', '2020-05-20 00:00:00');
-INSERT INTO `user` VALUES (2, '123456', '1234', '13133132323', '111@qq.com', '管理员', '你吃了吗？', '吃了', '2020-06-17 21:05:55', '2020-06-19 12:52:13');
+INSERT INTO `user` VALUES (2, '123456', '12345', '13133132323', '111@qq.com', '管理员', '你吃了吗？', '吃了', '2020-06-17 21:05:55', '2020-06-22 10:46:38');
 INSERT INTO `user` VALUES (3, '17800', '8080', '888', '8848', '用户', '', '', '2020-06-19 18:10:42', '2020-06-19 18:10:42');
 INSERT INTO `user` VALUES (5, '123', '123', '147893635', '123456', '用户', '', '', '2020-06-19 19:31:40', '2020-06-19 19:31:40');
 

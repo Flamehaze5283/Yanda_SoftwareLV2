@@ -88,7 +88,8 @@ public class ManagerServlet extends HttpServlet {
 		PrintWriter pw= resp.getWriter();
 		if(user!=null)
 		{
-				HttpSession session=req.getSession(true);
+				HttpSession session=req.getSession();
+//				session.invalidate();
 				session.setAttribute("username", user.getUsername());
 				session.setAttribute("role", user.getRole());
 				

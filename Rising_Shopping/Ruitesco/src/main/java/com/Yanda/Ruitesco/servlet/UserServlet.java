@@ -8,7 +8,6 @@ import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -102,6 +101,7 @@ public class UserServlet extends HttpServlet{
 		User user = user_service.Login(username, password);
 		PrintWriter pw= resp.getWriter();
 		HttpSession session = req.getSession();
+//		session.invalidate();
 		if(user!=null)
 		{
 				DataLoginT data = new DataLoginT(user.getId(),user.getUsername(),user.getPhone(),user.getEmail()
@@ -115,7 +115,7 @@ public class UserServlet extends HttpServlet{
 			DataResp<Object> dataResp =new DataResp<Object>(1,"ÃÜÂë´íÎó",null);
 			json = gson.toJson(dataResp);
 		}
-		//System.out.println(json);
+		System.out.println(json);
 		pw.write(json);
 		pw.close();
 	}
@@ -154,7 +154,7 @@ public class UserServlet extends HttpServlet{
 				json = gson.toJson(dataResp);
 		}
 		
-		//System.out.println(json);
+		System.out.println(json);
 		pw.write(json);
 		pw.close();
 	}
@@ -249,7 +249,7 @@ public class UserServlet extends HttpServlet{
 			json = gson.toJson(dataResp);
 		}
 		
-		//System.out.println(json);
+		System.out.println(json);
 		pw.write(json);
 		pw.close();
 	}
@@ -279,7 +279,7 @@ public class UserServlet extends HttpServlet{
 			json = gson.toJson(dataResp);
 		}
 		
-		//System.out.println(json);
+		System.out.println(json);
 		pw.write(json);
 		pw.close();
 	}
@@ -311,7 +311,7 @@ public class UserServlet extends HttpServlet{
 			json = gson.toJson(dataResp);
 		}
 		
-		//System.out.println(json);
+		System.out.println(json);
 		pw.write(json);
 		pw.close();
 	}
@@ -343,7 +343,7 @@ public class UserServlet extends HttpServlet{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		System.out.println(json);
 		
 		PrintWriter pw;
 		pw = resp.getWriter();
@@ -378,6 +378,7 @@ public class UserServlet extends HttpServlet{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(json);
 		PrintWriter pw = resp.getWriter();
 		pw.write(json);
 		pw.close();
@@ -408,6 +409,7 @@ public class UserServlet extends HttpServlet{
 			}
 		}
 		json = gson.toJson(userResponse);
+		System.out.println(json);
 		PrintWriter pw;
 		pw = resp.getWriter();
 		pw.write(json);
@@ -437,9 +439,9 @@ public class UserServlet extends HttpServlet{
 			userResponse.setMsg("·þÎñÆ÷Òì³£");
 		}
 		json = gson.toJson(userResponse);
+		System.out.println(json);
 		PrintWriter pw = resp.getWriter();
 		pw.write(json);
 		pw.close();
 	}
 }
-

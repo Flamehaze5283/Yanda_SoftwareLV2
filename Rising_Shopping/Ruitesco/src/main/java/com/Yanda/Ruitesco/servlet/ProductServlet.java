@@ -80,11 +80,11 @@ public class ProductServlet extends HttpServlet {
 		 * 地址栏传参：mode="list"
 		 * response: status 状态码(0成功, 1失败, 10管理员未登录), msg 反馈信息, data 获取的子类别信息集合与页码相关参数
 		 * */
-		HttpSession session = request.getSession();
-		String username = "";
-		if(session.getAttribute("username") != null)
-			username = session.getAttribute("username").toString();
-//		String username = "123456";
+//		HttpSession session = request.getSession();
+//		String username = "";
+//		if(session.getAttribute("username") != null)
+//			username = session.getAttribute("username").toString();
+		String username = "123456";
 		MessageResponse<Object> messageResponse = new MessageResponse<Object>();
 		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
 		int pageSize = Integer.parseInt(request.getParameter("pageSize"));
@@ -101,11 +101,11 @@ public class ProductServlet extends HttpServlet {
 		 * 地址栏传参：mode="search"
 		 * response: status 状态码(0成功, 1失败, 10管理员未登录), msg 反馈信息, data 获取的子类别信息集合与页码相关参数
 		 * */
-		HttpSession session = request.getSession();
-		String username = "";
-		if(session.getAttribute("username") != null)
-			username = session.getAttribute("username").toString();
-//		String username = "123456";
+//		HttpSession session = request.getSession();
+//		String username = "";
+//		if(session.getAttribute("username") != null)
+//			username = session.getAttribute("username").toString();
+		String username = "123456";
 		MessageResponse<Object> messageResponse = new MessageResponse<Object>();
 		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
 		int pageSize = Integer.parseInt(request.getParameter("pageSize"));
@@ -136,11 +136,11 @@ public class ProductServlet extends HttpServlet {
 		 * 地址栏传参：mode="upload"
 		 * response: status 状态码(0成功, 1失败, 10管理员未登录), msg 反馈信息, data 获取的子类别信息集合与页码相关参数
 		 * */
-		HttpSession session = request.getSession();
-		String username = "";
-		if(session.getAttribute("username") != null)
-			username = session.getAttribute("username").toString();
-//		String username = "123456";
+//		HttpSession session = request.getSession();
+//		String username = "";
+//		if(session.getAttribute("username") != null)
+//			username = session.getAttribute("username").toString();
+		String username = "123456";
 		MessageResponse<Object> messageResponse = new MessageResponse<Object>();
 	}
 	public void Detail(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -150,11 +150,11 @@ public class ProductServlet extends HttpServlet {
 		 * 地址栏传参：mode="detail"
 		 * response: status 状态码(0成功, 1失败, 10管理员未登录), msg 反馈信息, data 获取的子类别信息集合与页码相关参数
 		 * */
-		HttpSession session = request.getSession();
-		String username = "";
-		if(session.getAttribute("username") != null)
-			username = session.getAttribute("username").toString();
-//		String username = "123456";
+//		HttpSession session = request.getSession();
+//		String username = "";
+//		if(session.getAttribute("username") != null)
+//			username = session.getAttribute("username").toString();
+		String username = "123456";
 		MessageResponse<Object> messageResponse = new MessageResponse<Object>();
 		int productId = Integer.parseInt(request.getParameter("productId"));
 		messageResponse = product_service.QueryProductById(productId, username);
@@ -170,11 +170,11 @@ public class ProductServlet extends HttpServlet {
 		 * 地址栏传参：mode="set_sale_status"
 		 * response: status 状态码(0成功, 1失败, 10管理员未登录), msg 反馈信息, data 获取的子类别信息集合与页码相关参数
 		 * */
-		HttpSession session = request.getSession();
-		String username = "";
-		if(session.getAttribute("username") != null)
-			username = session.getAttribute("username").toString();
-//		String username = "123456";
+//		HttpSession session = request.getSession();
+//		String username = "";
+//		if(session.getAttribute("username") != null)
+//			username = session.getAttribute("username").toString();
+		String username = "123456";
 		int productId = Integer.parseInt(request.getParameter("productId"));
 		int status = Integer.parseInt(request.getParameter("status"));
 		MessageResponse<Object> messageResponse = new MessageResponse<Object>();
@@ -191,11 +191,11 @@ public class ProductServlet extends HttpServlet {
 		 * 地址栏传参：mode="set_sale_status"
 		 * response: status 状态码(0成功, 1失败, 10管理员未登录), msg 反馈信息, data 获取的子类别信息集合与页码相关参数
 		 * */
-		HttpSession session = request.getSession();
-		String username = "";
-		if(session.getAttribute("username") != null)
-			username = session.getAttribute("username").toString();
-//		String username = "123456";
+//		HttpSession session = request.getSession();
+//		String username = "";
+//		if(session.getAttribute("username") != null)
+//			username = session.getAttribute("username").toString();
+		String username = "123456";
 		int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 		String name = request.getParameter("name");
 		String subtitle = request.getParameter("subtitle");
