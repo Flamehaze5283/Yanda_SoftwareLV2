@@ -14,8 +14,8 @@ import com.Yanda.Ruitesco.javabean.Page;
 import com.Yanda.Ruitesco.javabean.Product;
 import com.Yanda.Ruitesco.service.IProductService;
 import com.Yanda.Ruitesco.utils.response.MessageResponse;
-import com.Yanda.Ruitesco.utils.response.responsetype.ProductData;
-import com.Yanda.Ruitesco.utils.response.responsetype.ProductDetail;
+import com.Yanda.Ruitesco.utils.response.responsetype.product.ProductData;
+import com.Yanda.Ruitesco.utils.response.responsetype.product.ProductDetail;
 
 public class ProductServiceImpl implements IProductService {
 	IProductDao product_dao = new ProductDaoImpl();

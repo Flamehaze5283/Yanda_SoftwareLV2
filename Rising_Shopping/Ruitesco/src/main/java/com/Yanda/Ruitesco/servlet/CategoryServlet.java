@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.Yanda.Ruitesco.service.ICategoryService;
 import com.Yanda.Ruitesco.service.impl.CategoryServiceImpl;
 import com.Yanda.Ruitesco.utils.response.MessageResponse;
-import com.Yanda.Ruitesco.utils.response.responsetype.ParentId;
+import com.Yanda.Ruitesco.utils.response.responsetype.category.ParentId;
 import com.google.gson.Gson;
 
 /**

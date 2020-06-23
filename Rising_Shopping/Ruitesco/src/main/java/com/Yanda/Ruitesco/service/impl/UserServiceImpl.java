@@ -7,8 +7,8 @@ import com.Yanda.Ruitesco.dao.impl.UserDaoImpl;
 import com.Yanda.Ruitesco.javabean.User;
 import com.Yanda.Ruitesco.service.IUserService;
 import com.Yanda.Ruitesco.utils.response.UserResponse;
-import com.Yanda.Ruitesco.utils.response.responsetype.UserData;
-import com.Yanda.Ruitesco.utils.response.responsetype.UserTotalData;
+import com.Yanda.Ruitesco.utils.response.responsetype.user.UserData;
+import com.Yanda.Ruitesco.utils.response.responsetype.user.UserTotalData;
 
 public class UserServiceImpl implements IUserService {
 	IUserDao user_dao;

@@ -13,7 +13,7 @@ import com.Yanda.Ruitesco.javabean.Category;
 import com.Yanda.Ruitesco.javabean.User;
 import com.Yanda.Ruitesco.service.ICategoryService;
 import com.Yanda.Ruitesco.utils.response.MessageResponse;
-import com.Yanda.Ruitesco.utils.response.responsetype.CategoryMessage;
+import com.Yanda.Ruitesco.utils.response.responsetype.category.CategoryMessage;
 
 public class CategoryServiceImpl implements ICategoryService {
 	ICategoryDao category_dao;
