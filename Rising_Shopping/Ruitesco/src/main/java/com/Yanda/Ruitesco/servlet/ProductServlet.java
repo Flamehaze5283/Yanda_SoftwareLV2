@@ -98,6 +98,7 @@ public class ProductServlet extends HttpServlet {
 		int pageSize = Integer.parseInt(request.getParameter("pageSize"));
 		messageResponse = product_service.GetProductInPage(pageNum, pageSize, username);
 		String json = gson.toJson(messageResponse);
+		System.out.println(json);
 		PrintWriter pw = response.getWriter();
 		pw.write(json);
 		pw.close();
@@ -117,10 +118,13 @@ public class ProductServlet extends HttpServlet {
 		MessageResponse<Object> messageResponse = new MessageResponse<Object>();
 		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
 		int pageSize = Integer.parseInt(request.getParameter("pageSize"));
-		String productName = request.getParameter("productName");
+		String productName = "";
+		if(request.getParameter("productName") != null)
+			productName = request.getParameter("productName");
 		int productId = 0;
-		productId = Integer.parseInt(request.getParameter("productId"));
-		if(productName == null) {
+		if(request.getParameter("productId") != null)
+			productId = Integer.parseInt(request.getParameter("productId"));
+		if(productName.equals("")) {
 			if(productId == 0)
 			{
 				messageResponse.setStatus(2);
@@ -134,6 +138,7 @@ public class ProductServlet extends HttpServlet {
 			messageResponse = product_service.QueryProductByName(pageNum, pageSize, productName, username);
 		String json = gson.toJson(messageResponse);
 		PrintWriter pw = response.getWriter();
+		System.out.println(json);
 		pw.write(json);
 		pw.close();
 	}
@@ -155,7 +160,8 @@ public class ProductServlet extends HttpServlet {
 			messageResponse.setMsg("管理员未登录");
 		}
 		else {
-			String path = "../image/mobile_phone";
+			String path = "D:/软件工程/课程设计/git/Rising_Shopping/image/user/";
+			path += username + "/";
 			String fn = null;
 			
 			DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -177,6 +183,9 @@ public class ProductServlet extends HttpServlet {
 						fn = UUID.randomUUID().toString().replaceAll("-", "") + format;
 						System.out.println("文件名：" + fn);//文件名
 						//fn可能是C:/abc/de/tt/fish.jpg
+						File file = new File(path);
+						if(!file.exists())
+							file.mkdir();
 						fi.write(new File(path, fn));
 					}
 				}
@@ -202,6 +211,7 @@ public class ProductServlet extends HttpServlet {
 		int productId = Integer.parseInt(request.getParameter("productId"));
 		messageResponse = product_service.QueryProductById(productId, username);
 		String json = gson.toJson(messageResponse);
+		System.out.println(json);
 		PrintWriter pw = response.getWriter();
 		pw.write(json);
 		pw.close();
@@ -223,6 +233,7 @@ public class ProductServlet extends HttpServlet {
 		MessageResponse<Object> messageResponse = new MessageResponse<Object>();
 		messageResponse = product_service.SetProductStatus(productId, status, username);
 		String json = gson.toJson(messageResponse);
+		System.out.println(json);
 		PrintWriter pw = response.getWriter();
 		pw.write(json);
 		pw.close();
@@ -257,6 +268,7 @@ public class ProductServlet extends HttpServlet {
 		else
 			messageResponse = product_service.UpdateProduct(id, categoryId, name, subtitle, mainImages, subImages, detail, price, stock, status, username);	
 		String json = gson.toJson(messageResponse);
+		System.out.println(json);
 		PrintWriter pw = response.getWriter();
 		pw.write(json);
 		pw.close();

@@ -18,6 +18,7 @@ import com.Yanda.Ruitesco.dataResp.type.DataLoginT;
 import com.Yanda.Ruitesco.javabean.User;
 import com.Yanda.Ruitesco.service.IUserService;
 import com.Yanda.Ruitesco.service.impl.UserServiceImpl;
+import com.Yanda.Ruitesco.utils.response.MessageResponse;
 import com.Yanda.Ruitesco.utils.response.UserResponse;
 import com.google.gson.Gson;
 
@@ -61,14 +62,14 @@ public class UserServlet extends HttpServlet{
 		case "get_user_info":
 			GetUserInfo(req,resp);
 			break;
-		case "forget_get_question":
-			ForgetPassword(req,resp);
-			break;
+//		case "forget_get_question":
+//			ForgetPassword(req,resp);
+//			break;
 		case "forget_check_answer":
 			ForgetCheck(req,resp);
 			break;
 		case "forget_reset_password":
-			UpdatePassword(req,resp);
+			ForgetResetPassword(req,resp);
 			break;
 		case "reset_password":
 			ResetPassword(req, resp);
@@ -226,34 +227,34 @@ public class UserServlet extends HttpServlet{
 		}	
 	}
 
-	public void ForgetPassword(HttpServletRequest req, HttpServletResponse resp) throws IOException
-	{
-		String username = req.getParameter("username");
-		User user = user_service.QueryUserByName(username);
-		PrintWriter	pw = resp.getWriter();
-		if(user!=null)
-		{
-			if( !(user.getQuestion()==null) && !(user.getQuestion().equals("")))
-			{
-				DataResp<Object> dataResp =new DataResp<Object>(0,null,user.getQuestion());
-				json = gson.toJson(dataResp);
-			}
-			else
-			{
-				DataResp<String> dataResp = new DataResp<String>(0,null,"该用户未设置找回密码问题");
-				json = gson.toJson(dataResp);
-			}
-		}
-		else 
-		{
-			DataResp<Object> dataResp = new DataResp<Object>(1,"用户名输入错误",null);
-			json = gson.toJson(dataResp);
-		}
-		
-		System.out.println(json);
-		pw.write(json);
-		pw.close();
-	}
+//	public void ForgetPassword(HttpServletRequest req, HttpServletResponse resp) throws IOException
+//	{
+//		String username = req.getParameter("username");
+//		User user = user_service.QueryUserByName(username);
+//		PrintWriter	pw = resp.getWriter();
+//		if(user!=null)
+//		{
+//			if( !(user.getQuestion()==null) && !(user.getQuestion().equals("")))
+//			{
+//				DataResp<Object> dataResp =new DataResp<Object>(0,null,user.getQuestion());
+//				json = gson.toJson(dataResp);
+//			}
+//			else
+//			{
+//				DataResp<String> dataResp = new DataResp<String>(0,null,"该用户未设置找回密码问题");
+//				json = gson.toJson(dataResp);
+//			}
+//		}
+//		else 
+//		{
+//			DataResp<Object> dataResp = new DataResp<Object>(1,"用户名输入错误",null);
+//			json = gson.toJson(dataResp);
+//		}
+//		
+//		System.out.println(json);
+//		pw.write(json);
+//		pw.close();
+//	}
 	
 	public void ForgetCheck(HttpServletRequest req, HttpServletResponse resp) throws IOException
 	{
@@ -261,26 +262,57 @@ public class UserServlet extends HttpServlet{
 		String question = req.getParameter("question");
 		String answer = req.getParameter("answer");
 		User user = user_service.QueryUserByName(username);
-		PrintWriter	pw = resp.getWriter();
+		MessageResponse<String> messageResponse = new MessageResponse<String>();
 		if(user!=null)
 		{
-			if(question.equals(user.getQuestion())&&answer.equals(user.getAnswer()))
-			{
-				DataResp<String> dataResp = new DataResp<String>(0,null,"3235ffe-fewff-ff34534");
-				json = gson.toJson(dataResp);
-			}else
-			{
-				DataResp<Object> dataResp = new DataResp<Object>(1,"问题答案错误",null);
-				json = gson.toJson(dataResp);
+			if(question == null || answer == null) {
+				messageResponse.setStatus(1);
+				messageResponse.setMsg("未填写密保问题");
+			}
+			else {
+				if(user.getQuestion() == null || user.getAnswer() == null) {
+					messageResponse.setStatus(2);
+					messageResponse.setMsg("注册时未填写密保问题，无法重设密码，请联系客服");
+				}
+				else {
+					if(user.getQuestion().equals(question) && user.getAnswer().equals(answer)) {
+						messageResponse.setStatus(0);
+						messageResponse.setMsg("回答问题正确，请输入新密码");
+					}
+					else {
+						messageResponse.setStatus(3);
+						messageResponse.setMsg("密保问题或答案错误");
+					}
+				}
 			}
 		}
 		else 
 		{
-			DataResp<Object> dataResp = new DataResp<Object>(1,"用户不存在",null);
-			json = gson.toJson(dataResp);
+			messageResponse.setStatus(10);
+			messageResponse.setMsg("用户不存在");
 		}
-		
+		json = gson.toJson(messageResponse);
 		System.out.println(json);
+		PrintWriter	pw = resp.getWriter();
+		pw.write(json);
+		pw.close();
+	}
+	
+	public void ForgetResetPassword(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		String password = req.getParameter("password");
+		String confirmPassword = req.getParameter("confirmPassword");
+		MessageResponse<String> messageResponse = new MessageResponse<String>();
+		if(password.equals(confirmPassword)) {
+			messageResponse.setStatus(0);
+			messageResponse.setMsg("新密码设置成功");
+		}
+		else {
+			messageResponse.setStatus(1);
+			messageResponse.setMsg("密码不一致");
+		}
+		json = gson.toJson(messageResponse);
+		System.out.println(json);
+		PrintWriter	pw = resp.getWriter();
 		pw.write(json);
 		pw.close();
 	}
