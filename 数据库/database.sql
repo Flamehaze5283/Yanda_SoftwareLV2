@@ -11,7 +11,7 @@
  Target Server Version : 80016
  File Encoding         : 65001
 
- Date: 22/06/2020 11:24:18
+ Date: 23/06/2020 18:29:08
 */
 
 SET NAMES utf8mb4;
@@ -100,12 +100,12 @@ CREATE TABLE `sales`  (
 -- ----------------------------
 -- Records of sales
 -- ----------------------------
-INSERT INTO `sales` VALUES (1, 5, '可口可乐（香草）', '当前打八五折', 'images/goods/1.png', 'images/goods/1.png,images/goods/2.png', '可口可乐香草味', 8.90, 105, 1, '2020-06-19 21:06:33', '2020-06-21 21:47:48');
-INSERT INTO `sales` VALUES (2, 6, '可口可乐（樱桃）', '不打折', 'images/goods/2.png', 'images/goods/2.png', '可口可乐樱桃味', 8.90, 100, 1, '2020-06-20 16:18:35', '2020-06-21 21:47:49');
-INSERT INTO `sales` VALUES (3, 3, '芬达', '买2送1', 'images/goods/3.png', 'images/goods/3.png', '芬达好喝', 3.50, 50, 1, '2020-06-21 16:24:38', '2020-06-22 01:30:04');
-INSERT INTO `sales` VALUES (4, 1, '黑沙松士', '保证好喝到吐', 'images/goods/4.png', 'images/goods/4.png', '黑沙松士', 5.00, 3, 1, '2020-06-21 17:13:10', '2020-06-21 21:47:51');
-INSERT INTO `sales` VALUES (5, 1, '波子汽水', '日本畅销饮料', 'images/goods/5.png', 'images/goods/5.png', '波子汽水', 9.80, 100, 1, '2020-06-21 17:16:36', '2020-06-21 21:47:54');
-INSERT INTO `sales` VALUES (6, 1, '海尔洗衣机', '海尔大促销', 'test2.jpg', 'test.jpg', 'detailtext', 1000.00, 100, 1, '2020-06-22 01:50:23', '2020-06-22 01:52:51');
+INSERT INTO `sales` VALUES (1, 4, '可口可乐（香草）', '当前打八五折', 'drinks/carbonic/cola/cola(vanila).png', 'drinks/carbonic/cola/cola(vanila).png', '可口可乐香草味', 8.90, 105, 1, '2020-06-19 21:06:33', '2020-06-22 15:19:15');
+INSERT INTO `sales` VALUES (2, 4, '可口可乐（樱桃）', '不打折', 'drinks/carbonic/cola/cola(cherry).png', 'drinks/carbonic/cola/cola(cherry)1.png', '可口可乐樱桃味', 8.90, 100, 1, '2020-06-20 16:18:35', '2020-06-22 15:19:20');
+INSERT INTO `sales` VALUES (3, 1, '芬达', '买2送1', 'drinks/carbonic/fanta/fanta.png', 'drinks/carbonic/fanta/fanta.png', '芬达好喝', 3.50, 50, 1, '2020-06-21 16:24:38', '2020-06-22 15:19:25');
+INSERT INTO `sales` VALUES (4, 1, '黑沙松士', '保证好喝到吐', 'drinks/carbonic/sasae.png', 'drinks/carbonic/sasae.png', '黑沙松士', 5.00, 3, 1, '2020-06-21 17:13:10', '2020-06-22 15:19:32');
+INSERT INTO `sales` VALUES (5, 1, '波子汽水', '日本畅销饮料', 'drinks/carbonic/bourbon.png', 'drinks/carbonic/bourbon.png', '波子汽水', 9.80, 100, 1, '2020-06-21 17:16:36', '2020-06-22 15:19:38');
+INSERT INTO `sales` VALUES (6, 6, '乐事薯片', '乐事出品', 'food/snack/lets.png', 'food/snack/lets.png', '乐事原味薯片', 4.20, 500, 1, '2020-06-22 01:50:23', '2020-06-22 15:11:22');
 
 -- ----------------------------
 -- Table structure for shipping_addr
@@ -140,7 +140,9 @@ CREATE TABLE `shopping_cart`  (
   `create_time` datetime(0) NOT NULL,
   `update_time` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `user_id`(`user_id`) USING BTREE,
+  INDEX `user_id`(`user_id`) USING BTREE,
+  INDEX `product_id`(`product_id`) USING BTREE,
+  CONSTRAINT `product_id` FOREIGN KEY (`product_id`) REFERENCES `sales` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
@@ -148,6 +150,10 @@ CREATE TABLE `shopping_cart`  (
 -- Records of shopping_cart
 -- ----------------------------
 INSERT INTO `shopping_cart` VALUES (1, 1, 1, 1, 1, '2020-03-21 00:00:00', '2020-06-22 11:14:53');
+INSERT INTO `shopping_cart` VALUES (2, 1, 2, 2, 1, '2020-06-23 09:24:30', '2020-06-23 09:47:03');
+INSERT INTO `shopping_cart` VALUES (3, 1, 4, 4, 1, '2020-06-23 09:50:24', '2020-06-23 09:50:28');
+INSERT INTO `shopping_cart` VALUES (4, 1, 3, 3, 1, '2020-06-23 09:58:45', '2020-06-23 09:58:47');
+INSERT INTO `shopping_cart` VALUES (5, 2, 2, 1, 1, '2020-06-23 09:59:05', '2020-06-23 09:59:09');
 
 -- ----------------------------
 -- Table structure for type
@@ -161,7 +167,7 @@ CREATE TABLE `type`  (
   `update_time` datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0),
   `status` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of type
@@ -170,9 +176,10 @@ INSERT INTO `type` VALUES (1, 0, '饮料', '2020-03-21 00:00:00', '2020-06-19 12
 INSERT INTO `type` VALUES (2, 1, '碳酸饮料', '2020-06-18 23:31:23', '2020-06-19 12:37:48', 1);
 INSERT INTO `type` VALUES (3, 2, '芬达', '2020-06-18 23:44:14', '2020-06-19 12:37:50', 1);
 INSERT INTO `type` VALUES (4, 2, '可乐', '2020-06-19 12:37:55', '2020-06-19 12:38:01', 1);
-INSERT INTO `type` VALUES (5, 4, '可乐（香草味）', '2020-06-19 12:38:15', NULL, 1);
-INSERT INTO `type` VALUES (6, 4, '可乐（樱桃味）', '2020-06-19 12:38:51', '2020-06-19 12:38:59', 1);
-INSERT INTO `type` VALUES (7, 4, '可乐（健怡）', '2020-06-19 12:39:16', NULL, 1);
+INSERT INTO `type` VALUES (5, 0, '食品', '2020-06-22 15:06:36', '2020-06-22 15:06:42', 1);
+INSERT INTO `type` VALUES (6, 5, '零食', '2020-06-22 15:07:12', '2020-06-22 15:07:20', 1);
+INSERT INTO `type` VALUES (8, 1, '茶', '2020-06-23 09:06:46', '2020-06-23 10:21:46', 1);
+INSERT INTO `type` VALUES (9, 2, '雪碧', '2020-06-23 09:09:45', NULL, 1);
 
 -- ----------------------------
 -- Table structure for user
@@ -198,6 +205,7 @@ CREATE TABLE `user`  (
 INSERT INTO `user` VALUES (1, '张三', '1234', '1101', '123456@qq.com', '用户', '生日', '5.06', '2020-05-20 00:00:00', '2020-05-20 00:00:00');
 INSERT INTO `user` VALUES (2, '123456', '12345', '13133132323', '111@qq.com', '管理员', '你吃了吗？', '吃了', '2020-06-17 21:05:55', '2020-06-22 10:46:38');
 INSERT INTO `user` VALUES (3, '17800', '8080', '888', '8848', '用户', '', '', '2020-06-19 18:10:42', '2020-06-19 18:10:42');
-INSERT INTO `user` VALUES (5, '123', '123', '147893635', '123456', '用户', '', '', '2020-06-19 19:31:40', '2020-06-19 19:31:40');
+INSERT INTO `user` VALUES (4, '小黑吃了吗', '111', '123456123', '114514@qq.com', '用户', '没有问题', '没有答案', '2020-06-22 14:12:28', '2020-06-22 14:12:41');
+INSERT INTO `user` VALUES (5, '123', '123', '147893635', '123456', '用户', 'who am I', 'Peng', '2020-06-19 19:31:40', '2020-06-23 09:40:01');
 
 SET FOREIGN_KEY_CHECKS = 1;

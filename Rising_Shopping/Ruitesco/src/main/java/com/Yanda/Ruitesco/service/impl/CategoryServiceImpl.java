@@ -1,6 +1,7 @@
 package com.Yanda.Ruitesco.service.impl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
@@ -12,6 +13,7 @@ import com.Yanda.Ruitesco.javabean.Category;
 import com.Yanda.Ruitesco.javabean.User;
 import com.Yanda.Ruitesco.service.ICategoryService;
 import com.Yanda.Ruitesco.utils.response.MessageResponse;
+import com.Yanda.Ruitesco.utils.response.responsetype.CategoryMessage;
 
 public class CategoryServiceImpl implements ICategoryService {
 	ICategoryDao category_dao;
@@ -31,14 +33,18 @@ public class CategoryServiceImpl implements ICategoryService {
 			messageResponse.setMsg("用户未登录");
 		}
 		else {
+			CategoryMessage result = new CategoryMessage();
 			List<Category> data = category_dao.GetCategory(parent_id);
 			if(data == null) {
 				messageResponse.setStatus(1);
 				messageResponse.setMsg("未找到该商品类别");
 			}
 			else {
+				int total = data.size();
+				result.setData(data);
+				result.setTotal(total);			
 				messageResponse.setStatus(0);
-				messageResponse.setMsg(data);
+				messageResponse.setMsg(result);
 			}
 		}
 		return messageResponse;
@@ -89,6 +95,7 @@ public class CategoryServiceImpl implements ICategoryService {
 		}
 		return messageResponse;
 	}
+	//获取该类下所有的子类，遍历到叶子节点
 	@Override
 	public MessageResponse<Object> GetAllCategoryByParentId(int parent_id, String username) throws SQLException {
 		// TODO Auto-generated method stub
@@ -108,8 +115,7 @@ public class CategoryServiceImpl implements ICategoryService {
 			else{
 				Stack<Integer> id = new Stack<Integer>();
 				List<Category> temp;
-				List<Integer> result = new Stack<Integer>();
-				result.add(parent_id);
+				List<Integer> result = new ArrayList<Integer>();
 				id.push(parent_id);
 				while(!id.empty()) {
 					int current_id = id.peek();
@@ -132,6 +138,46 @@ public class CategoryServiceImpl implements ICategoryService {
 					messageResponse.setMsg(result);
 				}
 			}
+		}
+		return messageResponse;
+	}
+
+	@Override
+	public int GetParentId(int parent_id) {
+		// TODO Auto-generated method stub
+		return category_dao.GetParentId(parent_id);
+	}
+
+	@Override
+	public MessageResponse<String> DeleteCategoryById(int category_id, String username) {
+		// TODO Auto-generated method stub
+		MessageResponse<String> messageResponse = new MessageResponse<String>();
+		if(username.equals(""))
+		{
+			messageResponse.setStatus(10);
+			messageResponse.setMsg("管理员未登录");
+		}
+		else {
+			try {
+				MessageResponse<Object> temp = GetAllCategoryByParentId(category_id, username);
+				@SuppressWarnings("unchecked")
+				List<Integer> allCategory = (List<Integer>)temp.getMsg();
+				int size = allCategory.size();
+				for(int i = size - 1; i >= 0; i--) {
+					int id = allCategory.get(i);
+					if(category_dao.DeleteCategory(id) <= 0) {
+						messageResponse.setStatus(1);
+						messageResponse.setMsg("删除失败");
+						return messageResponse;
+					}
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			category_dao.DeleteCategory(category_id);
+			messageResponse.setStatus(0);
+			messageResponse.setMsg("删除类别成功");
 		}
 		return messageResponse;
 	}

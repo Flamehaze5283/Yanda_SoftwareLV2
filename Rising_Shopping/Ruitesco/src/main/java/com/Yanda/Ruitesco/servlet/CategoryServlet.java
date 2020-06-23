@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.Yanda.Ruitesco.service.ICategoryService;
 import com.Yanda.Ruitesco.service.impl.CategoryServiceImpl;
 import com.Yanda.Ruitesco.utils.response.MessageResponse;
+import com.Yanda.Ruitesco.utils.response.responsetype.ParentId;
 import com.google.gson.Gson;
 
 /**
@@ -71,7 +72,19 @@ public class CategoryServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
+		case "back":
+			Back(request, response);
+			break;
+//		case "delete_category":
+//			try {
+//				DeleteCategory(request, response);
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			break;
 		default:
+			System.out.println("mode参数异常");
 			break;
 		}
 		
@@ -83,12 +96,13 @@ public class CategoryServlet extends HttpServlet {
 		 * 地址栏传参：mode="get_category"
 		 * response: status 状态码(0成功, 1失败, 10管理员未登录), msg 反馈信息, data 获取的子类别信息
 		 * */
-//		HttpSession session = request.getSession(false);
-//		Object session_username = session.getAttribute("username");
-//		String username = "";
-//		if(session_username != null)
-//			username = session_username.toString();
-		String username = "123456";
+		HttpSession session = request.getSession();
+		Object session_username = session.getAttribute("username");
+		String username = "";
+		if(session_username != null)
+			username = session_username.toString();
+//		String username = "123456";
+		username = "123456";
 		int category_id = Integer.parseInt(request.getParameter("category_id"));
 		MessageResponse<Object> messageResponse = new MessageResponse<Object>();
 		messageResponse = category_service.GetCategoryByParentId(category_id, username);
@@ -106,12 +120,12 @@ public class CategoryServlet extends HttpServlet {
 		 * response: status 状态码(0成功, 1失败, 10管理员未登录), msg 反馈信息
 		 * */
 		MessageResponse<String> messageResponse = new MessageResponse<String>();
-//		HttpSession session = request.getSession(false);
-//		Object session_username = session.getAttribute("username");
-//		String username = "";
-//		if(session_username != null)
-//			username = session_username.toString();
-		String username = "123456";
+		HttpSession session = request.getSession(false);
+		Object session_username = session.getAttribute("username");
+		String username = "";
+		if(session_username != null)
+			username = session_username.toString();
+//		String username = "123456";
 		int parentId = Integer.parseInt(request.getParameter("parentId"));
 		String categoryName = request.getParameter("categoryName");
 		messageResponse = category_service.InsertNewCategory(parentId, categoryName, username);
@@ -128,12 +142,12 @@ public class CategoryServlet extends HttpServlet {
 		 * response: status 状态码(0成功, 1失败, 10管理员未登录), msg 反馈信息
 		 * */
 		MessageResponse<String> messageResponse = new MessageResponse<String>();
-//		HttpSession session = request.getSession(false);
-//		Object session_username = session.getAttribute("username");
-//		String username = "";
-//		if(session_username != null)
-//			username = session_username.toString();
-		String username = "123456";
+		HttpSession session = request.getSession(false);
+		Object session_username = session.getAttribute("username");
+		String username = "";
+		if(session_username != null)
+			username = session_username.toString();
+//		String username = "123456";
 		int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 		String categoryName = request.getParameter("categoryName");
 		messageResponse = category_service.UpdateCategoryName(categoryId, categoryName, username);
@@ -151,14 +165,46 @@ public class CategoryServlet extends HttpServlet {
 		 * response: status 状态码(0成功, 1失败, 10管理员未登录), msg 反馈信息
 		 * */
 		MessageResponse<Object> messageResponse = new MessageResponse<Object>();
-//		HttpSession session = request.getSession(false);
-//		Object session_username = session.getAttribute("username");
-//		String username = "";
-//		if(session_username != null)
-//			username = session_username.toString();
-		String username = "123456";
+		HttpSession session = request.getSession();
+		Object session_username = session.getAttribute("username");
+		String username = "";
+		if(session_username != null)
+			username = session_username.toString();
+//		String username = "123456";
 		int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 		messageResponse = category_service.GetAllCategoryByParentId(categoryId, username);
+		String json = gson.toJson(messageResponse);
+		System.out.println(json);
+		PrintWriter pw = response.getWriter();
+		pw.write(json);
+		pw.close();
+	}
+	public void Back(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		int parent_id = Integer.parseInt(request.getParameter("parent_id"));
+		parent_id = category_service.GetParentId(parent_id);
+		ParentId result = new ParentId(parent_id);
+		String json = gson.toJson(result);
+		System.out.println(json);
+		PrintWriter pw = response.getWriter();
+		pw.write(json);
+		pw.close();
+	}
+	public void DeleteCategory(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+		/**
+		 * 功能：删除当前种类及其所有子类
+		 * request: categoryId 种类id  session: username
+		 * 地址栏传参：mode="delete_category"
+		 * response: status 状态码(0成功, 1失败, 10管理员未登录), msg 反馈信息
+		 * */
+		MessageResponse<String> messageResponse = new MessageResponse<String>();
+		HttpSession session = request.getSession();
+		Object session_username = session.getAttribute("username");
+		String username = "";
+		if(session_username != null)
+			username = session_username.toString();
+//		String username = "123456";
+		int categoryId = Integer.parseInt(request.getParameter("category_id"));
+		messageResponse = category_service.DeleteCategoryById(categoryId, username);
 		String json = gson.toJson(messageResponse);
 		System.out.println(json);
 		PrintWriter pw = response.getWriter();

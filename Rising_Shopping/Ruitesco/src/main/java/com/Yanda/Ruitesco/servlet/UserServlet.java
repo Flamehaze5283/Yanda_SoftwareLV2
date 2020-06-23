@@ -108,6 +108,7 @@ public class UserServlet extends HttpServlet{
 							,user.getCreate_time(),user.getUpdate_time());
 				DataResp<DataLoginT> dataResp = new  DataResp<DataLoginT>(0,null,data);
 				json = gson.toJson(dataResp);
+				session.setAttribute("userid", user.getId());
 				session.setAttribute("username", username);
 		}
 		else 

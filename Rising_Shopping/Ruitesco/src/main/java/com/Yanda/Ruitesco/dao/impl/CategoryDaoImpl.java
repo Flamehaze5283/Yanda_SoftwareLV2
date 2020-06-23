@@ -47,4 +47,22 @@ public class CategoryDaoImpl implements ICategoryDao {
 		result = JdbcUtil.executeUpdate(sql, paramValue, category_id);
 		return result;
 	}
+	@Override
+	public int GetParentId(int id) {
+		// TODO Auto-generated method stub
+		String sql = "select parent_id from type where id = ?";
+		int result;
+		if(JdbcUtil.executeQuery(sql, Category.class, id) == null)
+			result = 0;
+		else
+			result = JdbcUtil.executeQuery(sql, Category.class, id).get(0).getParent_id();
+		return result;
+	}
+	@Override
+	public int DeleteCategory(int id) {
+		// TODO Auto-generated method stub
+		String sql = "delete from type where id = ?";
+		int result = JdbcUtil.executeUpdate(sql, id);
+		return result;
+	}
 }

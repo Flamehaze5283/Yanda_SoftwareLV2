@@ -146,7 +146,7 @@ public class UserDaoImpl implements IUserDao {
 	}
 	@Override
 	public List<User> getUserList(int startRow,int endRow) {
-		return JdbcUtil.executeQuery("select * from user limit ?,?", User.class,startRow,endRow);
+		return JdbcUtil.executeQuery("select * from user limit ?,?", User.class,startRow,endRow-startRow+1);
 	}
 
 	@Override

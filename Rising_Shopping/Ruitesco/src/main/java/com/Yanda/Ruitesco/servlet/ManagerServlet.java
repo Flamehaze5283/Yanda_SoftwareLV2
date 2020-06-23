@@ -88,8 +88,7 @@ public class ManagerServlet extends HttpServlet {
 		PrintWriter pw= resp.getWriter();
 		if(user!=null)
 		{
-				HttpSession session=req.getSession();
-//				session.invalidate();
+				HttpSession session=req.getSession(true);
 				session.setAttribute("username", user.getUsername());
 				session.setAttribute("role", user.getRole());
 				
@@ -124,8 +123,10 @@ public class ManagerServlet extends HttpServlet {
 		pageUserList.setPageSize(Integer.parseInt(pagesize));
 		pageUserList.setPageNum(Integer.parseInt(pageNum));
 		PrintWriter pw= resp.getWriter();
+		
 		if(req.getSession(false)==null)
 		{
+			System.out.println("Î´µÇÂ¼");
 			DataResp<Object> dataResp =new DataResp<Object>(10,"ÓÃ»§Î´µÇÂ¼",null);
 			json = gson.toJson(dataResp);
 		}

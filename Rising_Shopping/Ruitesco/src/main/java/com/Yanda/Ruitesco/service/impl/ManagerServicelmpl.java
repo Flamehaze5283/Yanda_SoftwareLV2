@@ -33,6 +33,8 @@ public class ManagerServicelmpl  implements IMangerService{
 		String orderBy=pageUserList.getOrderBy();
 		int startRow=pageSize*(pageNum-1);
 		int endRow=pageSize*pageNum-1;
+		System.out.println(startRow);
+		System.out.println(endRow);
 		int total=user_dao.getNumOfAllUser();
 		int size=0;
 		if(endRow>total)

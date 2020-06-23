@@ -1,8 +1,11 @@
 package com.Yanda.Ruitesco.servlet;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.Yanda.Ruitesco.service.IProductService;
 import com.Yanda.Ruitesco.service.impl.ProductServiceImpl;
@@ -59,7 +66,7 @@ public class ProductServlet extends HttpServlet {
 			Search(request, response);
 			break;
 		case "upload":
-//			Upload(request, response);
+			Upload(request, response);
 			break;
 		case "detail":
 			Detail(request, response);
@@ -70,6 +77,7 @@ public class ProductServlet extends HttpServlet {
 		case "save":
 			Save(request, response);
 		default:
+			System.out.println("mode参数异常");
 			break;
 		}
 	}
@@ -142,6 +150,41 @@ public class ProductServlet extends HttpServlet {
 //			username = session.getAttribute("username").toString();
 		String username = "123456";
 		MessageResponse<Object> messageResponse = new MessageResponse<Object>();
+		if(username.equals("")) {
+			messageResponse.setStatus(10);
+			messageResponse.setMsg("管理员未登录");
+		}
+		else {
+			String path = "../image/mobile_phone";
+			String fn = null;
+			
+			DiskFileItemFactory factory = new DiskFileItemFactory();
+			ServletFileUpload upload = new ServletFileUpload(factory);
+			upload.setHeaderEncoding("UTF-8");
+			upload.setSizeMax(1024*1024*10);//文件大小为10MB
+			
+			try {
+				List<FileItem> fileItems = upload.parseRequest(request);
+				//可能是文件，也可能是字符串，即普通文字
+				for(FileItem fi:fileItems) {
+					if(fi.isFormField()) {
+						System.out.println("表单值为：" + fi.getString());
+					}
+					else {
+						//是文件
+						//获取图片后缀
+						String format = fi.getName().substring(fi.getName().indexOf("."), fi.getName().length());
+						fn = UUID.randomUUID().toString().replaceAll("-", "") + format;
+						System.out.println("文件名：" + fn);//文件名
+						//fn可能是C:/abc/de/tt/fish.jpg
+						fi.write(new File(path, fn));
+					}
+				}
+			}catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		}
 	}
 	public void Detail(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		/**

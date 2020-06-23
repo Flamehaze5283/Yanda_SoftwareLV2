@@ -30,7 +30,7 @@ public class TestServlet extends HttpServlet{
 		resp.setHeader("Access-Control-Allow-Headers","*");
 		/* ÊÇ·ñÐ¯´øcookie */
 		resp.setHeader("Access-Control-Allow-Credentials", "true");
-		req.getRequestDispatcher("WEB-INF/classes/jsp/test.jsp").forward(req, resp);
+		req.getRequestDispatcher("WEB-INF/classes/jsp/test2.jsp").forward(req, resp);
 		//String test_servlet = "success";
 		//Gson gson = new Gson();
 		//String json = gson.toJson(test_servlet);
