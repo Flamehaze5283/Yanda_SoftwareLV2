@@ -2,7 +2,6 @@ package com.Yanda.Ruitesco.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,19 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.Yanda.Ruitesco.dataResp.DataResp;
 import com.Yanda.Ruitesco.dataResp.type.CartAddDataT;
 import com.Yanda.Ruitesco.dataResp.type.CartData;
-import com.Yanda.Ruitesco.dataResp.type.CartDataListT;
 import com.Yanda.Ruitesco.dataResp.type.CartRemoveDataT;
 import com.Yanda.Ruitesco.dataResp.type.CartSelectDataT;
 import com.Yanda.Ruitesco.dataResp.type.CartUpdateDataT;
-import com.Yanda.Ruitesco.dataResp.type.UserData;
-import com.Yanda.Ruitesco.dataResp.type.UserDataListT;
 import com.Yanda.Ruitesco.javabean.ShoppingCart;
-import com.Yanda.Ruitesco.javabean.User;
-import com.Yanda.Ruitesco.service.ICategoryService;
 import com.Yanda.Ruitesco.service.IShoppingCartService;
-import com.Yanda.Ruitesco.service.impl.CategoryServiceImpl;
 import com.Yanda.Ruitesco.service.impl.ShoppingCartServiceImpl;
-import com.Yanda.Ruitesco.utils.response.MessageResponse;
 import com.google.gson.Gson;
 
 /**
@@ -116,7 +108,7 @@ public class ShoppingCartServlet extends HttpServlet {
 		else
 		{
 			List<CartData> datal=new ArrayList<CartData>();
-			int user_id=(int)(req.getSession(false).getAttribute("id"));
+			int user_id=(int)(req.getSession(false).getAttribute("userid"));
 			List<ShoppingCart> cartl = cart_service.GetCartList(user_id); 
 			for(ShoppingCart x : cartl)
 			{
@@ -128,7 +120,7 @@ public class ShoppingCartServlet extends HttpServlet {
 			DataResp<List<CartData>> dataResp =new DataResp<List<CartData>>(0,null,datal);
 			json = gson.toJson(dataResp);
 		}
-		System.out.println(json);
+		//System.out.println(json);
 		pw.write(json);
 		pw.close();
 	}
@@ -142,8 +134,8 @@ public class ShoppingCartServlet extends HttpServlet {
 		}
 		else
 		{
-			int user_id=(int)(req.getSession(false).getAttribute("id"));
-			int product_id=Integer.parseInt(req.getParameter("produnctId"));
+			int user_id=(int)(req.getSession(false).getAttribute("userid"));
+			int product_id=Integer.parseInt(req.getParameter("productId"));
 			int count=Integer.parseInt(req.getParameter("count"));
 			int status=cart_service.Add(user_id, product_id, count);
 			if(status==0){
@@ -155,16 +147,12 @@ public class ShoppingCartServlet extends HttpServlet {
 				DataResp<Object> dataResp =new DataResp<Object>(status,"添加失败",null);
 				json = gson.toJson(dataResp);
 			}
-			else if(status==2){
-				DataResp<Object> dataResp =new DataResp<Object>(status,"购物车已存在该商品，且该商品数目超过库存",null);
-				json = gson.toJson(dataResp);
-			}
 			else if(status==999){
 				DataResp<Object> dataResp =new DataResp<Object>(status,"商品数量不能小于1",null);
 				json = gson.toJson(dataResp);
 			}
 		}
-		System.out.println(json);
+		//System.out.println(json);
 		pw.write(json);
 		pw.close();
 	}
@@ -178,8 +166,8 @@ public class ShoppingCartServlet extends HttpServlet {
 		}
 		else
 		{
-			int user_id=(int)(req.getSession(false).getAttribute("id"));
-			int product_id=Integer.parseInt(req.getParameter("produnctId"));
+			int user_id=(int)(req.getSession(false).getAttribute("userid"));
+			int product_id=Integer.parseInt(req.getParameter("productId"));
 			int count=Integer.parseInt(req.getParameter("count"));
 			int status=cart_service.Update(user_id, product_id, count);
 			if(status==0){
@@ -191,16 +179,12 @@ public class ShoppingCartServlet extends HttpServlet {
 				DataResp<Object> dataResp =new DataResp<Object>(status,"修改失败",null);
 				json = gson.toJson(dataResp);
 			}
-			else if(status==2) {
-				DataResp<Object> dataResp =new DataResp<Object>(status,"购物车该商品数量超过库存量",null);
-				json = gson.toJson(dataResp);
-			}
 			else if(status==999){
 				DataResp<Object> dataResp =new DataResp<Object>(status,"商品数量不能小于1",null);
 				json = gson.toJson(dataResp);
 			}
 		}
-		System.out.println(json);
+		//System.out.println(json);
 		pw.write(json);
 		pw.close();
 	}
@@ -214,8 +198,8 @@ public class ShoppingCartServlet extends HttpServlet {
 		}
 		else
 		{
-			int user_id=(int)(req.getSession(false).getAttribute("id"));
-			int product_id=Integer.parseInt(req.getParameter("produnctId"));
+			int user_id=(int)(req.getSession(false).getAttribute("userid"));
+			int product_id=Integer.parseInt(req.getParameter("productId"));
 			if(cart_service.Remove(user_id, product_id)==true)
 			{
 				CartRemoveDataT data=new CartRemoveDataT(product_id);
@@ -227,7 +211,7 @@ public class ShoppingCartServlet extends HttpServlet {
 				json = gson.toJson(dataResp);
 			}
 		}
-		System.out.println(json);
+		//System.out.println(json);
 		pw.write(json);
 		pw.close();
 	}
@@ -240,8 +224,8 @@ public class ShoppingCartServlet extends HttpServlet {
 		}
 		else
 		{
-			int user_id=(int)(req.getSession(false).getAttribute("id"));
-			int product_id=Integer.parseInt(req.getParameter("produnctId"));
+			int user_id=(int)(req.getSession(false).getAttribute("userid"));
+			int product_id=Integer.parseInt(req.getParameter("productId"));
 			if(cart_service.Select(user_id, product_id))
 			{
 				CartSelectDataT data=new CartSelectDataT(product_id);
@@ -253,7 +237,7 @@ public class ShoppingCartServlet extends HttpServlet {
 				json = gson.toJson(dataResp);
 			}
 		}
-		System.out.println(json);
+		//System.out.println(json);
 		pw.write(json);
 		pw.close();
 	}
@@ -266,8 +250,8 @@ public class ShoppingCartServlet extends HttpServlet {
 		}
 		else
 		{
-			int user_id=(int)(req.getSession(false).getAttribute("id"));
-			int product_id=Integer.parseInt(req.getParameter("produnctId"));
+			int user_id=(int)(req.getSession(false).getAttribute("userid"));
+			int product_id=Integer.parseInt(req.getParameter("productId"));
 			if(cart_service.UnSelect(user_id, product_id))
 			{
 				CartSelectDataT data=new CartSelectDataT(product_id);
@@ -279,7 +263,7 @@ public class ShoppingCartServlet extends HttpServlet {
 				json = gson.toJson(dataResp);
 			}
 		}
-		System.out.println(json);
+		//System.out.println(json);
 		pw.write(json);
 		pw.close();
 	}
@@ -292,7 +276,7 @@ public class ShoppingCartServlet extends HttpServlet {
 		}
 		else
 		{
-			int user_id=(int)(req.getSession(false).getAttribute("id"));
+			int user_id=(int)(req.getSession(false).getAttribute("userid"));
 			int status=cart_service.SelectAll(user_id);
 			if(status==0){
 				DataResp<Object> dataResp =new DataResp<Object>(status,"全选成功",null);
@@ -307,7 +291,7 @@ public class ShoppingCartServlet extends HttpServlet {
 				json = gson.toJson(dataResp);
 			}
 		}
-		System.out.println(json);
+		//System.out.println(json);
 		pw.write(json);
 		pw.close();
 	}
@@ -320,7 +304,7 @@ public class ShoppingCartServlet extends HttpServlet {
 		}
 		else
 		{
-			int user_id=(int)(req.getSession(false).getAttribute("id"));
+			int user_id=(int)(req.getSession(false).getAttribute("userid"));
 			int status=cart_service.UnSelectAll(user_id);
 			if(status==0){
 				DataResp<Object> dataResp =new DataResp<Object>(status,"全选成功",null);
@@ -335,7 +319,7 @@ public class ShoppingCartServlet extends HttpServlet {
 				json = gson.toJson(dataResp);
 			}
 		}
-		System.out.println(json);
+		//System.out.println(json);
 		pw.write(json);
 		pw.close();
 	}
@@ -348,7 +332,7 @@ public class ShoppingCartServlet extends HttpServlet {
 		}
 		else
 		{
-			int user_id=(int)(req.getSession(false).getAttribute("id"));
+			int user_id=(int)(req.getSession(false).getAttribute("userid"));
 			int productcount=cart_service.GetProductCount(user_id);
 			if(productcount>-1){
 				DataResp<Integer> dataResp =new DataResp<Integer>(0,null,productcount);
@@ -360,7 +344,7 @@ public class ShoppingCartServlet extends HttpServlet {
 			}
 
 		}
-		System.out.println(json);
+		//System.out.println(json);
 		pw.write(json);
 		pw.close();
 	}

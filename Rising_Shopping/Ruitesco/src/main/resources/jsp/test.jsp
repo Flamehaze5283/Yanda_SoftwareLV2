@@ -12,8 +12,9 @@
 <body>
 	<form action="manage/product?mode=upload" method="post" 
 		enctype="multipart/form-data">
+		 <input type="text" name="category_id" value="4" /><br/>
 		 <input type="file"  name="uploadfile"/><br/>
-			<input type="submit" value="上传" />
+		 <input type="submit" value="上传" />
 	</form>
 </body>
 </html>

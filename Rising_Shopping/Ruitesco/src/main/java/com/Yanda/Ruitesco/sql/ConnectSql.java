@@ -11,7 +11,7 @@ import java.sql.Statement;
  * 执行sql语句后需执行close方法释放相应参数。
  * */
 public class ConnectSql {
-	public static String db_url = "jdbc:mysql://localhost:3306/database?useSSL=false";
+	public static String db_url = "jdbc:mysql://localhost:3306/database?useSSL=false&characterEncoding=UTF-8";
 	public static String db_user = "root";
 	public static String db_pass = "";
 	

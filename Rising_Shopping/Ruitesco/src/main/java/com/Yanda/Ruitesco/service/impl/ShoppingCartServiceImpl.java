@@ -27,28 +27,18 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
 		ShoppingCart shoppingcart = cart_dao.queryRecord(user_id, product_id);
 		if(shoppingcart==null)
 		{
-			if(count<cart_dao.queryProductStock(product_id))
-			{
 				ShoppingCart data = new ShoppingCart(user_id,product_id,count);
 				if(cart_dao.addProduct(data)==true)
 					return 0;
 				else
 					return 1;
-			}
-			else
-				return 2;
 		}
 		
-		if(count<cart_dao.queryProductStock(product_id))
-		{
-			count=count+shoppingcart.getQuantity();
-			if(cart_dao.updateCartProduct(user_id, product_id, count)==true)
-				return 0;
-			else 
-				return 1;
-		}
-		return 2;
-
+		count=count+shoppingcart.getQuantity();
+		if(cart_dao.updateCartProduct(user_id, product_id, count)==true)
+			return 0;
+		else 
+			return 1;
 	}
 
 	//0添加成功	1添加失败	2购物车数量超过库存
@@ -58,14 +48,11 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
 		{
 			return 999;
 		}
-		if(count<cart_dao.queryProductStock(product_id))
-		{
-			if(cart_dao.updateCartProduct(user_id, product_id, count)==true)
-				return 0;
-			else
-				return 1;
-		}
-		return 2;
+
+		if(cart_dao.updateCartProduct(user_id, product_id, count)==true)
+			return 0;
+		else
+			return 1;
 	}
 
 	@Override

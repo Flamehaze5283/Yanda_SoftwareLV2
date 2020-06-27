@@ -6,6 +6,7 @@ public class Category {
 	int id;
 	int parent_id;
 	String name;
+	String en_name;
 	Timestamp create_time;
 	Timestamp update_time;
 	int status;
@@ -45,6 +46,12 @@ public class Category {
 	}
 	public void setStatus(int status) {
 		this.status = status;
+	}
+	public String getEn_name() {
+		return en_name;
+	}
+	public void setEn_name(String en_name) {
+		this.en_name = en_name;
 	}
 	
 	

@@ -91,6 +91,7 @@ public class ManagerServlet extends HttpServlet {
 				HttpSession session=req.getSession(true);
 				session.setAttribute("username", user.getUsername());
 				session.setAttribute("role", user.getRole());
+				session.setAttribute("userid", user.getId());
 				
 				DataManagerLoginT data = new DataManagerLoginT(user.getId(),user.getUsername(),user.getEmail(),user.getPhone(),user.getRole()
 							,user.getCreate_time(),user.getUpdate_time());

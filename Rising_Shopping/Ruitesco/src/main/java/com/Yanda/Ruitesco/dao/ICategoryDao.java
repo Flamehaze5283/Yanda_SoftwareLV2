@@ -11,4 +11,5 @@ public interface ICategoryDao {
 	public Category QueryCategory(int category_id);//查询该id的商品种类信息
 	public int GetParentId(int id);//获取该类的父类id
 	public int DeleteCategory(int id);//删除一个类
+	List<String> getAllCategoryById(int category_id);//寻找该类路径
 }

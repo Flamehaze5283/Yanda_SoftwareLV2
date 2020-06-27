@@ -3,6 +3,7 @@ package com.Yanda.Ruitesco.service.impl;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 import com.Yanda.Ruitesco.dao.ICategoryDao;
 import com.Yanda.Ruitesco.dao.IProductDao;
@@ -10,6 +11,7 @@ import com.Yanda.Ruitesco.dao.IUserDao;
 import com.Yanda.Ruitesco.dao.impl.CategoryDaoImpl;
 import com.Yanda.Ruitesco.dao.impl.ProductDaoImpl;
 import com.Yanda.Ruitesco.dao.impl.UserDaoImpl;
+import com.Yanda.Ruitesco.javabean.Category;
 import com.Yanda.Ruitesco.javabean.Page;
 import com.Yanda.Ruitesco.javabean.Product;
 import com.Yanda.Ruitesco.service.IProductService;
@@ -273,6 +275,16 @@ public class ProductServiceImpl implements IProductService {
 		return messageResponse;
 	}
 	
+
+	@Override
+	public List<String> getAllCategoryById(int category_id) {
+		// TODO Auto-generated method stub
+		ICategoryDao category_dao = new CategoryDaoImpl();
+		return category_dao.getAllCategoryById(category_id);
+	}
+
+	
+	
 	//计算分页静态方法
 	public static Page CalculatePage(int pageNum, int pageSize, int total) {
 		List<Integer> temp_list = new ArrayList<Integer>();
@@ -330,4 +342,6 @@ public class ProductServiceImpl implements IProductService {
 		page.setHasNextPage(hasNextPage);
 		return page;
 	}
+
+
 }

@@ -1,8 +1,10 @@
 package com.Yanda.Ruitesco.dao.impl;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Stack;
 
 import com.Yanda.Ruitesco.dao.ICategoryDao;
 import com.Yanda.Ruitesco.javabean.Category;
@@ -23,7 +25,10 @@ public class CategoryDaoImpl implements ICategoryDao {
 		// TODO Auto-generated method stub
 		String sql = "select * from type where id = ?";
 		List<Category> result = JdbcUtil.executeQuery(sql, Category.class, category_id);
-		return result.get(0);
+		if(result == null)
+			return null;
+		else
+			return result.get(0);
 	}
 	//添加新的商品种类
 	@Override
@@ -63,6 +68,24 @@ public class CategoryDaoImpl implements ICategoryDao {
 		// TODO Auto-generated method stub
 		String sql = "delete from type where id = ?";
 		int result = JdbcUtil.executeUpdate(sql, id);
+		return result;
+	}
+	
+	@Override
+	public List<String> getAllCategoryById(int category_id) {
+		// TODO Auto-generated method stub
+		List<String> result = new ArrayList<String>();
+		Stack<Integer> stack = new Stack<Integer>();
+		stack.push(category_id);
+		while(!stack.empty()) {
+			int id = stack.peek();
+			stack.pop();
+			Category category = QueryCategory(id);
+			if(category != null) {
+				result.add(category.getEn_name());
+				stack.push(category.getParent_id());
+			}
+		}
 		return result;
 	}
 }
