@@ -1,0 +1,102 @@
+body {
+	background-color: #fff
+}
+
+.order-box {
+	width: 800px;
+	margin: 0px auto;
+}
+
+.order-box .orders-title {
+	font-weight: bold;
+	font-size: 30px;
+	margin-bottom: 10px;
+}
+
+.order-list-title {
+	overflow: hidden;
+	text-align: center;
+	margin: 10px auto 30px;
+	background-color: #F5F5F5;
+	border: 1px solid #e8e8e8;
+	line-height: 38px;
+}
+
+.order-list-title li {
+	float: left;
+	width: 100px;
+}
+
+.order-list-title li:first-child {
+	width: 270px;
+}
+
+.order-item {
+	margin-bottom: 10px;
+}
+
+.order-title {
+	background-color: #F5F5F5;
+	border: 1px solid #E8E8E8;
+	font-size: 12px;
+	line-height: 38px;
+}
+
+.order-title>span {
+	margin-left: 20px;
+}
+
+.order-title .order-date {
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.order-content {
+	padding-top: 15px;
+	padding-left: 15px;
+	padding-bottom: 20px;
+	overflow: hidden;
+	border: 1px solid #E8E8E8;
+}
+
+.order-content .order-img {
+	float: left;
+}
+
+.order-content img {
+	width: 80px;
+	height: 80px;
+}
+
+.order-content ul {
+	float: left;
+	margin-left: 10px;
+}
+
+.order-content li {
+	height: 100%;
+	width: 100px;
+	float: left;
+	text-align: center;
+}
+
+.order-content li:first-child {
+	width: 165px;
+	text-align: left;
+}
+
+.order-content li .order-name {
+	font-weight: bold;
+}
+
+.order-content li .sub-name {
+	margin-top: 5px;
+}
+
+.order-content li .order-detail:hover {
+	color: #0000FF;
+}
+
+.order-content li .order-del:hover {
+	color: #f00c0c;
+}

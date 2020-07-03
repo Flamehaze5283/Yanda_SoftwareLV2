@@ -1,0 +1,106 @@
+body {
+	background-color: #eeeeee;
+}
+ol, ul {
+    list-style: none;
+}
+#carousel-box {
+	min-width: 1200px;
+	height: 440px;
+}
+
+#carousel-box img {
+	display: block;
+	margin: 0 auto;
+	cursor: pointer;
+}
+
+#good-box {
+	width: 800px;
+	margin: 0 auto;
+	position: relative;
+	overflow: hidden;
+}
+
+.good-item {
+	width: 194px;
+	height: 260px;
+	float: left;
+	border-radius: 10px;
+	margin-right: 8px;
+	margin-bottom: 8px;
+	background: #fff;
+}
+
+.good-item:hover {
+	cursor: pointer;
+}
+
+.good-item:nth-child(4n) {
+	margin-right: 0;
+}
+
+.good-img {
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	width: 100%;
+	display: block;
+	margin: 0 auto;
+}
+
+.good-info {
+	padding: 10px;
+}
+
+.good-name {
+	font-size: 14px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.good-price {
+	margin-top: 10px;
+	color: #E4393C;
+}
+
+.bottom-info {
+	min-width: 1200px;
+	height: 350px;
+	margin-top: 60px;
+	background-color: #fff;
+}
+.service {
+	border-top: 1px solid #e5e5e5;
+	border-bottom: 1px solid #e5e5e5;
+	overflow: hidden;
+	padding: 30px 0 24px;
+	width: 1000px;
+	position: relative;
+	margin: 0 auto;
+}
+.service>dl{
+	margin-left: 110px;
+	float: left;
+}
+.service dt {
+    font-size: 14px;
+    color: #3a3a3a;
+}
+.service dt .title {
+    font-size: 14px;
+    padding-bottom: 7px;
+    color: #333;
+    display: block;
+    border-left: none;
+    padding-left: 0;
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+.service dd li {
+    line-height: 22px;
+    color: #777;
+}
+.service dd a {
+    color: #777;
+}

@@ -1,0 +1,1 @@
+var page_url="http://q72exu.natappfree.cc/";

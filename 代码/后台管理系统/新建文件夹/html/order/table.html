@@ -1,0 +1,101 @@
+<table class="table  table_striped table-bordered border" id="tableList">
+	<thead>
+		<tr>
+			<th class="align" width="5%"><label class="checkbox relative"><input type="checkbox" class="ace" ><span class="lbl"></span></label></th>
+			<th class="align" width="5%">id</th>
+			<th class="align" width="5%">订单号</th>
+			<th class="align" width="5%">用户id</th>
+			<th class="align" width="10%">收货地址</th>
+			<th class="align" width="5%">实际付款金额</th>
+			<th width="5%" class="align">付款类型</th>
+			<th class="align" width="5%">邮费</th>
+			<th class="align" width="5%">状态</th>
+			<th width="8%" class="align">付款时间</th>
+			<th width="8%" class="align">发货时间</th>
+			<th width="8%" class="align">结束时间</th>
+			<th width="8%" class="align">关闭时间</th>
+			<th width="8%" class="align">创建时间</th>
+			<th width="8%" class="align">最后一次修改时间</th>
+			<th class="align" width="20%">操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% for(var i = 0; i < pagenumber; i++) { %>
+			<% var num = (page - 1) * pagenum + i; %>
+		<tr>
+			<td><label class="checkbox relative"><input type="checkbox" class="ace" name="checkbox" ><span class="lbl"></span></label></td>
+			<td>
+				1234
+			</td>
+			
+			<td>
+				<%=num%>
+			</td>
+			
+			<td>
+				<a href ="">03</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "">no.02</a>
+			</td>
+			
+			<td>
+				北京市海淀区
+			</td>
+			
+			<td>
+				5999
+			</td>
+			
+			<td>
+				支付宝
+			</td>
+			
+			<td>
+				20
+			</td>
+			
+			<td>
+				<% for(var j = 0; j < status.length; j++) { %>
+				<% if(order[num].status==status[j].id){ %>
+				<%=status[j].name%>
+				<% } %>
+				<% } %>
+
+			</td>
+			
+			<td>
+				<%=timestamp(order[num].ordertime,'yyyy-MM-dd hh:mm')%>
+			</td>
+			
+			<td>
+				<%=timestamp(order[num].Paymenttime,'yyyy-MM-dd hh:mm')%>
+			</td>
+			
+			<td>
+				<%=timestamp(order[num].ordertime,'yyyy-MM-dd hh:mm')%>
+			</td>
+			
+			<td>
+				<%=timestamp(order[num].Paymenttime,'yyyy-MM-dd hh:mm')%>
+			</td>
+			
+			<td>
+				<%=timestamp(order[num].ordertime,'yyyy-MM-dd hh:mm')%>
+			</td>
+			
+			<td>
+				<%=timestamp(order[num].Paymenttime,'yyyy-MM-dd hh:mm')%>
+			</td>
+			
+			<td>
+				<% if(order[num].status==1){ %>
+				<button type="buttom" class="btn btn-blue padding10" onclick="fahuobtn(this,<%=order[num].id%>)">发货</button>
+				<% } else if(order[num].status==5) {%>
+				<button type="buttom" class="btn btn-danger padding10" onclick="pingjiabtn(this,<%=order[num].id%>)">评价</button>
+				<%}%>
+				<button type="buttom" class="btn btn-green padding10" data-url="order_detailed.html?detailsid=<%=order[num].id%>" onclick="editorbtn(this)">详细</button>
+				<button type="buttom" class="btn btn-info padding10" onclick="deletebtn(this,<%=order[num].id%>)">删除</buttom>
+    			
+    		</td>
+    	    </tr>
+    	<% } %>
+    </tbody>
+</table>

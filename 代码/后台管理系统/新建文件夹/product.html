@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>table模块快速使用</title>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+  <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta content="black" name="apple-mobile-web-app-status-bar-style">
+  <link href="css/SYSFrame.css" rel="stylesheet" type="text/css" />
+  <link href="font/iconfont.css" rel="stylesheet" type="text/css" />
+  <link href="css/module.css" rel="stylesheet" type="text/css" />
+  <link href="css/pages.css" rel="stylesheet" type="text/css" />
+  
+  <link rel="stylesheet" href="layui/css/layui.css" media="all">
+  
+  <script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
+  <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+  <script src="js/layer/layer.js" type="text/javascript"></script>
+  <script src="js/HUpages.js" type="text/javascript"></script> 
+  <script src="js/template.js" type="text/javascript"></script>
+  <script src="js/url.js" type="text/javascript"></script>
+  
+</head>
+
+<body>
+	<!--右侧内容-->
+	<div class="bk-con-message message-section" id="iframe_box">
+		<!--编辑内容-->
+		<div class="operation  mb15 relative">
+			
+			<button id="new"  name="edit_product.html?productid=0" class="btn button_btn bg-deep-blue menuUl_title" type="button" data-id="278" title="添加商品"><i class="iconfont"></i>&nbsp;添加商品</button>
+			
+				
+				<input  type="text" id = "productName" placeholder="商品名"/>
+				<input  type="text" id = "productId" placeholder="ID"/>
+				<button  class="layui-btn" data-type="reload" id="search" ><i class="iconfont">&#xe60e</i>&nbsp;搜索</button>
+			
+			
+		</div>
+		
+ 
+<table id="demo" lay-filter="user" class="layui-table" ></table>
+ 
+ 
+ <script type="text/html" id="imgtmp">
+     <img src= 'http://a46bgd.natappfree.cc/image/{{d.mainImage}}' style="width:140px;height:110px">
+	 
+ </script>
+ <style type="text/css">
+     .layui-table-cell{
+         height:auto!important;
+         white-space:normal;
+     }
+ </style>
+
+
+ 
+<script type="text/html" id="bar">
+	{{#if(d.status == 0){}}
+	<button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="on">上架</button>
+	{{#}}}
+	{{#if(d.status == 1){}}
+	<button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="off">下架</button>
+	{{#}}}
+	
+	<button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="detail">编辑</button>
+	<!--<button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="delete">删除</button>-->
+	
+	
+</script>
+ 
+<script src="layui/layui.js"></script>
+
+<script>
+layui.use('table', function(){
+  var table = layui.table;
+  
+  //第一个实例
+  table.render({
+    elem: '#demo'
+	,id: 'tableId'
+    ,height: 500
+	,width: 950
+    ,url: 'http://a46bgd.natappfree.cc/Ruitesco/manage/product?mode=list' //数据接口
+    ,page: {
+			limit:2,
+			layout: ['count', 'prev', 'page', 'next','skip'],    
+    		}
+	,request:{
+		pageName:'pageNum',
+		limitName:'pageSize'
+	}
+	,parseData: function(res){
+		return {
+		  "code": res.status, //解析接口状态
+		  "msg": "", //解析提示文本
+		  "count": res.msg.total, //解析数据长度
+		  "data": res.msg.list //解析数据列表
+		};
+	}
+    ,cols: [[ //表头
+	
+       {field: 'id', title: 'id', width:80, sort: true }
+      ,{field: 'category_id', title: '类别id', width:80 , edit:'text' }
+      ,{field: 'name', title: '商品名', width:150, sort: true, edit:'text'} 
+      ,{field: 'subtitle', title: '副标题', width:120, edit:'text'} 
+      ,{field: 'mainImage', title: '主图', width: 140, edit:'text',templet:"#imgtmp"}
+	  ,{field: 'status', title: '状态', width: 80, align:'center',edit:'text'}
+      ,{field: 'price', title: '价格', width: 80, sort: true, edit:'text'}
+      ,{field: '', title:'操作', toolbar:"#bar", width:220}
+    ]],
+	
+  });
+ 
+  
+   table.on('tool(user)', function(obj){
+     var data = obj.data;
+	 
+     if(obj.event === 'detail'){
+       layer.msg('ID：'+ data.id + ' 的查看操作');
+	 
+	 localStorage.clear();
+	 localStorage.setItem('id',data.id);
+	 location.href="product_update.html";
+ 
+     } 
+	 
+	 else if(obj.event === 'delete'){
+       layer.confirm('真的删除行么', function(index){
+         obj.del();
+         layer.close(index);
+       });
+     } 
+	 
+	 else if(obj.event === 'edit'){
+       layer.alert('编辑行：<br>'+ JSON.stringify(data))
+     }
+	 
+	 else if(obj.event === 'on'){
+	  
+		data.status = 1;
+	     $.ajax({
+				type : "GET",
+				url:'http://a46bgd.natappfree.cc/Ruitesco/manage/product?mode=set_sale_status',
+				data:{
+					status:data.status,
+					productId:data.id				
+				},
+										
+				dataType:"json",
+							
+				success: function(msg)
+				{
+					if(msg.status == 0)
+					{
+						layer.msg("上架成功！");	
+						table.reload('tableId'/*,{
+																 page: {
+																   curr: 1 //重新从第 1 页开始
+																 }
+																						 
+						}*/);
+					}
+					
+					else if(msg.status == 1)
+						layer.msg("上架失败！");
+				},
+				error: function(XMLHttpRequest,textStatus,thrownError){}							
+	     		});
+				
+				
+		
+	 }
+	 
+	 else if(obj.event === 'off'){
+		 data.status = 0;
+		 $.ajax({
+		 				type : "GET",
+		 				url:'http://a46bgd.natappfree.cc/Ruitesco/manage/product?mode=set_sale_status',
+		 				data:{
+		 					status:data.status,
+		 					productId:data.id				
+		 				},
+		 										
+		 				dataType:"json",
+		 							
+		 				success: function(msg)
+		 				{
+		 					if(msg.status == 0)
+							{
+		 						layer.msg("下架成功！");	
+								table.reload('tableId'/*,{
+														 page: {
+														   curr: 1 //重新从第 1 页开始
+														 }
+																				 
+								}*/);
+		 					}
+		 					else if(msg.status == 1)
+		 						layer.msg("下架失败！");
+		 				},
+		 				error: function(XMLHttpRequest,textStatus,thrownError){}							
+						});
+						
+					  
+	 }
+	 
+   });
+  
+  
+    //监听单元格编辑
+    table.on('edit(user)', function(obj){
+      var value = obj.value //得到修改后的值
+      ,data = obj.data //得到所在行所有键值
+      ,field = obj.field; //得到字段
+      layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value);
+    });
+ 
+ $(function(){ //这里面
+		
+		$("#new").click(function(){
+			window.location.href="new_product.html"
+			});
+		
+ 		$("#search").click(function(){
+				
+				var productId = $("#productId").val();
+				var productName = $("#productName").val();
+				
+				if(productId == "")
+				{
+					table.reload('tableId',{				  
+					  page: {
+						curr: 1 //重新从第 1 页开始
+					  }
+					  ,
+					  url:'http://a46bgd.natappfree.cc/Ruitesco/manage/product?mode=search'
+					  ,where: { 					
+							
+							productName:productName			
+									 
+						 }
+					  
+					});
+				}
+				
+				if(productName == "")
+				{
+					table.reload('tableId',{				  
+					  page: {
+						curr: 1 //重新从第 1 页开始
+					  }
+					  ,
+					  url:'http://a46bgd.natappfree.cc/Ruitesco/manage/product?mode=search'
+					  ,where: { 					
+							
+						  productId:productId
+						 
+						 }
+					  
+					});
+				}
+ 			});
+ 		});
+		
+		$("#add").click(function(data,id){
+			var index = layer.open({
+				type: 1,
+				title: '添加分类',
+				maxmin: true,
+				shadeClose: false, //点击遮罩关闭层
+				area: ['500px', '400px'],
+				content: $('#sortcontent'),
+				btn: ['确认添加', '取消'],
+				yes: function(index, layero) {
+					layer.close(index);
+				}
+			});
+		});
+		
+  });
+  </script>
+  
+  <script>
+
+
+  //添加商品
+  
+
+</script>
+<div id="sortcontent" class="add_content clearfix mt15" style="display: none;">
+	<ul class="info_list" id="VerifyTips">
+	<li class=" clearfix content_look mb15">
+		<label class="label_name"><em style="color:Red;">*</em>分类名称：</label>
+		<span class="info_data"><input data-name="分类名称" type="text" name="Required" value="" class="text_input col-sm-9" data-verify="verify" /></span>
+	</li>
+	<li class=" clearfix content_look mb15">
+		<label class="label_name">排序：</label>
+		<span class="info_data"><input data-name="排序" type="text"  value="" class="text_input col-sm-4" data-verify="verify" /></span>
+	</li>
+	
+	<li class=" clearfix content_look mb15">
+		<label class="label_name">状态：</label>
+		<span class="info_data">
+		<label class="radio relative"><input name="statusradio" type="radio" data-id="1" class="ace"><span class="lbl">启用</span></label>&nbsp;&nbsp;
+		<label class="radio relative"><input name="statusradio" type="radio" data-id="0" class="ace"><span class="lbl">关闭</span></label>&nbsp;&nbsp;
+		</span>
+	</li>
+	<li class=" clearfix content_look mb15">
+		<label class="label_name"><em style="color:Red;">*</em>级别：</label>
+		<span class="info_data">
+			
+			  <select class="select col-sm-5">
+			    <option value="1">一级分类</option>
+			    <option value="2">二级分类</option>
+			    <option value="3">三级分类</option>
+			  </select>
+		
+			
+		</span>
+	</li>
+	</ul>
+</div>
+</body>
+</html>

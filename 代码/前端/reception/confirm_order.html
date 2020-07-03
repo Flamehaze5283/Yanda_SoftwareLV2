@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="myJs/decimal.js"></script>
+		<link rel="stylesheet" href="myCss/confirm_order.css" />
+		<script type="text/javascript" src="myJs/repositories.js"></script>
+		<script type="text/javascript" src="myJs/confirm_order.js"></script>
+		<link rel="stylesheet" href="layui/css/layui.css" />
+		<script type="text/javascript" src="layui/layui.js"></script>
+	</head>
+	<body>
+		<div class="layout">
+			<div class="addr-box">
+				<div class="h">选择收货地址</div>
+				<div class="addr-items">
+					
+					<!-- 下单地址模板
+					<div class="addr-item">
+						<div class="default-tips">默认地址</div>
+						<div class="name-phone">
+							<span class="name">pyf</span>
+							<span class="phone">12345678910</span>
+						</div>
+						<hr />
+						<div class="address">秦皇岛燕山大学</div>
+					</div> -->
+					
+					
+				</div>
+				<div class="btn-addr">
+					
+					<a target="_blank" href="address.html" class="manage-addr">管理收货地址</a>
+				</div>
+			</div>
+			<div class="order-box">
+				<div class="order-title">
+					<span class="order-tips">确认订单信息</span>
+					<div class="header">
+						<ul>
+							<li>商品</li>
+							<li>单价</li>
+							<li>数量</li>
+							<li>小计</li>
+						</ul>
+					</div>
+					<hr class="layui-bg-blue" style="height: 2px;">
+				</div>
+				<div class="order-items">
+					<!--商品列表模板
+					<div class="order-item">
+						<img src="img/order.png" />
+						<ul>
+							<li>
+								<span class="order-name">河北移动30元手机话费充值 移动话费充值自动快充</span>
+								<p class="order-subname">不支持优惠券</p>
+							</li>
+							<li>
+								<span class="order-price">￥30</span>
+							</li>
+							<li>
+								<span class="order-quantity">×1</span>
+							</li>
+							<li>
+								<span class="order-pay">￥30</span>
+							</li>
+						</ul>
+					</div>
+					-->
+					
+				</div>
+			</div>
+			
+			
+			<div class="pay-wrap">
+				<div class="comment-wrap">
+					<div class="comment-tips">备注：</div>
+					<textarea placeholder="选填,请先和商家协商一致(200字以内)" class="comment" maxlength="200" rows="1"></textarea>
+				</div>
+				
+				
+				<div class="pay-info">
+					<div class="info-box">
+						<div>
+							<span class="payment-title">实付款：</span>
+							<span class="payment-symbol">￥</span> 
+							<span class="payment"></span> 
+						</div>
+						<div>
+							<div class="order-confirm-addr">
+								<span class="confirmAddr-title">寄送至：</span><span class="confirmAddr-addr">秦皇岛燕山大学</span>
+							</div>
+							<div class="order-confirm-user">
+								<span class="confirmAddr-title">收货人：</span><span class="confirmAddr-addr">pyf 12345678910</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="order-submit">
+					<div class="submit-box">
+						<a href="javascript:history.back(-1);" class="cancel-order">取消订单</a>
+						<button class="submit">提交订单</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</body>
+</html>

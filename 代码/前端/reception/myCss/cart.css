@@ -1,0 +1,219 @@
+body {
+	background-color: #EEEEEE;
+}
+
+label {
+	-webkit-user-select: none;
+	-moz-user-focus: none;
+	-moz-user-select: none;
+}
+
+.layout {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.cl-title {
+	background: #fff;
+	line-height: 40px;
+	padding-left: 40px;
+	color: #a4a4a4;
+	overflow: hidden;
+}
+
+.cl-title>label {
+	float: left;
+	width: 150px;
+	height: 40px;
+}
+
+
+
+.checkbox input {
+	margin-right: 10px;
+	cursor: pointer;
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	vertical-align: text-top;
+}
+
+.cl-title ul {
+	float: left;
+}
+
+.cl-title li,
+.item li {
+	float: left;
+	width: 100px;
+	margin-left: 30px;
+	min-height: 14px;
+	text-align: center;
+}
+
+.cl-title li:first-child,
+.item li:first-child {
+	width: 450px;
+	text-align: left;
+	margin-left: 0;
+}
+
+.item {
+	background: #fff;
+	padding-left: 40px;
+	margin-top: 10px;
+	padding-top: 20px;
+	overflow: hidden
+}
+
+.item>label {
+	float: left;
+	margin: 43px 3px 0 0;
+}
+
+.good-area {
+	float: left;
+	width: 1130px;
+	font-size: 14px;
+	margin-bottom: 18px;
+}
+
+.good-area .p-img {
+	width: 100px;
+	height: 100px;
+	float: left;
+	margin-right: 20px;
+}
+
+.good-area .p-img img {
+	width: 100%;
+	height: 100%;
+}
+
+.item ul {
+	float: left;
+}
+
+.item li:nth-child(2) {
+	width: 140px;
+	margin-left: 10px;
+	margin-right: -20px;
+}
+
+.good-area .p-price-total {
+	color: #ca141d;
+	font-weight: 700;
+}
+
+.good-area .p-info {
+	color: #666;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	line-height: 17px;
+}
+
+.p-del {
+	color: #a4a4a4;
+}
+
+.total-fixed {
+	background: #fff;
+	min-width: 1200px;
+	position: fixed;
+	width: 100%;
+	z-index: 50;
+	left: 0;
+	bottom: 0;
+	box-shadow: 0 -4px 4px 0 hsla(0, 0%, 47.5%, .2);
+	height: 60px;
+}
+
+.total-box {
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.total-box .total-control {
+	float: left;
+	line-height: 60px;
+}
+
+.total-box .total-control label {
+	float: left;
+	margin-left: 140px;
+}
+
+.total-box .total-btn {
+	float: right;
+}
+
+.total-box .total-btn a {
+	width: 180px;
+	height: 60px;
+	line-height: 60px;
+	display: block;
+	background: #ca151e;
+	font-size: 18px;
+	color: #fff;
+	text-align: center;
+	margin-right: 80px;
+}
+
+.total-box .total-price {
+	float: right;
+	padding-right: 30px;
+	margin-top: 7px;
+	text-align: right;
+}
+
+.total-box .total-price p {
+	font-size: 14px;
+	position: relative;
+}
+
+.total-box .total-price p span {
+	color: #ca151e;
+	font-size: 18px;
+	font-weight: 700;
+}
+
+#p-del-all {
+	color: #a4a4a4;
+	margin-left: 10px;
+}
+
+.number-cont {
+	display: inline-block;
+	float: left;
+	line-height: 30px;
+}
+
+.number-cont .btn {
+	display: inline-block;
+	border: 1px solid #dddddd;
+	background: #f8f8f8;
+	width: 21px;
+	height: 22px;
+	text-align: center;
+	font-size: 26px;
+	cursor: pointer;
+	float: left;
+	line-height: 21px;
+	-webkit-user-select: none;
+	-moz-user-focus: none;
+	-moz-user-select: none;
+}
+
+.number-cont input {
+	width: 30px;
+	height: 20px;
+	text-align: center;
+	margin: 0 5px;
+	float: left;
+}
+#total-sum{
+	margin: 0 3px;
+	font-size: 18px;
+	color: #ca151e;
+}

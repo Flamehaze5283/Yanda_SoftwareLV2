@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="css/amazeui.min.css" />
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="js/amazeui.min.js"></script>
+		<link rel="stylesheet" href="css/zpwd/sjsz.css" />
+		<link rel="stylesheet" href="css/sui.css" />
+		<script type="text/javascript" src="js/sui.js"></script>
+		<link rel="stylesheet" href="css/jd.css" />
+		<script src="layui/layui.js"></script>
+		<link rel="stylesheet" href="layui/css/layui.css" media="all">
+		<title></title>
+		<style>
+			/*.bottomLine {
+				border-bottom: 1px solid #ccc;
+				border-top: 1px solid #ccc;
+				margin-bottom: 10px;
+				/*padding: 10px;*/
+			/*padding-top: 10px;
+				padding-bottom: 10px;
+				word-spacing: 0.05rem;
+				text-align: center;
+				margin-top: 82px;*/
+			/*width:677px ;*/
+			/*line-height: ;*/
+			/*}*/
+			
+			.bottomLine {
+				border-bottom: 1px solid #ccc;
+				border-top: 1px solid #ccc;
+				padding-top: 8px;
+				/*padding-bottom:10px;*/
+			}
+			
+			.bot {
+				margin-bottom: 50px;
+				/*text-align: center;*/
+				color: #7b6f5b;
+			}
+			
+			.radio-pretty.checked > span:before {
+				color: #f88600;
+			}
+			
+			input {
+				height: 62px;
+			}
+			
+			.imgbot {
+				width: 128px;
+				height: 128px;
+			}
+			.am-form-field {
+    display: inline;
+    width: 100%;
+    width: 90%;
+    padding: .5em;
+    font-size: 1.6rem;
+    line-height: 1.2;
+    color: #555;
+    vertical-align: middle;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    -webkit-appearance: none;
+    -webkit-transition: border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+}
+		</style>
+	</head>
+
+	<body>
+		<!--<div class="am-g" style="margin-top: 25px;">
+			
+		</div>-->
+		<div style="background-color: #F8F8F8;padding-top: 40px;">
+		<div class="am-g" >
+			<div class="logo"> <img src="img/logo.png" style="    float: left" />
+				<p style="font-size: 16px;color: #3d3d3d;margin-left: 16px;font-weight: bold;margin-top: 20px;    float: left">-----修改密码</p>
+			</div>
+			
+			</div>
+		</div>
+		</div>
+		<div style="background-color: #ffffff;padding-top: 30px;margin-top: 21px;">
+			<div class="am-g content" style="margin-top: 45px;">
+				<div data-am-widget="tabs" class="am-tabs am-tabs-d2">
+					<ul class="am-tabs-nav1" style="margin-top: 20px;display:flex;list-style: none;text-align: center;">
+						<li style="max-width: 95px; margin-left: 100px;"></li>
+						<li style="max-width: 80px;"><span class="am-badge1 am-round am-badge-warning-active " style="background-color: #F89406;font-size: 18px;">1</span>
+							<br />
+							<p class="bottitle active">验证身份</p>
+						</li>
+						<li style="max-width: 273px;">
+							<hr style="width: 273px;    border-top: 3px #F89406 solid;">
+						</li>
+						<li style="max-width: 80px;margin-left: 10px;"><span class="am-badge1  am-round am-badge-warning-active" style="background-color: #F89406;font-size: 18px">2</span>
+							<br />
+							<p class="bottitle active">修改登录密码</p>
+						</li>
+						<li style="max-width: 273px;">
+							<hr style="height: 3px;">
+						</li>
+						<li style="max-width: 80px;margin-left: 10px;"><span class="am-badge1  am-round" style="background-image: url(img/duihao.png);background-repeat: no-repeat;background-position: center;background-position-x: 5px;"></span>
+							<br />
+							<p style="margin-left: -10px">完成</p>
+						</li>
+					</ul>
+					<!--输入账户名-->
+					<div class="am-tabs-bd" style="text-align: center;">
+						<div data-tab-panel-0 class="am-tab-panel am-active" style="margin-top: 20px;">							
+							<div class="am-g" style="margin-top: 10px;margin-left: -80px;">
+								<span >新的登录密码：</span><input class="am-form-field" id="password1" type="text" style="width: 285px;height: 45px;margin-left: 22px;" />
+							<p id="password1_p" style="margin: 0;padding: 0;height: 18px; color: #ff0000;font-size: 10px;" text=''></p>
+							</div>
+							<div class="am-g" style="margin-top: 10px;margin-left: -105px;">
+								<span >请再次输入新密码：</span>
+								<input class="am-form-field" id="password2" type="text" style="width: 285px;height: 45px;margin-left: 22px;padding-left: 10px;"  />
+							<p id="password2_p" style="margin: 0;padding: 0;height: 18px; color: #ff0000;font-size: 10px;" text=''></p>
+							</div>
+							<div class="am-g" style="margin-top: 30px;margin-left: 30px;">
+								<button type="button" id="check" style="background-color:#FF8901;width: 265px;height: 50px;font-size: 16px;border: 1px rgba(187, 187, 187, 0.5)B solid;margin: 0 auto;border-radius: 5px;">确定</button> 
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="am-g " style="margin-top: 81px;text-align: center;font-size: 12px;">
+			<div class="bottomLine" style="margin:0 auto;width:700px;height: 35px;">
+				<span style="float: left;word-spacing:0.52rem;    text-align: center;    width: 100%;">关于我们 | 联系我们 | 商家入驻 | 友情链接 | 站点地图 | 手机商城 | 销售联盟 | 商城社区 | 企业文化 | 帮助中心 
+			</span>
+			</div>
+		</div>
+		
+		</div>
+	</body>
+<script>
+	$(document).ready(function() {
+				$('.am-form-field').focus(function() {
+					this.select()
+				})
+				$('#password1').blur(function() {
+					if (this.value == "") {
+						$(this).css({
+							'border': '1px solid #ff0000'
+						})
+						$('#password1_p').text("请您输入新密码")
+					} else {
+						$('#password1_p').text("")
+						$(this).css({
+							'border': ''
+						})
+					}
+				})
+				
+				$('#password2').blur(function() {
+					if (this.value == "") {
+						$(this).css({
+							'border': '1px solid #ff0000'
+						})
+						$('#password2_p').text("再次输入")
+					} else {
+						$('#password2_p').text("")
+						$(this).css({
+							'border': ''
+						})
+					}
+				})
+			
+	$("#check").click(function() {
+					var password1 = $("#password1").val()
+					var password2 = $("#password2").val()
+					if (password1!=password2||password2==""||password1=="") {
+					if (password2==""||password1=="") {
+						layui.use('layer', function() {
+							var layer = layui.layer;
+							layer.msg('请正确输入', {
+								area: ['200px', '50px'],
+								time: 1500
+							});
+						});
+					} 
+					
+					if (password1!=password2&&password1!=""&&password2!="") {
+						layui.use('layer', function() {
+							var layer = layui.layer;
+							layer.msg('两次输入密码不一致请重新输入', {
+								area: ['300px', '60px'],
+								time: 1500
+							});
+						});
+					} 
+					}
+					else {
+						$.ajax({
+							type: "get",
+							data: {
+								password:password1,
+								confirmPassword:password2
+							},
+							url: "http://2jxqzy.natappfree.cc/Ruitesco/user?mode=forget_reset_password",
+							dataType: "json",
+							xhrFields: {
+								withCredentials: true
+							},
+							success: function(msg) {
+								console.log(msg)
+								if (msg.status == 0) {
+									window.location.href = '安全设置-密码修改3.html?msg=' + escape(JSON.stringify(msg))
+								} else {
+									layui.use('layer', function() {
+										var layer = layui.layer;
+										layer.open({
+											title: false,
+											content: "用户名或密码错误",
+											icon: 5,
+											area: ['200px', '120px']										});
+									});
+								}
+							}
+						})
+					}
+
+				})
+	})
+	</script>
+</html>

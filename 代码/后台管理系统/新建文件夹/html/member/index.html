@@ -1,0 +1,52 @@
+
+	<div class="operation  mb15 clearfix relative">
+		<button class="btn button_btn btn-danger" type="button" onclick=""><i class="iconfont">&#xe6b4</i>&nbsp;批量删除</button>
+		<input name="" type="text">
+		<button type="button" href="javascript:void(0)" class="btn button_btn btn-danger" onclick=""><i class="iconfont">&#xe60e</i>&nbsp;搜索</button>
+		<span class="sumQuantity">合计：<em id="quantity"></em>条</span>
+</div>
+<table class="gallery table table_list table_striped table-bordered border " id="tableList">
+	<thead>
+		<tr>
+			<th width="50px"><label class="checkbox relative"><input type="checkbox" class="ace" name="checkbox"><span class="lbl"></span></label></th>
+			
+			<th>用户名</th>
+			<th>id</th>
+			<th>密码</th>
+			<th>手机号</th>
+			<th>邮箱</th>
+			<th>角色</th>
+			<th>密保问题</th>
+			<th>密保答案</th>			
+			<th>注册时间</th>
+			<th>更新时间</th>
+			<th>操作</th>
+		</tr>
+	</thead>
+	<tbody>
+  <%if(list!=""){ %>	
+		<% for(var i = 0; i < list.length; i++) { %>
+		<tr class="relative">
+			<td><label class="checkbox relative"><input type="checkbox" class="ace" name="checkbox"><span class="lbl"></span></label></td>
+	
+			<td><a href="javascript:void(0)" class="colorred" onclick="memberinfo(this,<%=list[i].id%>)"><%=list[i].name%></a></td>
+			<td><%=i%></td>
+			<td>password</td>
+			<td><%=list[i].mobilephone%></td>
+			<td><%=list[i].email%></td>
+			<td>role</td>
+			<td>密保问题</td>
+			<td>密保答案</td>
+			<td><%=timestamp(list[i].regtime,'yyyy-MM-dd hh:mm')%></td>
+			<td><%=timestamp(list[i].regtime,'yyyy-MM-dd hh:mm')%></td>
+			<td>
+				<button class="btn btn-danger padding5" onclick="">删除</button>
+			<button class="btn btn-blue padding5" onclick="memberinfo(this,<%=list[i].id%>)">编辑</button>
+			</td>
+		</tr>
+		<% } %>
+		<% } else{%>
+			  <tr><td colspan="9">暂时还没有该等级的会员</td></tr>
+			<% } %>
+	</tbody>
+</table>

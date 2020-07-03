@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>商品详情</title>
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/shopcar.css">
+		<link rel="stylesheet" type="text/css" href="layui/css/layui.css">
+		<script type="text/javascript" src="myJs/repositories.js"></script>
+		<script type="text/javascript" src="myJs/public.js"></script>
+		<script type="text/javascript" src="layui/layui.js"></script>
+		<style>
+			#mainImage{
+				width: 400px;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- 导航 -->
+		<ul class="layui-nav">
+			<li class="layui-nav-item">
+				<a href="index.html">首页</a>
+			</li>
+			<li class="layui-nav-item">
+				<a href="cart.html">购物车
+					<!-- <span class="layui-badge">9</span> --></a>
+			</li>
+			<li class="layui-nav-item">
+				<a id="personal" href="login.html">个人中心<span class="layui-badge-dot"></span></a>
+			</li>
+			<li class="layui-nav-item" id="login">
+				<a href="login.html">登录</a>
+			</li>
+			<li class="layui-nav-item" id="userself" style="display: none;">
+				<a href="javascript:;"><img src="img/头像.png" class="layui-nav-img">我</a>
+				<dl class="layui-nav-child">
+					<dd><a href="setinfo.html">个人信息</a></dd>
+					<dd><div class="logout"><a href="javascript:;">退出登录</a></div></dd>
+				</dl>
+			</li>
+			<li class="layui-nav-item" id="register">
+				<div>
+					<a hid href="regedit.html">注册</a>
+				</div>
+			</li>
+		</ul>
+		<script>
+			//注意：导航 依赖 element 模块，否则无法进行功能性操作
+			layui.use('element', function() {
+				var element = layui.element;
+			});
+		</script>
+		<!-- 头部 -->
+		<div class="header">
+			<div class="headerLayout w1200">
+				<div class="headerCon">
+					<h1 class="mallLogo">
+							<img src=""><!-- logo -->
+						</a>
+					</h1>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="content content-nav-base datails-content">
+			<div class="main-nav">
+				<div class="inner-cont0">
+					<div class="inner-cont1 w1200">
+						<div class="inner-cont2">
+							<a href="javascript:;" class="active">商品详情</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class="data-cont-wrap w1200">
+				<div style="height: 80px;"></div><!-- 分隔 -->
+				
+				<div class="product-intro layui-clear">
+					<div class="preview-wrap">
+						<a href="javascript:;"><img id="mainImage"></a>
+					</div>
+					
+					<div class="itemInfo-wrap">
+						<div class="itemInfo">
+							<div class="title">
+								<h4 id="name"></h4>
+								<!-- <span><i class="layui-icon layui-icon-rate-solid"></i>收藏</span> -->
+							</div>
+							<div class="summary">
+								<p class="activity"><span>价格</span><strong class="price" id="price"><i>￥</i></strong></p>
+							</div>
+							<div class="choose-attrs">
+								<!-- 
+								<div class="color layui-clear"><span class="title">颜&nbsp;&nbsp;&nbsp;&nbsp;色</span>
+									<div class="color-cont"><span class="btn">白色</span> <span class="btn active">黑色</span></div>
+								</div> 
+								-->
+								<div class="number layui-clear"><span class="title">数&nbsp;&nbsp;&nbsp;&nbsp;量</span>
+									<div class="number-cont"><span class="cut btn">-</span><input class="number-input" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'1')}else{this.value=this.value.replace(/\D/g,'')}"
+										 onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'1')}else{this.value=this.value.replace(/\D/g,'')}"
+										 maxlength="4" type="" name="" value="1"><span class="add btn">+</span></div>
+								</div>
+							</div>
+							<div class="choose-btns">
+								<button class="layui-btn layui-btn-primary purchase-btn">立刻购买</button>
+								<button class="layui-btn  layui-btn-danger car-btn"><i class="layui-icon layui-icon-cart-simple"></i>加入购物车</button>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+
+				<div class="detail">
+					<h4>详情</h4>
+					<div class="item"></div>
+				</div>
+				
+			</div>
+			
+		</div>
+		<script>
+			$(()=>{
+				var productName=''
+				$.ajax({
+					type:'get',
+					data:{
+						productId:location.search.substr(9),
+						mode:'detail'
+					},
+					url:ip_addr+"/manage/product",
+					dataType:'json',
+					xhrFields: {
+						withCredentials: true
+					},
+					success:function(res){
+						console.log(res)
+						var product_info=res.msg
+						$('#mainImage').attr('src',img_addr+product_info.mainImage)
+						$('#name').text(product_info.name)
+						productName=product_info.name
+						$('#price').append(product_info.price)
+						$('.item').html(res.msg.detail);
+					}
+				})
+				//加入购物车
+				$('.car-btn').click(function(){
+					$.ajax({
+						type:'get',
+						data:{
+							productId:location.search.substr(9),
+							count:$('.number-input').val(),
+							mode:'add'
+						},
+						url:ip_addr+'/ShoppingCartServlet',
+						dataType:'json',
+						xhrFields:{
+							withCredentials:true
+						},
+						success:function(res){
+							if(res.status===0){
+								alert('添加' +productName+ '成功~~')
+							}
+						}
+					})
+				})
+				$('.purchase-btn').click(function(){
+					let order_list=[]
+					let order={}
+					order.good_id=location.search.substr(9)
+					order.good_num=$('.number-input').val()
+					order_list.push(order)
+					
+					console.log(order_list)
+					sessionStorage.setItem('order_list',JSON.stringify(order_list))
+					location.href="confirm_order.html"
+				})
+				
+				
+			})
+		</script>
+		
+		
+		
+		<script type="text/javascript">
+			layui.config({
+				base: 'detailsjs/util/' //你存放新模块的目录，注意，不是layui的模块目录
+			}).use(['mm', 'jquery'], function() {
+				var mm = layui.mm,
+					$ = layui.$;
+				var cur = $('.number-cont input').val();
+				$('.number-cont .btn').on('click', function() {
+					if ($(this).hasClass('add')) {
+						cur++;
+
+					} else {
+						if (cur > 1) {
+							cur--;
+						}
+					}
+					$('.number-cont input').val(cur)
+				})
+
+			});
+		</script>
+	</body>
+</html>

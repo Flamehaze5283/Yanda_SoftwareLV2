@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<link rel="stylesheet" href="layui/css/layui.css" />
+		<script type="text/javascript" src="layui/layui.js"></script>
+		<script type="text/javascript" src="myJs/repositories.js"></script>
+		<style>
+			.layout {
+				width: 1000px;
+				margin: 50px auto;
+			}
+
+			.image {
+				width: 250px;
+			}
+			.layui-table .mainImg{
+				max-width: 250px;
+			}
+
+			.needpay {
+				cursor: pointer;
+				color: #0000FF;
+				font-size: 18px;
+			}
+
+			.needpay:hover {
+				color: #FF0036;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="layout">
+			<table class="layui-table">
+				<colgroup>
+					<col width="150">
+					<col width="200">
+					<col>
+				</colgroup>
+				<thead>
+					<tr>
+						<th class="orderno" colspan="2">订单号：123456</th>
+						<th><a class="status">交易成功</a></th>
+					</tr>
+				</thead>
+				<!-- <tbody class="item">
+					<tr>
+						<td class="image" rowspan="7"><img class="mainImg" src="layui/images/1.png"></td>
+					</tr>
+					<tr>
+						<td>商品</td>
+						<td>雪碧</td>
+					</tr>
+					<tr>
+						<td>创建时间</td>
+						<td>2020-06-30</td>
+					</tr>
+					<tr>
+						<td class="align_center">单价</td>
+						<td>20</td>
+					</tr>
+					<tr>
+						<td class="align_center">数量</td>
+						<td>2</td>
+					</tr>
+					<tr>
+						<td class="align_center">付款</td>
+						<td>40</td>
+					</tr>
+				</tbody> -->
+
+			</table>
+		</div>
+
+		<script>
+			$(() => {
+				$('.orderno').text('订单号：'+location.search.substr(9))
+				$.ajax({
+					type: 'get',
+					data: {
+						mode: 'detail',
+						orderNo: location.search.substr(9)
+					},
+					url: ip_addr + '/order',
+					dataType: 'json',
+					xhrFields: {
+						whithCredentials: true
+					},
+					success: function(res) {
+						if(res.data.status===1){
+							$('.status').text('未付款')
+							$('.status').addClass('needpay')
+							$('.status').prop('href','pay.html?orderNo='+res.data.orderNo)
+							$('.status').prop('target','_blank')
+						}
+						else if(res.data.status===3){
+							$('.status').text('已发货')
+						}
+						if(res.status===0){
+							var list=res.data.orderItemVoList
+							for(let i=0;i<list.length;i++){
+								const tbody = $('<tbody></tbody>')
+									tbody.addClass('item')
+									var content = `<tr>
+									<td class="image" rowspan="7"><img class="mainImg" src=${img_addr}${list[i].productImage}></td>
+								</tr>
+								<tr>
+									<td>商品</td>
+									<td>${list[i].productName}</td>
+								</tr>
+								<tr>
+									<td>创建时间</td>
+									<td>${res.data.createTime}</td>
+								</tr>
+								<tr>
+									<td class="align_center">单价</td>
+									<td>${list[i].currentUnitPrice}</td>
+								</tr>
+								<tr>
+									<td class="align_center">数量</td>
+									<td>${list[i].quantity}</td>
+								</tr>
+								<tr>
+									<td class="align_center">总付款</td>
+									<td>${res.data.payment}</td>
+								</tr>`
+									tbody.html(content)
+									$('.layui-table').append(tbody)
+							}
+						}
+					}
+				})
+
+			})
+		</script>
+
+	</body>
+</html>

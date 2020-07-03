@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	  <meta name="renderer" content="webkit">
+	  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	  <link rel="stylesheet" href="layui/css/layui.css" media="all">
+		
+<link rel="stylesheet" type="text/css" href="simditor/styles/simditor.css" />
+		
+	<!--	<link href="css/SYSFrame.css" rel="stylesheet" type="text/css" />-->
+		<link href="font/iconfont.css" rel="stylesheet" type="text/css" />
+		<link href="css/module.css" rel="stylesheet" type="text/css" />
+	     <link href="css/pages.css" rel="stylesheet" type="text/css" />		
+		
+		<title></title>
+		
+		<script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
+		<script type="text/javascript" src="simditor/site/assets/scripts/module.js"></script>
+		<script type="text/javascript" src="simditor/site/assets/scripts/hotkeys.js"></script>
+		<script type="text/javascript" src="simditor/site/assets/scripts/uploader.js"></script>
+		<script type="text/javascript" src="simditor/lib/simditor.js"></script>
+		
+		
+	
+		
+		<script src="layui/layui.js"></script>
+		
+
+		
+		
+	</head>
+	<body>
+		
+		<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+		  <legend>表单集合演示</legend>
+		</fieldset>
+		
+		<form id="myadd" class="layui-form" lay-submit accept-charset="UTF-8"
+				lay-filter="userForm" enctype="multipart/form-data">
+
+	<input type="hidden" name="mainHidden" id="mainHidden">
+	<input type="hidden" name="subHidden" id="subHidden">
+				
+	<div class="layui-form-item">
+		<div class="layui-upload" align="center">
+			<button type="button" class="layui-btn" id="mainImage" name="mainImage">
+				<i class="layui-icon">&#xe67c;</i>上传主图
+			</button>
+			<label class="layui-word-aux">双击图片删除</label>
+			
+			<blockquote id="preview" align="center" class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" >
+			<div class="layui-upload-list" align="center" id="main">
+				
+				<p id="demoText"></p>
+			</div>
+			</blockquote>
+		</div>
+		
+		<div class="layui-upload" align="center">
+			<button type="button" class="layui-btn" id="subImage" name="subImage">
+				<i class="layui-icon">&#xe67c;</i>上传副图
+			</button>
+			<label class="layui-word-aux">双击图片删除</label>
+			
+			<blockquote id="preview" align="center" class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" >
+			<div class="layui-upload-list" align="center" id="sub">			
+				<p id="demoText"></p>
+			</div>
+			</blockquote> 
+		</div>
+	</div>			
+				
+			
+				
+				
+				  
+				  <!--  <div class="layui-inline">
+				      <label class="layui-form-label">商品id</label>
+				      <div class="layui-input-inline">
+				       <input name="product_id" class="layui-input" placeholder="id" disabled=""  autocomplete="off"  >
+				      </div>
+				    </div>
+				    <div class="layui-inline">
+				      <label class="layui-form-label">类别id</label>
+				      <div class="layui-input-inline">
+				        <input name="categoryId" id="categoryId" class="layui-input" placeholder="必填" type="text" autocomplete="off" lay-verify="required|number">
+				      </div>
+				    </div>
+				-->
+					<div class="layui-input-inline" align="center">
+					    <select name="category" lay-verify="required" lay-filter="category"  id="category">
+					
+					           <option value="">选择商品所属类别</option> 
+					
+					    </select>
+					
+					</div>
+
+				  
+				
+				<div class="layui-form-item">
+					<label class="layui-form-label">商品名称</label>
+					<div class="layui-input-block">
+						<input type="text" autocomplete="off"  lay-verify="title" class="layui-input" placeholder="必填" 
+						name="name" id="name"
+						lay-verify="required">
+					</div>
+				</div>
+				
+				<div class="layui-form-item">
+					<label class="layui-form-label">商品副标题</label>
+					<div class="layui-input-block">
+						<input type="text" lay-verify="title" class="layui-input" name="subtitle" id="subtitle">
+					</div>
+				</div>
+		
+				<div class="layui-form-item">
+				  <div class="layui-inline">
+				    <label class="layui-form-label">价格</label>
+				    <div class="layui-input-inline">
+				      <input name="price" class="layui-input" type="text" placeholder="必填" autocomplete="off" 
+					  lay-verify="required|number">
+				    </div>
+				  </div>
+				  <div class="layui-inline">
+				    <label class="layui-form-label">库存</label>
+				    <div class="layui-input-inline">
+				      <input name="stock" class="layui-input" type="text" placeholder="必填" autocomplete="off" 
+					  lay-verify="required|number">
+				    </div>
+				  </div>
+									
+				  <div class="layui-inline">
+				    <label class="layui-form-label">状态</label>
+				    <div class="layui-input-inline">
+				      <input name="status" class="layui-input" type="text" placeholder="必填" autocomplete="off" 
+					  lay-verify="required">
+				    </div>
+				  </div>
+				</div>
+				
+				 <label class="layui-form-label">商品详情：</label>
+				<textarea id="editor" autofocus>
+				</textarea>
+				
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button id="save" type="button" class="layui-btn" lay-submit="" lay-filter="*">立即提交</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</div>
+			</form>
+
+		 
+		<script>
+			$(function()
+			{
+				var editor = new Simditor({
+					textarea:$('#editor')		
+				});
+				
+			
+		
+		
+			
+		//Demo
+		layui.use(['form', 'layedit','upload', 'laydate'], function(){
+		 
+		  var form = layui.form
+		  ,layer = layui.layer
+		  ,layedit = layui.layedit
+		  ,laydate = layui.laydate
+		  ,upload = layui.upload
+		//  ,$ = layui.jquery;
+		  
+		  //选择仓库内容；
+		  
+		  getCategory();
+		  
+		  function getCategory() {
+		  
+		       var warehouse = [];
+		  
+		    $.ajax({ // 使用layui模块化加载
+		  
+		          url: "http://a46bgd.natappfree.cc/Ruitesco/manage/category?mode=get_leaf",
+		  
+		          type: 'GET',
+		  
+		          dataType: 'json',
+		  
+		          success: function(datas, textStatus, xhr) {
+		  
+		               var selects='';
+		  
+		               warehouse = datas.msg;
+		  
+		             for(var b in warehouse){
+		  
+		                  var  its='<option value="'+warehouse[b].id+'">'+warehouse[b].name+'</option>';
+		  
+		                   selects +=its;
+		  
+		              }
+		  
+		             $("#category").append(selects);
+		  
+		              form.render();//菜单渲染 把内容加载进去
+		  
+		          },
+		  
+		          error: function(xhr, textStatus, errorThrown) {
+		  
+		                      //called when there is an error
+		  
+		          }
+		  
+		     });
+		  
+		  }
+		  
+		  
+		  upload.render({
+			method: 'post'
+		    ,elem: '#mainImage'
+		    ,url:'http://a46bgd.natappfree.cc/Ruitesco/manage/product?mode=upload'
+		    ,auto:true//选择文件后不自动上传
+			//,bindAction:"#save"
+		    ,where:{categoryId: $("#categoryId").val()}
+		    ,choose: function(obj){
+		      //将每次选择的文件追加到文件队列
+		      var files = obj.pushFile();
+		      
+		      //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
+		      obj.preview(function(index, file, result){
+		      /*  console.log(index); //得到文件索引
+		        console.log(file); //得到文件对象
+		        console.log(result); //得到文件base64编码，比如图片
+		      */  			
+				$('#main').append('<img src="'+ result +'" id="'+index+'" alt="'+ file.name +'" class="layui-upload-img">')
+				 
+				 $('#'+index).bind('dblclick', function () {//双击删除指定预上传图片
+								 delete files[index];//删除指定图片
+								 $(this).remove();
+							 });  
+				  });
+			},
+		        //obj.resetFile(index, file, '123.jpg'); //重命名文件名，layui 2.3.0 开始新增
+		        
+		        //这里还可以做一些 append 文件列表 DOM 的操作
+		        
+		        //obj.upload(index, file); //对上传失败的单个文件重新上传，一般在某个事件中使用
+		        //delete files[index]; //删除列表中对应的文件，一般在某个事件中使用
+		     
+			done:function(res){
+				$('#mainHidden').val(res.msg);
+				//alert($('#mainHidden').val());
+			}
+		  });      
+		  
+		  upload.render({
+			 method: 'post'
+		    ,elem: '#subImage'
+		    ,url:'http://a46bgd.natappfree.cc/Ruitesco/manage/product?mode=upload'
+		    ,auto:true //选择文件后不自动上传
+			,where:{categoryId: $("#categoryId").val()}
+			//,bindAction:"#save"
+		    ,multiple: true
+		    ,choose: function(obj){
+		      //将每次选择的文件追加到文件队列
+		      var files = obj.pushFile();
+		      
+		      //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
+		      obj.preview(function(index, file, result){
+		      /*  console.log(index); //得到文件索引
+		        console.log(file); //得到文件对象
+		        console.log(result); //得到文件base64编码，比如图片
+		      */
+				 $('#sub').append('<img src="'+ result +'" id="'+index+'" alt="'+ file.name +'" class="layui-upload-img">')
+				 
+				 $('#'+index).bind('dblclick', function () {//双击删除指定预上传图片
+								 delete files[index];//删除指定图片
+								 $(this).remove();
+							 });  
+		      });
+		    },
+			
+			done:function(res){
+				$('#subHidden').val(res.msg);
+				//alert($('#subHidden').val());
+			}
+		  });
+		  
+			form.on('submit(*)', function(data){
+			 // alert(JSON.stringify(data.field));
+			 // alert($("#mainHidden").val());
+			 // alert($("#subHidden").val());
+			
+			var obj={
+				   name:data.field.name,
+				   subtitle: data.field.subtitle,
+				   categoryId: $("#category").val(),
+				   mainImage:$("#mainHidden").val(),
+				   subImage:$("#subHidden").val(),
+				   price:data.field.price,
+				   detail:editor.getValue(),
+				   stock:data.field.stock,
+				   status:data.field.status			
+				   }
+				   
+			var fromData = new FormData();
+			$.each(obj,function(key,value) {
+				fromData.append(key,value);
+			})
+
+			
+				$.ajax({
+					method: 'POST',
+					url: 'http://a46bgd.natappfree.cc/Ruitesco/manage/product?mode=save',					
+					
+					data:fromData,
+					
+					dataType: 'JSON',
+					
+					contentType: false,
+					processData: false,					
+					
+					success: (msg) => {
+						if(msg.status == 0) {
+							// 提交成功
+							layer.msg('添加成功');
+							window.location.href="product.html";
+						} else {
+							// 提交失败
+							layer.msg('添加失败');
+						}
+							
+					},
+					//dataType: 'text'
+				});
+						
+			 // return false;
+			  
+			});
+			
+		});
+	
+	});
+		  
+		  //监听提交
+		 
+		
+		</script>
+	</body>
+</html>

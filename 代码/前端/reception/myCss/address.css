@@ -1,0 +1,71 @@
+.layout {
+	width: 800px;
+	margin: 0 auto;
+}
+
+.next-table {
+	box-sizing: border-box;
+	position: relative;
+}
+
+.next-table table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
+	background: #fff;
+}
+
+.next-table-header {
+	margin-bottom: -20px;
+	padding-bottom: 20px;
+	overflow: -moz-scrollbars-none;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.next-table-body,
+.next-table-header {
+	overflow: auto;
+	font-size: 12px;
+}
+
+.next-table th {
+	padding: 0;
+	background: #ebecf0;
+	color: #333;
+	text-align: left;
+	font-weight: 400;
+	border: 1px solid #dcdee3;
+}
+
+.next-table th .next-table-cell-wrapper {
+	padding: 12px 16px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	word-break: break-all;
+}
+.next-table-row {
+    transition: all .1s linear;
+    background: #fff;
+    color: #333;
+}
+.next-table td {
+    padding: 0;
+    border: 1px solid #dcdee3;
+}
+.next-table td .next-table-cell-wrapper {
+    padding: 12px 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+}
+table .t-line {
+    color: #9b9b9b;
+    margin: 0 10px;
+}
+table .t-delete{
+	cursor: pointer;
+}
+table .t-change:hover, table .t-delete:hover, table .t-setDefault:hover {
+    color: #ff5000;
+}

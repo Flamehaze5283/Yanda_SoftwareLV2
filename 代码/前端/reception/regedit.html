@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="css/amazeui.min.css" />
+		<link rel="stylesheet" href="myCss/register.css" />
+		<link rel="stylesheet" href="css/regedit.css" />
+		<link rel="stylesheet" href="css/sui.css" />
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+		<script src="myJs/repositories.js"></script>
+		<script type="text/javascript" src="myJs/register.js"></script>
+		<link rel="stylesheet" href="layui/css/layui.css">
+		<script src="layui/layui.js"></script>
+		<title></title>
+	</head>
+
+	<body>
+		<!-- logo需要时放置
+		<div class="am-g" style="margin-top: 25px;">
+			<div class="logo"> <img src="img/logo.png" /> </div>
+		</div> 
+		-->
+
+		<!-- <div class="am-g">
+			<div style="width: 999px;margin: 0 auto;font-size: 14px;"> <span style="float: right;color: #333333;"><a href="login.html">已有账号</a>
+				</span>
+			</div>
+		</div> -->
+
+		<div class="am-g content" style="margin-top: 12px;">
+			<div data-am-widget="tabs" class="am-tabs am-tabs-d2">
+				<ul class="am-tabs-nav am-cf" style="margin-top: 74px;">
+					<li class="am-active"><span class="am-badge am-round am-badge-warning-active " style="vertical-align: middle;margin-top:-4px;"></span>用户注册</li>
+				</ul><!-- <a href="[data-tab-panel-0]"> -->
+				<div class="am-tabs-bd" style="margin-top: 59px;margin-left: -20px;">
+					<div data-tab-panel-0 class="am-tab-panel am-active">
+
+
+						<!-- 用户名 -->
+						<div class="am-g" style="margin-top: 30px;">
+							<div class="am-u-sm-7 am-u-sm-offset-3 ">
+								<p class="starMark">*</p><div class="inputValue">用户名不能为空：</div>
+								<span class="left1"></span> <input id="username" type="text" placeholder="请输入您的用户名" class="inputvalue am-form-field"
+								 style="margin: auto;display: block;float: left;padding-left: 55px;width: 528px" />
+							</div>
+						</div>
+
+						<!-- 手机号 -->
+						<div class="am-g" style="margin-top: 30px;">
+							<div class="am-u-sm-7 am-u-sm-offset-3 ">
+								<p class="starMark">*</p><div class="inputValue">手机号不能为空：</div>
+								<span class="left2"></span> <input id="phone" type="text" placeholder="请输入您的手机号" class="inputvalue am-form-field"
+								 style="margin: auto;display: block;float: left;padding-left: 55px;width: 528px" />
+							</div>
+						</div>
+
+						<!-- 密码 -->
+						<div class="am-g" style="margin-top: 30px;">
+							<div class="am-u-sm-4 am-u-sm-offset-3" style="padding-right: 0rem;">
+								<p class="starMark">*</p><div class="inputValue">密码不能为空：</div>
+								<span class="left3"></span><input id="password" type="password" placeholder="请输入密码" class="inputvalue am-form-field"
+								 style="margin: auto;display: block;float: left;padding-left: 55px;width: 528px;" />
+							</div>
+						</div>
+
+						<!-- 再次输入密码 -->
+						<div class="am-g" style="margin-top: 30px;">
+							<div class="am-u-sm-4 am-u-sm-offset-3" style="padding-right: 0rem;">
+								<p class="starMark">*</p><div class="inputValue">请您再输一次密码：</div>
+								<span class="left3"></span> <input id="repassword" type="password" placeholder="请再次输入密码" class="inputvalue am-form-field"
+								 style="margin: auto;display: block;float: left;padding-left: 55px;width: 528px" />
+							</div>
+						</div>
+
+						<!-- 邮箱 -->
+						<div class="am-g" style="margin-top: 30px;">
+							<div class="am-u-sm-4 am-u-sm-offset-3" style="padding-right: 0rem;">
+								<p class="starMark">*</p><div class="inputValue">邮箱地址不能为空：</div>
+								<span class="left4"></span> <input id="email" type="email" placeholder="请输入邮箱地址" class="inputvalue am-form-field"
+								 style="margin: auto;display: block;float: left;padding-left: 55px;width: 528px" />
+							</div>
+						</div>
+
+						<!-- 密保问题 -->
+						<div class="am-g" style="margin-top: 30px;">
+							<div class="am-u-sm-4 am-u-sm-offset-3" style="padding-right: 0rem;">
+								<span class="left5"></span> <input id="question" type="text" placeholder="请输入密保问题" class="am-form-field" style="margin: auto;display: block;float: left;padding-left: 55px;width: 528px" />
+							</div>
+						</div>
+						<!-- 密保答案 -->
+						<div class="am-g" style="margin-top: 30px;">
+							<div class="am-u-sm-4 am-u-sm-offset-3" style="padding-right: 0rem;">
+								<span class="left5"></span> <input id="answer" type="text" placeholder="请输入密保答案" class="am-form-field" style="margin: auto;display: block;float: left;padding-left: 55px;width: 528px" />
+							</div>
+						</div>
+
+						<!-- 同意协议 -->
+						<div class="am-g" style="margin-top: 21px;">
+							<div class="sui-form">
+								<div class="am-u-sm-7 am-u-sm-offset-3" style="padding-right: 0rem;">
+									<div style="margin-bottom: 12px; margin-top: -12px;color: #FF0000;font-weight: 1000;font-size: 17px;">注：*为必填项，但不设置密保可能无法找回密码</div>
+									<span style="font-size: 12px;color: #878787;">
+										<input type="checkbox" id="che_agree" style="margin: -3px 6px 0px;" />同意<a>《睿乐购平台服务协议》</a><a>《隐私权政策》</a><a>《法律声明》</a>的注册协议
+									</span>
+								</div>
+							</div>
+						</div>
+
+
+						<!-- 注册 -->
+						<div class="am-g" style="margin-top:30px;margin-bottom: 90px;">
+							<div class="am-u-sm-7 am-u-sm-offset-3 "> <button id="register_btn" class="am-btn am-btn-warning" disabled="disabled"
+								 style="width: 528px;padding: 20px;border: 1px rgba(187, 187, 187, 0.5) solid;">
+									<font style="font-size: 20px;font-weight: bold;">同意协议并注册</font>
+								</button> </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+
+
+	</body>
+
+</html>

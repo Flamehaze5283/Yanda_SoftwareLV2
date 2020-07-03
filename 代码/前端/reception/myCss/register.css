@@ -1,0 +1,43 @@
+.bottomLine {
+	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #ccc;
+	padding-top: 8px;
+	/*padding-bottom:10px;*/
+
+}
+
+.bot {
+	margin-bottom: 50px;
+	/*text-align: center;*/
+	color: #7b6f5b;
+}
+
+.radio-pretty.checked>span:before {
+	color: #f88600;
+}
+
+input {
+	height: 62px;
+}
+
+.radio-pretty span:before {
+	margin-right: 2px;
+	vertical-align: -4px;
+	font-size: 20px;
+	color: #bdbdbd;
+	margin-left: -2px;
+}
+
+.inputValue {
+	margin-top: -19px;
+	margin-left: 8px;
+	font-size: 14px;
+	color: red;
+	display: none;
+}
+
+.starMark {
+	margin-top: -19px;
+	font-size: 20px;
+	color: red;
+}

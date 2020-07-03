@@ -1,0 +1,248 @@
+.layout {
+	width: 1000px;
+	margin: 20px auto;
+}
+
+.addr-box {
+	padding-left: 8px;
+}
+.addr-items .addr-item:first-child {
+	border: 2px dashed #FF0000;
+}
+
+.addr-items .addr-item {
+	border: 2px dashed #666;
+	display: inline-block;
+	position: relative;
+	width: 237px;
+	padding: 16px 8px 0;
+	margin: 0 14px 14px 0;
+	color: #666;
+	cursor: pointer;
+	box-sizing: border-box;
+}
+
+.addr-item .default-tips {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: #ccc;
+	color: #fff;
+	opacity: 0.7;
+	z-index: 3;
+	display: none;
+}
+
+.addr-item .name-phone {
+	display: flex;
+}
+
+.addr-item .name-phone .name {
+	color: #000000;
+	font-weight: bold;
+	flex: 1;
+}
+
+.addr-item .name-phone .phone {
+	flex: 1;
+	text-align: right;
+}
+
+.addr-items .addr-item hr {
+	margin: 2px 0;
+}
+
+.btn-addr {
+	position: relative;
+}
+
+.new-addr {
+	cursor: pointer;
+	background-color: #fff;
+	border: 1px solid #c0c0c0;
+	margin-left: 2px;
+	padding: 2px;
+}
+
+.new-addr:hover {
+	background-color: #eee;
+}
+
+.manage-addr {
+	color: #c97;
+	position: absolute;
+	right: 8px;
+}
+
+.manage-addr:hover {
+	color: #F00C0C;
+}
+
+
+.order-box {
+	margin-top: 30px;
+	width: 100%;
+}
+
+.order-tips {
+	font-weight: bold;
+	margin-left: 8px;
+}
+
+.header>ul {
+	font-size: 16px;
+}
+
+.header>ul>li {
+	float: left;
+	width: 20%;
+	text-align: center;
+}
+
+.header>ul>li:first-child {
+	width: 40%;
+}
+
+.order-items {
+	margin-top: 40px;
+}
+
+.order-items>.order-item:first-child {
+	border-top: 1px dashed #627ff0;
+}
+
+.order-item {
+	border-bottom: 1px dashed #aaa;
+	height: 110px;
+	padding-top: 15px;
+	padding-left: 15px;
+}
+
+.order-item img {
+	float: left;
+	width: 80px;
+	height: 80px;
+	margin-right: 10px;
+}
+
+.order-item ul {
+	float: left;
+}
+
+.order-item .order-subname {
+	margin-top: 8px;
+	color: #666;
+}
+
+.order-item li:first-child {
+	width: 377px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-right: 0;
+}
+
+.order-item li {
+	float: left;
+	margin-right: 178px;
+}
+
+.order-item li:last-child {
+	margin-right: 0;
+	font-weight: bold;
+	color: #d00000;
+}
+
+.pay-wrap {
+	text-align: right;
+	margin-top: 20px;
+}
+
+.pay-wrap .pay-info {
+	display: inline-block;
+	border: 1px solid #ff0036;
+}
+
+.pay-info .info-box {
+	border: 3px solid #fff0e8;
+	min-width: 230px;
+	padding: 10px 5px 20px 20px;
+	display: inline-block;
+	line-height: 1.6;
+}
+
+.pay-info .info-box .payment-title {
+	font-weight: 700;
+	color: #333;
+}
+
+.pay-info .info-box .payment-symbol {
+	font-size: 26px;
+	color: #999;
+}
+
+.pay-info .info-box .payment {
+	font: 700 26px tahoma;
+	color: rgb(255, 0, 54);
+}
+
+.confirmAddr-title {
+	font-weight: 700;
+	color: #333;
+}
+
+.order-submit {
+	text-align: right;
+}
+
+.order-submit .submit-box {
+	display: inline-block;
+	padding: 0 0 5px 5px;
+}
+
+.order-submit .submit-box .cancel-order {
+	color: #36c;
+	text-decoration: none;
+	margin-right: 20px;
+	line-height: 34px;
+}
+
+.order-submit .submit-box .cancel-order:hover {
+	color: #dd2727;
+}
+
+.order-submit .submit-box .submit {
+	border: 0;
+	display: inline-block;
+	width: 182px;
+	height: 39px;
+	position: relative;
+	vertical-align: middle;
+	line-height: 39px;
+	cursor: pointer;
+	text-align: center;
+	font-size: 14px;
+	font-weight: 700;
+	background-color: rgb(236, 0, 51);
+	color: #fff;
+}
+
+.order-submit .submit-box .submit:hover {
+	background-color: rgb(255, 0, 55);
+}
+
+.comment-tips {
+	float: left;
+}
+
+.comment {
+	float: left;
+	resize: none;
+	color: #333;
+	padding: 4px 8px;
+	font-size: 12px;
+	border-radius: 3px;
+	width: 200px;
+	height: 100px;
+	font-weight: 400;
+}
